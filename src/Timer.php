@@ -2,6 +2,7 @@
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger;
 
+use DateTimeImmutable;
 use Litipk\BigNumbers\Decimal;
 use Psr\Http\Message\RequestInterface;
 
@@ -46,7 +47,7 @@ class Timer
     /**
      * @return \DateTimeImmutable
      */
-    public function start(): \DateTimeImmutable
+    public function start(): DateTimeImmutable
     {
         $t = \microtime(true);
         if (!$this->start) {
@@ -71,7 +72,7 @@ class Timer
     /**
      * @param int $scale
      *
-     * @return \Litipk\BigNumbers\Decimal
+     * @return float
      */
     public function duration($scale = 0)
     {
@@ -90,7 +91,7 @@ class Timer
     {
         $micro = sprintf('%06d', $this->mantissa($time)->asInteger());
 
-        return new \DateTimeImmutable(
+        return new DateTimeImmutable(
             \date('Y-m-d H:i:s.'.$micro, $time->asFloat())
         );
     }

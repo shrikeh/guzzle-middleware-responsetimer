@@ -67,7 +67,7 @@ class RequestTimers
      *
      * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Timer
      */
-    public function timerFor(RequestInterface $request): Timer
+    public function timerFor(RequestInterface $request)
     {
         return $this->requestTimers->get($request);
     }
