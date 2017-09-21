@@ -2,18 +2,16 @@
 
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 use GuzzleHttp\Promise;
 use GuzzleHttp\Psr7\Request;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StartTimer;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StopTimer;
 use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimers;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLogger;
-use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger;
-use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StartHandler;
-use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StopHandler;
+use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
@@ -28,12 +26,16 @@ $logger = new ResponseLogger($log, $formatter);
 
 $responseTimeLogger = new ResponseTimeLogger($timer, $logger);
 
-$requestTimeBefore = new StartHandler($responseTimeLogger);
-$requestTimeAfter = new StopHandler($responseTimeLogger);
+
+
+$middleware = new \Shrikeh\GuzzleMiddleware\TimerLogger\Middleware(
+    new StartTimer($responseTimeLogger),
+    new StopTimer($responseTimeLogger)
+);
 
 $stack = new HandlerStack();
 $stack->setHandler(\GuzzleHttp\choose_handler());
-$stack->push(Middleware::tap($requestTimeBefore, $requestTimeAfter));
+$stack->push($middleware());
 
 $client = new Client(['handler' => $stack]);
 
