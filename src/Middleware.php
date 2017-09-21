@@ -1,11 +1,8 @@
 <?php
 namespace Shrikeh\GuzzleMiddleware\TimerLogger;
 
-use Psr\Log\LoggerInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StartTimer;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StopTimer;
-use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimers;
-use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface;
 
 /**
@@ -24,6 +21,11 @@ class Middleware
      */
     private $stopHandler;
 
+    /**
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface $responseTimeLogger
+     *
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Middleware
+     */
     public static function quickStart(ResponseTimeLoggerInterface $responseTimeLogger)
     {
         return new self(
@@ -45,12 +47,17 @@ class Middleware
         $this->stopHandler = $stopHandler;
     }
 
-
+    /**
+     * @return callable
+     */
     public function __invoke()
     {
         return $this->tap();
     }
 
+    /**
+     * @return callable
+     */
     public function tap()
     {
         return \GuzzleHttp\Middleware::tap($this->startHandler, $this->stopHandler);

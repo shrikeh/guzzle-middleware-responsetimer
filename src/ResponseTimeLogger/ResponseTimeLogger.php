@@ -4,6 +4,7 @@ namespace Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimers;
 use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface;
 
@@ -22,6 +23,17 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
      * @var \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface
      */
     private $logger;
+
+    public static function createFrom(
+        ResponseLoggerInterface $logger,
+        RequestTimersInterface $timers = null
+    ) {
+        if (!$timers) {
+            $timers = new RequestTimers();
+        }
+
+        return new self($timers, $logger);
+    }
 
     public function __construct(
         RequestTimersInterface $timers,

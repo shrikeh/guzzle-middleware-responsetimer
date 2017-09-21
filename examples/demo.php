@@ -7,26 +7,23 @@ use GuzzleHttp\Psr7\Request;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose;
-use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StartTimer;
-use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StopTimer;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Middleware;
-use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimers;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-$timer = new RequestTimers();
 
 // create a log channel
 $log = new Logger('guzzle');
 $log->pushHandler(new StreamHandler(__DIR__.'/logs/example.log', Logger::DEBUG));
 
+
+
 $formatter = new Verbose();
-$logger = new ResponseLogger($log, $formatter);
-
-$responseTimeLogger = new ResponseTimeLogger($timer, $logger);
-
+$responseTimeLogger = ResponseTimeLogger::createFrom(
+    new ResponseLogger($log, $formatter)
+);
 $middleware = Middleware::quickStart(
     $responseTimeLogger
 );
