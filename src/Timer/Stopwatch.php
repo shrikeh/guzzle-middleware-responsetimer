@@ -49,9 +49,11 @@ class Stopwatch implements TimerInterface
      * @return \DateTimeImmutable
      */
     public function stop()
-    {   $t = \microtime(true);
+    {
+        $t = \microtime(true);
         if (!$this->end) {
-            $this->end = Decimal::fromFloat($t);;
+            $this->end = Decimal::fromFloat($t);
+            ;
         }
 
         return $this->dateTime($this->end);

@@ -57,13 +57,13 @@ class Verbose implements FormatterInterface
         ResponseInterface $response
     ) {
         $msg = 'Completed call to %s in %dms with response code %d';
+
         return sprintf(
             $msg,
             $request->getUri(),
             $timer->duration(),
             $response->getStatusCode()
         );
-
     }
 
     /**
