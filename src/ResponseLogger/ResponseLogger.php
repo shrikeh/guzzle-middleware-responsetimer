@@ -2,11 +2,10 @@
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger;
 
-
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
-use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
@@ -19,22 +18,22 @@ class ResponseLogger implements ResponseLoggerInterface
      * @var \Psr\Log\LoggerInterface
      */
     private $logger;
+
     /**
-     * @var \Shrikeh\GuzzleMiddleware\TimerLogger\LogFormatter
+     * @var null|\Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface
      */
     private $formatter;
 
     /**
      * ResponseLogger constructor.
      *
-     * @param \Psr\Log\LoggerInterface                                $logger
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\LogFormatter|null $formatter
+     * @param \Psr\Log\LoggerInterface                                           $logger
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface $formatter
      */
     public function __construct(
         LoggerInterface $logger,
-        Verbose $formatter = null
+        FormatterInterface $formatter
     ) {
-
         $this->logger    = $logger;
         $this->formatter = $formatter;
     }
@@ -59,6 +58,8 @@ class ResponseLogger implements ResponseLoggerInterface
      * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
      * @param \Psr\Http\Message\RequestInterface                         $request
      * @param \Psr\Http\Message\ResponseInterface                        $response
+     *
+     * @return $this
      */
     public function logStop(
         TimerInterface $timer,
@@ -69,5 +70,7 @@ class ResponseLogger implements ResponseLoggerInterface
             $this->formatter->levelStop($timer, $response),
             $this->formatter->stop($timer, $request, $response)
         );
+
+        return $this;
     }
 }

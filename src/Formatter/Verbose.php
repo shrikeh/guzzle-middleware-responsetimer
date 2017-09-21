@@ -11,7 +11,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
  * Class Verbose
  * @package Shrikeh\GuzzleMiddleware\TimerLogger
  */
-class Verbose implements RequestStartInterface, RequestStopInterface
+class Verbose implements FormatterInterface
 {
     /**
      * @return string
