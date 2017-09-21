@@ -4,6 +4,7 @@ namespace Shrikeh\GuzzleMiddleware\TimerLogger;
 
 use Ds\Map;
 use Psr\Http\Message\RequestInterface;
+use SplObjectStorage;
 
 /**
  * Class TimerHandler
@@ -11,7 +12,7 @@ use Psr\Http\Message\RequestInterface;
 class RequestTimers
 {
     /**
-     * @var \Ds\Map
+     * @var \SplObjectStorage
      */
     private $requestTimers;
 
@@ -20,7 +21,7 @@ class RequestTimers
      */
     public function __construct()
     {
-        $this->requestTimers = new Map();
+        $this->requestTimers = new SplObjectStorage();
     }
 
     /**
@@ -30,8 +31,8 @@ class RequestTimers
      */
     public function start(RequestInterface $request)
     {
-        if (!$this->requestTimers->hasKey($request)) {
-            $this->requestTimers->put($request, new Timer($request));
+        if (!$this->requestTimers->contains($request)) {
+            $this->requestTimers->attach($request, new Timer($request));
         }
         $timer = $this->timerFor($request);
         $timer->start();
@@ -55,7 +56,7 @@ class RequestTimers
     /**
      * @param \Psr\Http\Message\RequestInterface $request
      *
-     * @return \Litipk\BigNumbers\Decimal
+     * @return float
      */
     public function duration(RequestInterface $request)
     {
@@ -69,6 +70,6 @@ class RequestTimers
      */
     public function timerFor(RequestInterface $request)
     {
-        return $this->requestTimers->get($request);
+        return $this->requestTimers->offsetGet($request);
     }
 }

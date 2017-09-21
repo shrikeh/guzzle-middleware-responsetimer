@@ -39,7 +39,7 @@ class Timer
     /**
      * @return \Psr\Http\Message\RequestInterface
      */
-    public function request(): RequestInterface
+    public function request()
     {
         return $this->request;
     }
@@ -47,7 +47,7 @@ class Timer
     /**
      * @return \DateTimeImmutable
      */
-    public function start(): DateTimeImmutable
+    public function start()
     {
         $t = \microtime(true);
         if (!$this->start) {

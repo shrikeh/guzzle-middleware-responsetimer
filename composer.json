@@ -1,16 +1,4 @@
 {
-  "require": {
-    "bmancone/guzzle-stopwatch-middleware": "^1.0",
-    "guzzlehttp/guzzle": "^6.3",
-    "litipk/php-bignumbers": "^0.8.6",
-    "monolog/monolog": "^1.23",
-    "php-ds/php-ds": "^1.2",
-    "psr/log": "^1.0"
-  },
-  "require-dev": {
-    "behat/behat": "^3.4",
-    "phpspec/phpspec": "^4.0"
-  },
   "autoload": {
     "psr-4": {
       "Shrikeh\\GuzzleMiddleware\\TimerLogger\\": "src"
@@ -20,9 +8,21 @@
   "config": {
     "optimize-autoloader": true,
     "bin-dir": "bin",
-    "sort-packages": true
+    "sort-packages": true,
+    "platform": {
+      "php": "5.6"
+    }
   },
   "archive": {
       "exclude": ["*", "!/src"]
+  },
+  "require-dev": {
+    "monolog/monolog": "^1.23",
+    "phpspec/phpspec": "^3.4"
+  },
+  "require": {
+    "guzzlehttp/guzzle": "^6.3",
+    "litipk/php-bignumbers": "^0.7.3",
+    "psr/log": "^1.0"
   }
 }

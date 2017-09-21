@@ -13,13 +13,13 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StartHandler;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StopHandler;
 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 $timer = new RequestTimers();
 
 // create a log channel
 $log = new Logger('name');
-$log->pushHandler(new StreamHandler('path/to/your.log', Logger::DEBUG));
+$log->pushHandler(new StreamHandler(__DIR__.'/logs/example.log', Logger::DEBUG));
 
 $formatter = new LogFormatter();
 $logger = new \Shrikeh\GuzzleMiddleware\TimerLogger\Logger($log, $formatter);
