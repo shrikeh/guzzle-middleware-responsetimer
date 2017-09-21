@@ -9,6 +9,7 @@ use Monolog\Logger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StartTimer;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StopTimer;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Middleware;
 use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimers;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger;
@@ -26,11 +27,8 @@ $logger = new ResponseLogger($log, $formatter);
 
 $responseTimeLogger = new ResponseTimeLogger($timer, $logger);
 
-
-
-$middleware = new \Shrikeh\GuzzleMiddleware\TimerLogger\Middleware(
-    new StartTimer($responseTimeLogger),
-    new StopTimer($responseTimeLogger)
+$middleware = Middleware::quickStart(
+    $responseTimeLogger
 );
 
 $stack = new HandlerStack();
