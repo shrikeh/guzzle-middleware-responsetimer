@@ -5,25 +5,25 @@ namespace Shrikeh\GuzzleMiddleware\TimerLogger\Handler;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger;
+use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface;
 
 /**
  * Class StartHandler
  * @package Shrikeh\GuzzleMiddleware\TimerLogger
  */
-class StopHandler
+class StopTimer
 {
     /**
-     * @var \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger
+     * @var \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface
      */
     private $responseTimeLogger;
 
     /**
-     * StopHandler constructor.
+     * StopTimer constructor.
      *
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger $responseTimeLogger
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface $responseTimeLogger
      */
-    public function __construct(ResponseTimeLogger $responseTimeLogger)
+    public function __construct(ResponseTimeLoggerInterface $responseTimeLogger)
     {
         $this->responseTimeLogger = $responseTimeLogger;
     }
@@ -51,7 +51,7 @@ class StopHandler
      */
     private function onSuccess(RequestInterface $request)
     {
-        return function(ResponseInterface $response) use ($request) {
+        return function (ResponseInterface $response) use ($request) {
             $this->responseTimeLogger->stop($request, $response);
         };
     }
@@ -63,7 +63,7 @@ class StopHandler
      */
     private function onFailure(RequestInterface $request)
     {
-        return function(ResponseInterface $response) use ($request) {
+        return function (ResponseInterface $response) use ($request) {
             $this->responseTimeLogger->stop($request, $response);
         };
     }

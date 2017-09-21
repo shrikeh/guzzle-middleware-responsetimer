@@ -1,15 +1,15 @@
 <?php
 
-namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger;
+namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger\Timer;
 
 use DateTimeImmutable;
 use Litipk\BigNumbers\Decimal;
 use PhpSpec\ObjectBehavior;
 use Psr\Http\Message\RequestInterface;
 
-class TimerSpec extends ObjectBehavior
+class StopwatchSpec extends ObjectBehavior
 {
-    public function getMatchers(): array
+    public function getMatchers()
     {
         return [
             'beAValidDuration' => function($number) {

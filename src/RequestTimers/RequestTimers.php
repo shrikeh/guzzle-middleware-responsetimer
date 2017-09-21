@@ -1,17 +1,18 @@
 <?php
 
-namespace Shrikeh\GuzzleMiddleware\TimerLogger;
+namespace Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers;
 
-use Ds\Map;
 use Psr\Http\Message\RequestInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\Stopwatch;
+use SplObjectStorage;
 
 /**
  * Class TimerHandler
  */
-class RequestTimers
+class RequestTimers implements RequestTimersInterface
 {
     /**
-     * @var \Ds\Map
+     * @var \SplObjectStorage
      */
     private $requestTimers;
 
@@ -20,18 +21,18 @@ class RequestTimers
      */
     public function __construct()
     {
-        $this->requestTimers = new Map();
+        $this->requestTimers = new SplObjectStorage();
     }
 
     /**
      * @param \Psr\Http\Message\RequestInterface $request
      *
-     * @return mixed
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface
      */
     public function start(RequestInterface $request)
     {
-        if (!$this->requestTimers->hasKey($request)) {
-            $this->requestTimers->put($request, new Timer($request));
+        if (!$this->requestTimers->contains($request)) {
+            $this->requestTimers->attach($request, new Stopwatch($request));
         }
         $timer = $this->timerFor($request);
         $timer->start();
@@ -42,7 +43,7 @@ class RequestTimers
     /**
      * @param \Psr\Http\Message\RequestInterface $request
      *
-     * @return mixed
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface
      */
     public function stop(RequestInterface $request)
     {
@@ -55,7 +56,7 @@ class RequestTimers
     /**
      * @param \Psr\Http\Message\RequestInterface $request
      *
-     * @return \Litipk\BigNumbers\Decimal
+     * @return float
      */
     public function duration(RequestInterface $request)
     {
@@ -65,10 +66,10 @@ class RequestTimers
     /**
      * @param \Psr\Http\Message\RequestInterface $request
      *
-     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Timer
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface
      */
     public function timerFor(RequestInterface $request)
     {
-        return $this->requestTimers->get($request);
+        return $this->requestTimers->offsetGet($request);
     }
 }
