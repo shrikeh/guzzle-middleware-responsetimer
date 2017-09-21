@@ -18,7 +18,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 $timer = new RequestTimers();
 
 // create a log channel
-$log = new Logger('name');
+$log = new Logger('guzzle');
 $log->pushHandler(new StreamHandler(__DIR__.'/logs/example.log', Logger::DEBUG));
 
 $formatter = new LogFormatter();
