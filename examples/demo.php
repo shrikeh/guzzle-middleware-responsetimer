@@ -19,8 +19,7 @@ $log = new Logger('guzzle');
 $log->pushHandler(new StreamHandler(__DIR__.'/logs/example.log', Logger::DEBUG));
 
 
-
-$formatter = new Verbose();
+$formatter          = new Verbose();
 $responseTimeLogger = ResponseTimeLogger::createFrom(
     new ResponseLogger($log, $formatter)
 );
@@ -28,8 +27,8 @@ $middleware = Middleware::quickStart(
     $responseTimeLogger
 );
 
-$stack = new HandlerStack();
-$stack->setHandler(\GuzzleHttp\choose_handler());
+$stack = HandlerStack::create();
+
 $stack->push($middleware());
 
 $client = new Client(['handler' => $stack]);
