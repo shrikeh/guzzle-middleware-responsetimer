@@ -14,14 +14,14 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerIn
 class StopTimer
 {
     /**
-     * @var \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger
+     * @var \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface
      */
     private $responseTimeLogger;
 
     /**
-     * StopHandler constructor.
+     * StopTimer constructor.
      *
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger $responseTimeLogger
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface $responseTimeLogger
      */
     public function __construct(ResponseTimeLoggerInterface $responseTimeLogger)
     {

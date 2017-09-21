@@ -27,7 +27,7 @@ class RequestTimers implements RequestTimersInterface
     /**
      * @param \Psr\Http\Message\RequestInterface $request
      *
-     * @return mixed
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface
      */
     public function start(RequestInterface $request)
     {
@@ -43,7 +43,7 @@ class RequestTimers implements RequestTimersInterface
     /**
      * @param \Psr\Http\Message\RequestInterface $request
      *
-     * @return mixed
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface
      */
     public function stop(RequestInterface $request)
     {
@@ -66,7 +66,7 @@ class RequestTimers implements RequestTimersInterface
     /**
      * @param \Psr\Http\Message\RequestInterface $request
      *
-     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Timer
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface
      */
     public function timerFor(RequestInterface $request)
     {
