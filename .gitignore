@@ -1,0 +1,9 @@
+.*
+!.git*
+!.editorconfig
+!.travis.yml
+!.scrutinizer.yml
+!.blackfire.yml
+!.phpspec.yml
+vendor/
+bin/

@@ -1,0 +1,9 @@
+---
+formatter.name: pretty
+suites:
+  default:
+    namespace: Shrikeh\GuzzleMiddleware\TimerLogger
+    psr4_prefix: Shrikeh\GuzzleMiddleware\TimerLogger
+    src_path: %paths.config%/src
+    spec_path: %paths.config%/tests
+...
