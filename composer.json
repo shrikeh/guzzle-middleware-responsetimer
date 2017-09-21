@@ -1,4 +1,15 @@
 {
+  "name": "shrikeh/guzzle-middleware-response-timer",
+  "description": "Measure response times in milliseconds over synchronous or asynchronous connections",
+  "type": "library",
+  "keywords": ["guzzle", "middleware", "response times"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Barney Hanlon",
+      "email": "barney@shrikeh.net"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "Shrikeh\\GuzzleMiddleware\\TimerLogger\\": "src"
