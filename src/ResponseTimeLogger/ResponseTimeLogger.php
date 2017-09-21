@@ -1,6 +1,6 @@
 <?php
 
-namespace Shrikeh\GuzzleMiddleware\TimerLogger;
+namespace Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -11,7 +11,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface;
  * Class ResponseTimeLogger
  * @package Shrikeh\GuzzleMiddleware\TimerLogger
  */
-class ResponseTimeLogger
+class ResponseTimeLogger implements ResponseTimeLoggerInterface
 {
     /**
      * @var \Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface

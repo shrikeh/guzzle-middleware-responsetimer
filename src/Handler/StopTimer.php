@@ -5,13 +5,13 @@ namespace Shrikeh\GuzzleMiddleware\TimerLogger\Handler;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger;
+use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface;
 
 /**
  * Class StartHandler
  * @package Shrikeh\GuzzleMiddleware\TimerLogger
  */
-class StopHandler
+class StopTimer
 {
     /**
      * @var \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger
@@ -23,7 +23,7 @@ class StopHandler
      *
      * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger $responseTimeLogger
      */
-    public function __construct(ResponseTimeLogger $responseTimeLogger)
+    public function __construct(ResponseTimeLoggerInterface $responseTimeLogger)
     {
         $this->responseTimeLogger = $responseTimeLogger;
     }

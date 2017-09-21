@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger;
+namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger;
 
 use PhpSpec\ObjectBehavior;
 use Psr\Http\Message\RequestInterface;
