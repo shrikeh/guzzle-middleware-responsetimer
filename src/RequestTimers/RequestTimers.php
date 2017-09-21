@@ -1,15 +1,15 @@
 <?php
 
-namespace Shrikeh\GuzzleMiddleware\TimerLogger;
+namespace Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers;
 
-use Ds\Map;
 use Psr\Http\Message\RequestInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\Stopwatch;
 use SplObjectStorage;
 
 /**
  * Class TimerHandler
  */
-class RequestTimers
+class RequestTimers implements RequestTimersInterface
 {
     /**
      * @var \SplObjectStorage
@@ -32,7 +32,7 @@ class RequestTimers
     public function start(RequestInterface $request)
     {
         if (!$this->requestTimers->contains($request)) {
-            $this->requestTimers->attach($request, new Timer($request));
+            $this->requestTimers->attach($request, new Stopwatch($request));
         }
         $timer = $this->timerFor($request);
         $timer->start();

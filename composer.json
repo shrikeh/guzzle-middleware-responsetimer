@@ -28,10 +28,12 @@
       "exclude": ["*", "!/src"]
   },
   "require-dev": {
+    "behat/behat": "^3.4",
     "monolog/monolog": "^1.23",
     "phpspec/phpspec": "^3.4"
   },
   "require": {
+    "php": ">= 5.6 < 7.0",
     "guzzlehttp/guzzle": "^6.3",
     "litipk/php-bignumbers": "^0.7.3",
     "psr/log": "^1.0"

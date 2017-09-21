@@ -4,6 +4,8 @@ namespace Shrikeh\GuzzleMiddleware\TimerLogger;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface;
 
 /**
  * Class ResponseTimeLogger
@@ -12,22 +14,19 @@ use Psr\Http\Message\ResponseInterface;
 class ResponseTimeLogger
 {
     /**
-     * @var \Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers
+     * @var \Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface
      */
     private $timers;
+
     /**
-     * @var \Shrikeh\GuzzleMiddleware\TimerLogger\Logger
+     * @var \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface
      */
     private $logger;
 
-    /**
-     * ResponseTimeLogger constructor.
-     *
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers $timers
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Logger        $logger
-     */
-    public function __construct(RequestTimers $timers, Logger $logger)
-    {
+    public function __construct(
+        RequestTimersInterface $timers,
+        ResponseLoggerInterface $logger
+    ) {
         $this->timers = $timers;
         $this->logger = $logger;
     }
@@ -37,7 +36,10 @@ class ResponseTimeLogger
      */
     public function start(RequestInterface $request)
     {
-        $this->logger->logStart($this->timers->start($request));
+        $this->logger->logStart(
+            $this->timers->start($request),
+            $request
+        );
     }
 
     /**
@@ -48,6 +50,7 @@ class ResponseTimeLogger
     {
         $this->logger->logStop(
             $this->timers->stop($request),
+            $request,
             $response
         );
     }

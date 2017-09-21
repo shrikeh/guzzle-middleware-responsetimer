@@ -1,15 +1,15 @@
 <?php
 
-namespace Shrikeh\GuzzleMiddleware\TimerLogger;
+namespace Shrikeh\GuzzleMiddleware\TimerLogger\Timer;
 
 use DateTimeImmutable;
 use Litipk\BigNumbers\Decimal;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Class Timer
+ * Class Stopwatch
  */
-class Timer
+class Stopwatch implements TimerInterface
 {
     /**
      * @var \Litipk\BigNumbers\Decimal
@@ -20,13 +20,9 @@ class Timer
      * @var \Litipk\BigNumbers\Decimal
      */
     private $end;
-    /**
-     * @var \Psr\Http\Message\RequestInterface
-     */
-    private $request;
 
     /**
-     * Timer constructor.
+     * Stopwatch constructor.
      *
      * @param \Psr\Http\Message\RequestInterface $request
      */
@@ -34,14 +30,6 @@ class Timer
     {
 
         $this->request = $request;
-    }
-
-    /**
-     * @return \Psr\Http\Message\RequestInterface
-     */
-    public function request()
-    {
-        return $this->request;
     }
 
     /**

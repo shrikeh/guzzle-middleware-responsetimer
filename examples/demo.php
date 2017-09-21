@@ -7,8 +7,10 @@ use GuzzleHttp\Promise;
 use GuzzleHttp\Psr7\Request;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use Shrikeh\GuzzleMiddleware\TimerLogger\LogFormatter;
-use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers;
+
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose;
+use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimers;
+use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StartHandler;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StopHandler;
@@ -21,8 +23,8 @@ $timer = new RequestTimers();
 $log = new Logger('guzzle');
 $log->pushHandler(new StreamHandler(__DIR__.'/logs/example.log', Logger::DEBUG));
 
-$formatter = new LogFormatter();
-$logger = new \Shrikeh\GuzzleMiddleware\TimerLogger\Logger($log, $formatter);
+$formatter = new Verbose();
+$logger = new ResponseLogger($log, $formatter);
 
 $responseTimeLogger = new ResponseTimeLogger($timer, $logger);
 
