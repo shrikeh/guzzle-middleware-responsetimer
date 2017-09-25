@@ -6,20 +6,53 @@ use GuzzleHttp\Promise;
 use GuzzleHttp\Psr7\Request;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Middleware;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
 
 // create a log channel
 $log = new Logger('guzzle');
-$log->pushHandler(new StreamHandler(__DIR__.'/logs/example.log', Logger::DEBUG));
+$log->pushHandler(new StreamHandler(
+    __DIR__.'/logs/example.log',
+    Logger::DEBUG
+));
 
+$startMsg = function (
+    TimerInterface $timer,
+    RequestInterface $request
+    ) {
+    $msg = 'Started call to %s at %s';
 
-$formatter          = new Verbose();
+    return sprintf(
+        $msg,
+        $request->getUri(),
+        $timer->start()->format('Y-m-d H:i:s')
+    );
+};
+
+$stopMsg = function (
+    TimerInterface $timer,
+    RequestInterface $request,
+    ResponseInterface $response
+    ) {
+    $msg = 'Completed call to %s in %dms with response code %d';
+
+    return sprintf(
+        $msg,
+        $request->getUri(),
+        $timer->duration(),
+        $response->getStatusCode()
+    );
+};
+
+$formatter          = Verbose::fromCallables($startMsg, $stopMsg);
 $responseTimeLogger = ResponseTimeLogger::createFrom(
     new ResponseLogger($log, $formatter)
 );

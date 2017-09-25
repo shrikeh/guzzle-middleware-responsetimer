@@ -16,7 +16,10 @@ interface RequestStartInterface
     public function start(TimerInterface $timer, RequestInterface $request);
 
     /**
-     * @return integer
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
+     * @param \Psr\Http\Message\RequestInterface                         $request
+     *
+     * @return int
      */
-    public function levelStart();
+    public function levelStart(TimerInterface $timer, RequestInterface $request);
 }

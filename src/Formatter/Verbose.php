@@ -14,22 +14,47 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 class Verbose implements FormatterInterface
 {
     /**
-     * @return string
+     * @var RequestStartInterface
      */
-    public function levelStart()
-    {
-        return LogLevel::DEBUG;
+    private $start;
+
+    /**
+     * @var RequestStopInterface
+     */
+    private $stop;
+
+    public static function fromCallables(
+        callable $start,
+        callable $stop,
+        $startLevel = LogLevel::DEBUG,
+        $stopLevel = LogLevel::DEBUG
+    ) {
+        return new self(
+            new StartFormatter($start, $startLevel),
+            new StopFormatter($stop, $stopLevel)
+        );
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\ResponseInterface                        $response
+     * Verbose constructor.
      *
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\RequestStartInterface $start
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\RequestStopInterface  $stop
+     */
+    public function __construct(
+        RequestStartInterface $start,
+        RequestStopInterface $stop
+    ) {
+        $this->start = $start;
+        $this->stop = $stop;
+    }
+
+    /**
      * @return string
      */
-    public function levelStop(TimerInterface $timer, ResponseInterface $response)
+    public function levelStart(TimerInterface $timer, RequestInterface $request)
     {
-        return LogLevel::DEBUG;
+        return $this->start->levelStart($timer, $request);
     }
 
     /**
@@ -40,8 +65,18 @@ class Verbose implements FormatterInterface
      */
     public function start(TimerInterface $timer, RequestInterface $request)
     {
-        $msg = 'Started call to %s at %s';
-        return sprintf($msg, $request->getUri(), $this->time($timer));
+        return $this->start->start($timer, $request);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function levelStop(
+        TimerInterface $timer,
+        RequestInterface $request,
+        ResponseInterface $response
+    ) {
+        return $this->stop->levelStop($timer, $request, $response);
     }
 
     /**
@@ -56,23 +91,6 @@ class Verbose implements FormatterInterface
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        $msg = 'Completed call to %s in %dms with response code %d';
-
-        return sprintf(
-            $msg,
-            $request->getUri(),
-            $timer->duration(),
-            $response->getStatusCode()
-        );
-    }
-
-    /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     *
-     * @return string
-     */
-    private function time(TimerInterface $timer)
-    {
-        return $timer->start()->format('Y-m-d H:i:s');
+        return $this->stop->stop($timer, $request, $response);
     }
 }

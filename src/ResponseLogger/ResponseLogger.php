@@ -47,7 +47,7 @@ class ResponseLogger implements ResponseLoggerInterface
     public function logStart(TimerInterface $timer, RequestInterface $request)
     {
         $this->logger->log(
-            $this->formatter->levelStart(),
+            $this->formatter->levelStart($timer, $request),
             $this->formatter->start($timer, $request)
         );
 
@@ -67,7 +67,7 @@ class ResponseLogger implements ResponseLoggerInterface
         ResponseInterface $response
     ) {
         $this->logger->log(
-            $this->formatter->levelStop($timer, $response),
+            $this->formatter->levelStop($timer, $request, $response),
             $this->formatter->stop($timer, $request, $response)
         );
 
