@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger;
 
@@ -9,7 +14,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
- * Class ResponseLogger
+ * Class ResponseLogger.
  */
 class ResponseLogger implements ResponseLoggerInterface
 {
@@ -33,7 +38,7 @@ class ResponseLogger implements ResponseLoggerInterface
         LoggerInterface $logger,
         FormatterInterface $formatter
     ) {
-        $this->logger    = $logger;
+        $this->logger = $logger;
         $this->formatter = $formatter;
     }
 

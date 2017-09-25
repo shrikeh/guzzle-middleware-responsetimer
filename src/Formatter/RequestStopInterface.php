@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
 
@@ -7,8 +12,7 @@ use Psr\Http\Message\ResponseInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
- * Interface RequestStartInterface
- * @package Shrikeh\GuzzleMiddleware\TimerLogger
+ * Interface RequestStartInterface.
  */
 interface RequestStopInterface
 {

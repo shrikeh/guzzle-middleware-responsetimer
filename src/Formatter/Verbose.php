@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
 
@@ -10,7 +15,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStopMessage;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
- * Class Verbose
+ * Class Verbose.
  */
 class Verbose implements FormatterInterface
 {

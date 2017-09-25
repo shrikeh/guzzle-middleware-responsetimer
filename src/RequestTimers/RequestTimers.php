@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers;
 
@@ -7,7 +12,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\Stopwatch;
 use SplObjectStorage;
 
 /**
- * Class TimerHandler
+ * Class TimerHandler.
  */
 class RequestTimers implements RequestTimersInterface
 {
@@ -30,7 +35,7 @@ class RequestTimers implements RequestTimersInterface
     public function start(RequestInterface $request)
     {
         if (!$this->requestTimers->contains($request)) {
-            $this->requestTimers->attach($request, new Stopwatch($request));
+            $this->requestTimers->attach($request, new Stopwatch());
         }
         $timer = $this->timerFor($request);
         $timer->start();

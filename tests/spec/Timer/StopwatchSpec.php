@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ */
 
 namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger\Timer;
 
@@ -18,11 +23,6 @@ class StopwatchSpec extends ObjectBehavior
         ];
     }
 
-    function let(RequestInterface $request)
-    {
-        $this->beConstructedWith($request);
-    }
-
     function it_has_a_start_time()
     {
         $this->start()->shouldBeAnInstanceOf(DateTimeImmutable::class);
@@ -32,7 +32,6 @@ class StopwatchSpec extends ObjectBehavior
     {
         $this->stop()->shouldBeAnInstanceOf(DateTimeImmutable::class);
     }
-
 
     function it_returns_the_duration()
     {

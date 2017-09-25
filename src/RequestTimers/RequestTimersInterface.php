@@ -1,11 +1,16 @@
 <?php
+/**
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ */
+
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers;
 
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 
 /**
- * Interface RequestTimersInterface
+ * Interface RequestTimersInterface.
  */
 interface RequestTimersInterface
 {

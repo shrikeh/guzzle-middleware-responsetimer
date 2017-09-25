@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ */
 
 namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger\Handler;
 
@@ -18,7 +23,6 @@ class StartTimerSpec extends ObjectBehavior
         $responseTimeLogger
     ) {
         $responseTimeLogger->start($request)->shouldBeCalled();
-
         $this->__invoke($request);
     }
 }

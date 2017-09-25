@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Handler;
 
@@ -6,7 +11,7 @@ use Psr\Http\Message\RequestInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface;
 
 /**
- * Class StartHandler
+ * Class StartHandler.
  */
 class StartTimer
 {

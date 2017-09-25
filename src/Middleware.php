@@ -1,16 +1,20 @@
 <?php
+/**
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ */
+
 namespace Shrikeh\GuzzleMiddleware\TimerLogger;
 
 use Psr\Log\LoggerInterface;
-use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StartTimer;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StopTimer;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface;
 
 /**
- * Class Middleware
- * @package Shrikeh\GuzzleMiddleware\TimerLogger
+ * Class Middleware.
  */
 class Middleware
 {
@@ -46,9 +50,6 @@ class Middleware
             new StopTimer($responseTimeLogger)
         );
     }
-
-
-
 
     /**
      * Middleware constructor.

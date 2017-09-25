@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger;
 
@@ -13,7 +18,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface;
 
 /**
- * Class ResponseTimeLogger
+ * Class ResponseTimeLogger.
  */
 class ResponseTimeLogger implements ResponseTimeLoggerInterface
 {
@@ -27,9 +32,12 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
      */
     private $logger;
 
+    /**
+     *
+     */
     public static function quickStart(
         LoggerInterface $logger,
-        FormatterInterface$formatter = null
+        FormatterInterface $formatter = null
     ) {
         if (!$formatter) {
             $formatter = Verbose::quickStart();
@@ -55,6 +63,10 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
         return new self($timers, $logger);
     }
 
+    /**
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface   $timers
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface $logger
+     */
     public function __construct(
         RequestTimersInterface $timers,
         ResponseLoggerInterface $logger

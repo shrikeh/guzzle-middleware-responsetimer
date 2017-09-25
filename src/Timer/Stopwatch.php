@@ -1,13 +1,17 @@
 <?php
+/**
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Timer;
 
 use DateTimeImmutable;
 use Litipk\BigNumbers\Decimal;
-use Psr\Http\Message\RequestInterface;
 
 /**
- * Class Stopwatch
+ * Class Stopwatch.
  */
 class Stopwatch implements TimerInterface
 {
@@ -20,17 +24,6 @@ class Stopwatch implements TimerInterface
      * @var \Litipk\BigNumbers\Decimal
      */
     private $end;
-
-    /**
-     * Stopwatch constructor.
-     *
-     * @param \Psr\Http\Message\RequestInterface $request
-     */
-    public function __construct(RequestInterface $request)
-    {
-
-        $this->request = $request;
-    }
 
     /**
      * {@inheritdoc}
@@ -53,7 +46,6 @@ class Stopwatch implements TimerInterface
         $t = \microtime(true);
         if (!$this->end) {
             $this->end = Decimal::fromFloat($t);
-            ;
         }
 
         return $this->dateTime($this->end);
@@ -71,7 +63,7 @@ class Stopwatch implements TimerInterface
     }
 
     /**
-     * @param \Litipk\BigNumbers\Decimal $time
+     * @param \Litipk\BigNumbers\Decimal $time The time to format to a DateTimeImmutable
      *
      * @return \DateTimeImmutable
      */
@@ -85,7 +77,7 @@ class Stopwatch implements TimerInterface
     }
 
     /**
-     * @param \Litipk\BigNumbers\Decimal $time
+     * @param \Litipk\BigNumbers\Decimal $time The time to get the mantissa from
      *
      * @return \Litipk\BigNumbers\Decimal
      */

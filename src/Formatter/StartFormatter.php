@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
 
@@ -7,7 +12,7 @@ use Psr\Log\LogLevel;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
- * Class StartFormatter
+ * Class StartFormatter.
  */
 class StartFormatter implements RequestStartInterface
 {
@@ -29,10 +34,9 @@ class StartFormatter implements RequestStartInterface
      */
     public function __construct(callable $msg, $level = LogLevel::DEBUG)
     {
-        $this->msg   = $msg;
+        $this->msg = $msg;
         $this->level = $level;
     }
-
 
     /**
      * {@inheritdoc}
