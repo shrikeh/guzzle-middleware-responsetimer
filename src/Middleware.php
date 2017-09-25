@@ -1,8 +1,11 @@
 <?php
 namespace Shrikeh\GuzzleMiddleware\TimerLogger;
 
+use Psr\Log\LoggerInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StartTimer;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StopTimer;
+use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface;
 
 /**
@@ -22,17 +25,29 @@ class Middleware
     private $stopHandler;
 
     /**
+     * @param \Psr\Log\LoggerInterface $logger
+     *
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Middleware
+     */
+    public static function quickStart(LoggerInterface $logger)
+    {
+        return self::fromResponseTimeLogger(ResponseTimeLogger::quickStart($logger));
+    }
+
+    /**
      * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface $responseTimeLogger
      *
      * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Middleware
      */
-    public static function quickStart(ResponseTimeLoggerInterface $responseTimeLogger)
+    public static function fromResponseTimeLogger(ResponseTimeLoggerInterface $responseTimeLogger)
     {
         return new self(
             new StartTimer($responseTimeLogger),
             new StopTimer($responseTimeLogger)
         );
     }
+
+
 
 
     /**

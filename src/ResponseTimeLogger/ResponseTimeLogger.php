@@ -4,13 +4,16 @@ namespace Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose;
 use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimers;
 use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface;
 
 /**
  * Class ResponseTimeLogger
- * @package Shrikeh\GuzzleMiddleware\TimerLogger
  */
 class ResponseTimeLogger implements ResponseTimeLoggerInterface
 {
@@ -24,6 +27,23 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
      */
     private $logger;
 
+    public static function quickStart(
+        LoggerInterface $logger,
+        FormatterInterface$formatter = null
+    ) {
+        if (!$formatter) {
+            $formatter = Verbose::quickStart();
+        }
+
+        return self::createFrom(new ResponseLogger($logger, $formatter));
+    }
+
+    /**
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface    $logger
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface|null $timers
+     *
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger
+     */
     public static function createFrom(
         ResponseLoggerInterface $logger,
         RequestTimersInterface $timers = null

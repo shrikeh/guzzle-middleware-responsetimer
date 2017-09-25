@@ -10,7 +10,6 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
  * Class ResponseLogger
- * @package Shrikeh\GuzzleMiddleware\TimerLogger
  */
 class ResponseLogger implements ResponseLoggerInterface
 {

@@ -5,6 +5,8 @@ namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LogLevel;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStartMessage;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStopMessage;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
@@ -21,6 +23,24 @@ class Verbose implements FormatterInterface
      * @var RequestStopInterface
      */
     private $stop;
+
+    /**
+     * @param string $startLevel
+     * @param string $stopLevel
+     *
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose
+     */
+    public static function quickStart(
+        $startLevel = LogLevel::DEBUG,
+        $stopLevel = LogLevel::DEBUG
+    ) {
+        return self::fromCallables(
+            new DefaultStartMessage(),
+            new DefaultStopMessage(),
+            $startLevel,
+            $stopLevel
+        );
+    }
 
     /**
      * @param callable $start

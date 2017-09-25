@@ -1,0 +1,52 @@
+<?php
+
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Promise;
+use GuzzleHttp\Psr7\Request;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Middleware;
+
+require_once __DIR__.'/../vendor/autoload.php';
+
+$logFile = __DIR__.'/logs/example.log';
+
+// clear down log file for testing
+unlink($logFile);
+
+// create a log channel
+$log = new Logger('guzzle');
+$log->pushHandler(new StreamHandler(
+    $logFile,
+    Logger::DEBUG
+));
+
+// hand it to the middleware (this will create a default working example)
+$middleware = Middleware::quickStart($log);
+
+// now create a Guzzle middlware stack
+$stack = HandlerStack::create();
+
+// and register the middleware on the stack
+$stack->push($middleware());
+
+// then hand the stack to the client
+$client = new Client(['handler' => $stack]);
+
+$request1 = new Request('GET', 'https://www.facebook.com');
+$request2 = new Request('GET', 'https://en.wikipedia.org/wiki/Main_Page');
+$request3 = new Request('GET', 'https://www.google.co.uk');
+
+$promises = [
+    $client->sendAsync($request1),
+    $client->sendAsync($request2),
+    $client->sendAsync($request3)
+];
+
+$results = Promise\settle($promises)->wait();
+
+print file_get_contents($logFile);
+
+
+
