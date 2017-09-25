@@ -29,7 +29,7 @@ class Middleware
     private $stopHandler;
 
     /**
-     * @param \Psr\Log\LoggerInterface $logger
+     * @param \Psr\Log\LoggerInterface $logger The PSR-3 LoggerInterface
      *
      * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Middleware
      */
@@ -39,7 +39,7 @@ class Middleware
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface $responseTimeLogger
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface $responseTimeLogger A timer
      *
      * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Middleware
      */

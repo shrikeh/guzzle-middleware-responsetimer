@@ -33,7 +33,10 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
     private $logger;
 
     /**
+     * @param \Psr\Log\LoggerInterface                                           $logger    A logger to log to
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface $formatter An optional formatter
      *
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger
      */
     public static function quickStart(
         LoggerInterface $logger,
@@ -47,8 +50,8 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface    $logger
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface|null $timers
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface    $logger a logger to log to
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface|null $timers An optional timers collection
      *
      * @return \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger
      */
@@ -64,8 +67,8 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface   $timers
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface $logger
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface   $timers A timers collection
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface $logger a logger to log to
      */
     public function __construct(
         RequestTimersInterface $timers,
@@ -76,7 +79,7 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
     }
 
     /**
-     * @param \Psr\Http\Message\RequestInterface $request
+     * {@inheritdoc}
      */
     public function start(RequestInterface $request)
     {
@@ -87,8 +90,7 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
     }
 
     /**
-     * @param \Psr\Http\Message\RequestInterface  $request
-     * @param \Psr\Http\Message\ResponseInterface $response
+     * {@inheritdoc}
      */
     public function stop(RequestInterface $request, ResponseInterface $response)
     {

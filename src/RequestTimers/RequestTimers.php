@@ -63,7 +63,7 @@ class RequestTimers implements RequestTimersInterface
     }
 
     /**
-     * @param \Psr\Http\Message\RequestInterface $request
+     * @param \Psr\Http\Message\RequestInterface $request The request to retrieve a timer for
      *
      * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface
      */

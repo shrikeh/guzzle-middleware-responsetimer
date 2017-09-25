@@ -17,8 +17,8 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 interface ResponseLoggerInterface
 {
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer   A timer
+     * @param \Psr\Http\Message\RequestInterface                         $request The Request
      *
      * @return \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface
      */
@@ -28,9 +28,9 @@ interface ResponseLoggerInterface
     );
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
-     * @param \Psr\Http\Message\ResponseInterface                        $response
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer    A timer
+     * @param \Psr\Http\Message\RequestInterface                         $request  The Request
+     * @param \Psr\Http\Message\ResponseInterface                        $response The Response
      *
      * @return \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface
      */

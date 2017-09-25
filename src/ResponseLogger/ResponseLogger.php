@@ -31,8 +31,8 @@ class ResponseLogger implements ResponseLoggerInterface
     /**
      * ResponseLogger constructor.
      *
-     * @param \Psr\Log\LoggerInterface                                           $logger
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface $formatter
+     * @param \Psr\Log\LoggerInterface                                           $logger    The PSR-3 logger
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface $formatter A formatter
      */
     public function __construct(
         LoggerInterface $logger,
