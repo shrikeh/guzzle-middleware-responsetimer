@@ -1,6 +1,8 @@
 # Response timer for Guzzle
 A simple timer and logger that records response times for requests made by a [Guzzle] client to a [PSR-3] log. Created initially to help [Gousto] get an idea of how microservices were interacting and performing.
 
+It has some advantages over some other timers that already existed, in that it natively supports asynchronous calls, and uses the `Request` object itself as the key, therefore allowing multiple calls to the same URI to be recorded separately.
+
 ## Installation
 
 Installation is recommended via [composer]:
@@ -8,6 +10,13 @@ Installation is recommended via [composer]:
 ```bash
 composer require shrikeh/guzzle-middleware-response-timer
 ```
+
+## Requirements and versioning
+
+If installed by composer, all requirements should be taken care of.
+Semantic versioning is in use and strongly adhered to in tags 1.0 and beyond; branches before that are a little bit more free as I was shopping with ideas and the interface.
+
+Tags <2.0 are 5.6 compatible; versions 2.0 and beyond are PHP 7.1+ only.
 
 ## Basic usage
 
