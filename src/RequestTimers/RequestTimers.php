@@ -35,7 +35,10 @@ class RequestTimers implements RequestTimersInterface
     public function start(RequestInterface $request)
     {
         if (!$this->requestTimers->contains($request)) {
-            $this->requestTimers->attach($request, new Stopwatch());
+            $this->requestTimers->attach(
+                $request,
+                Stopwatch::startStopWatch()
+            );
         }
         $timer = $this->timerFor($request);
         $timer->start();
