@@ -1,3 +1,18 @@
+# Response timer for Guzzle
+A simple timer and logger that records response times for requests made by a [Guzzle] client to a [PSR-3] log. Created initially to help [Gousto] get an idea of how microservices were interacting and performing.
+
+## Installation
+
+Installation is recommended via [composer]:
+
+```bash
+composer require shrikeh/guzzle-middleware-response-timer
+```
+
+## Basic usage
+
+The following is a simple example using the `quickStart()` method, which accepts a `Psr\Log\LoggerInterface` logger (in this case, a simple file stream implemented by [Monolog]):
+```php
 <?php
 
 use GuzzleHttp\Client;
@@ -16,7 +31,7 @@ $logFile = __DIR__.'/logs/example.log';
 unlink($logFile);
 
 // create a log channel
-$log = new Logger('guzzle');
+$log = new Logger('guzzle-response-times');
 $log->pushHandler(new StreamHandler(
     $logFile,
     Logger::DEBUG
@@ -47,3 +62,9 @@ $promises = [
 $results = Promise\settle($promises)->wait();
 
 print file_get_contents($logFile);
+```
+[composer]: https://getcomposer.org
+[PSR-3]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md
+[Guzzle]: http://docs.guzzlephp.org/en/stable/
+[Monolog]: https://github.com/Seldaek/monolog
+[Gousto]: https://www.gousto.co.uk/
