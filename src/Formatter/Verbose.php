@@ -82,7 +82,7 @@ class Verbose implements FormatterInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function levelStart(TimerInterface $timer, RequestInterface $request)
     {

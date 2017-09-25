@@ -30,8 +30,8 @@ class StopFormatter implements RequestStopInterface
     /**
      * StartFormatter constructor.
      *
-     * @param $msg
-     * @param $level
+     * @param callable        $msg   A callable to format the messages
+     * @param callable|string $level The log level for when the timer ends
      */
     public function __construct(callable $msg, $level = LogLevel::DEBUG)
     {

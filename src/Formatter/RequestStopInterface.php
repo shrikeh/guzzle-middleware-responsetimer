@@ -17,9 +17,9 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 interface RequestStopInterface
 {
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
-     * @param \Psr\Http\Message\ResponseInterface                        $response
+     * @param TimerInterface    $timer    The timer to format
+     * @param RequestInterface  $request  The Request to format
+     * @param ResponseInterface $response The Response to format
      *
      * @return mixed
      */
@@ -30,11 +30,11 @@ interface RequestStopInterface
     );
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
-     * @param \Psr\Http\Message\ResponseInterface                        $response
+     * @param TimerInterface    $timer    The timer to format
+     * @param RequestInterface  $request  The Request to format
+     * @param ResponseInterface $response The Response to format
      *
-     * @return string
+     * @return mixed
      */
     public function levelStop(
         TimerInterface $timer,

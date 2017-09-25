@@ -25,6 +25,9 @@ class Stopwatch implements TimerInterface
      */
     private $end;
 
+    /**
+     * @return self
+     */
     public static function startStopWatch()
     {
         $t = \microtime(true);
@@ -32,6 +35,11 @@ class Stopwatch implements TimerInterface
         return new self($t);
     }
 
+    /**
+     * Stopwatch constructor.
+     *
+     * @param float|null $start The start time
+     */
     public function __construct($start = null)
     {
         $this->start = $start;
@@ -71,20 +79,20 @@ class Stopwatch implements TimerInterface
         $this->stop();
 
         $start = $this->decimal($this->start);
-        $end   = $this->decimal($this->end);
+        $end = $this->decimal($this->end);
 
         return Decimal::fromDecimal($end->sub($start)
             ->mul(Decimal::fromInteger(1000)), $precision)->asFloat();
     }
 
     /**
-     * @param \Litipk\BigNumbers\Decimal $time The time to format to a DateTimeImmutable
+     * @param Decimal $time The time to format to a DateTimeImmutable
      *
      * @return \DateTimeImmutable
      */
     private function dateTime($time)
     {
-        $time  = $this->decimal($time);
+        $time = $this->decimal($time);
         $micro = sprintf('%06d', $this->mantissa($time)->asInteger());
 
         return new DateTimeImmutable(
@@ -93,9 +101,9 @@ class Stopwatch implements TimerInterface
     }
 
     /**
-     * @param \Litipk\BigNumbers\Decimal $time The time to get the mantissa from
+     * @param Decimal $time The time to get the mantissa from
      *
-     * @return \Litipk\BigNumbers\Decimal
+     * @return Decimal
      */
     private function mantissa(Decimal $time)
     {
@@ -104,6 +112,11 @@ class Stopwatch implements TimerInterface
         return $mantissa->mul(Decimal::fromInteger(1000000));
     }
 
+    /**
+     * @param float $t The float to turn into a Decimal
+     *
+     * @return Decimal
+     */
     private function decimal($t)
     {
         return Decimal::fromFloat($t);

@@ -13,18 +13,18 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 interface RequestStartInterface
 {
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer   A Timer to format
+     * @param \Psr\Http\Message\RequestInterface                         $request A Request to format
      *
      * @return string
      */
     public function start(TimerInterface $timer, RequestInterface $request);
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer   A Timer to format
+     * @param \Psr\Http\Message\RequestInterface                         $request A Request to format
      *
-     * @return int
+     * @return string
      */
     public function levelStart(TimerInterface $timer, RequestInterface $request);
 }

@@ -29,7 +29,6 @@ interface RequestTimersInterface
     public function stop(RequestInterface $request);
 
     /**
-     *
      * @param RequestInterface $request The Request to return the duration for
      *
      * @return float
