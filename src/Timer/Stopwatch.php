@@ -33,7 +33,7 @@ class Stopwatch implements TimerInterface
     }
 
     /**
-     * @return \DateTimeImmutable
+     * {@inheritdoc}
      */
     public function start()
     {
@@ -46,7 +46,7 @@ class Stopwatch implements TimerInterface
     }
 
     /**
-     * @return \DateTimeImmutable
+     * {@inheritdoc}
      */
     public function stop()
     {
@@ -60,16 +60,14 @@ class Stopwatch implements TimerInterface
     }
 
     /**
-     * @param int $scale
-     *
-     * @return float
+     * {@inheritdoc}
      */
-    public function duration($scale = 0)
+    public function duration($precision = 0)
     {
         $this->stop();
 
         return Decimal::fromDecimal($this->end->sub($this->start)
-            ->mul(Decimal::fromInteger(1000)), $scale)->asFloat();
+            ->mul(Decimal::fromInteger(1000)), $precision)->asFloat();
     }
 
     /**

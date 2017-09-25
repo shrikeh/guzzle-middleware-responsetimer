@@ -7,7 +7,6 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerIn
 
 /**
  * Class StartHandler
- * @package Shrikeh\GuzzleMiddleware\TimerLogger
  */
 class StartTimer
 {

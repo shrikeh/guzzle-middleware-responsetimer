@@ -9,7 +9,6 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
  * Class Verbose
- * @package Shrikeh\GuzzleMiddleware\TimerLogger
  */
 class Verbose implements FormatterInterface
 {
@@ -23,6 +22,14 @@ class Verbose implements FormatterInterface
      */
     private $stop;
 
+    /**
+     * @param callable $start
+     * @param callable $stop
+     * @param string   $startLevel
+     * @param string   $stopLevel
+     *
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose
+     */
     public static function fromCallables(
         callable $start,
         callable $stop,
@@ -58,10 +65,7 @@ class Verbose implements FormatterInterface
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function start(TimerInterface $timer, RequestInterface $request)
     {
@@ -80,11 +84,7 @@ class Verbose implements FormatterInterface
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
-     * @param \Psr\Http\Message\ResponseInterface                        $response
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function stop(
         TimerInterface $timer,

@@ -4,7 +4,6 @@ namespace Shrikeh\GuzzleMiddleware\TimerLogger\Timer;
 
 /**
  * Interface TimerInterface
- * @package Shrikeh\GuzzleMiddleware\TimerLogger\Timer
  */
 interface TimerInterface
 {
@@ -19,7 +18,9 @@ interface TimerInterface
     public function stop();
 
     /**
+     * @param int $precision
+     *
      * @return float
      */
-    public function duration();
+    public function duration($precision = 0);
 }

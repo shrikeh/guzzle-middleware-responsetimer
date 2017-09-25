@@ -8,15 +8,27 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
  * Interface ResponseLoggerInterface
- * @package Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger
  */
 interface ResponseLoggerInterface
 {
+    /**
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
+     * @param \Psr\Http\Message\RequestInterface                         $request
+     *
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface
+     */
     public function logStart(
         TimerInterface $timer,
         RequestInterface $request
     );
 
+    /**
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
+     * @param \Psr\Http\Message\RequestInterface                         $request
+     * @param \Psr\Http\Message\ResponseInterface                        $response
+     *
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface
+     */
     public function logStop(
         TimerInterface $timer,
         RequestInterface $request,

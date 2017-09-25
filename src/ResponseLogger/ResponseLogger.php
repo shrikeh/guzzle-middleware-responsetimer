@@ -39,10 +39,7 @@ class ResponseLogger implements ResponseLoggerInterface
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
-     *
-     * @return $this
+     * {@inheritdoc}
      */
     public function logStart(TimerInterface $timer, RequestInterface $request)
     {
@@ -55,11 +52,7 @@ class ResponseLogger implements ResponseLoggerInterface
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
-     * @param \Psr\Http\Message\ResponseInterface                        $response
-     *
-     * @return $this
+     * {@inheritdoc}
      */
     public function logStop(
         TimerInterface $timer,

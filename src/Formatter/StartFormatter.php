@@ -6,6 +6,9 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Log\LogLevel;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
+/**
+ * Class StartFormatter
+ */
 class StartFormatter implements RequestStartInterface
 {
     /**
@@ -32,10 +35,7 @@ class StartFormatter implements RequestStartInterface
 
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function start(TimerInterface $timer, RequestInterface $request)
     {
@@ -44,6 +44,9 @@ class StartFormatter implements RequestStartInterface
         return $msg($timer, $request);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function levelStart(TimerInterface $timer, RequestInterface $request)
     {
         $level = $this->level;
@@ -53,6 +56,4 @@ class StartFormatter implements RequestStartInterface
 
         return $level;
     }
-
-
 }

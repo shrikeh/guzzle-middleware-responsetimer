@@ -7,6 +7,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LogLevel;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
+/**
+ * Class StopFormatter
+ */
 class StopFormatter implements RequestStopInterface
 {
     /**
@@ -33,11 +36,7 @@ class StopFormatter implements RequestStopInterface
 
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
-     * @param \Psr\Http\Message\ResponseInterface                        $response
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
     public function stop(
         TimerInterface $timer,
@@ -47,7 +46,6 @@ class StopFormatter implements RequestStopInterface
         $msg = $this->msg;
 
         return $msg($timer, $request, $response);
-
     }
 
     /**
