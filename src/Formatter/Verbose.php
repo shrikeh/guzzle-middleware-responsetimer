@@ -30,10 +30,10 @@ class Verbose implements FormatterInterface
     private $stop;
 
     /**
-     * @param string $startLevel
-     * @param string $stopLevel
+     * @param string $startLevel The level of logging for start messages
+     * @param string $stopLevel  The level of logging for stop messages
      *
-     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose
+     * @return self
      */
     public static function quickStart(
         $startLevel = LogLevel::DEBUG,
@@ -48,12 +48,12 @@ class Verbose implements FormatterInterface
     }
 
     /**
-     * @param callable $start
-     * @param callable $stop
-     * @param string   $startLevel
-     * @param string   $stopLevel
+     * @param callable $start      A callable to use for formatting start messages
+     * @param callable $stop       A callable to use for formatting stop messages
+     * @param string   $startLevel The level for start messages
+     * @param string   $stopLevel  The level for stop messages
      *
-     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose
+     * @return self
      */
     public static function fromCallables(
         callable $start,
@@ -70,8 +70,8 @@ class Verbose implements FormatterInterface
     /**
      * Verbose constructor.
      *
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\RequestStartInterface $start
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\RequestStopInterface  $stop
+     * @param RequestStartInterface $start A formatter for when the Request starts
+     * @param RequestStopInterface  $stop  A formatter for when the Request ends
      */
     public function __construct(
         RequestStartInterface $start,

@@ -29,9 +29,9 @@ class Middleware
     private $stopHandler;
 
     /**
-     * @param \Psr\Log\LoggerInterface $logger The PSR-3 LoggerInterface
+     * @param LoggerInterface $logger The PSR-3 LoggerInterface
      *
-     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Middleware
+     * @return self
      */
     public static function quickStart(LoggerInterface $logger)
     {
@@ -39,9 +39,9 @@ class Middleware
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface $responseTimeLogger A timer
+     * @param ResponseTimeLoggerInterface $responseTimeLogger A timer logger
      *
-     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Middleware
+     * @return self
      */
     public static function fromResponseTimeLogger(ResponseTimeLoggerInterface $responseTimeLogger)
     {
@@ -54,8 +54,8 @@ class Middleware
     /**
      * Middleware constructor.
      *
-     * @param callable $startHandler
-     * @param callable $stopHandler
+     * @param callable $startHandler A start handler to register
+     * @param callable $stopHandler  A stop handler to register
      */
     public function __construct(callable $startHandler, callable $stopHandler)
     {

@@ -16,14 +16,14 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerIn
 class StartTimer
 {
     /**
-     * @var \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface
+     * @var ResponseTimeLoggerInterface
      */
     private $responseTimeLogger;
 
     /**
      * StartTimer constructor.
      *
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface $responseTimeLogger
+     * @param ResponseTimeLoggerInterface $responseTimeLogger A logger for logging the response start
      */
     public function __construct(ResponseTimeLoggerInterface $responseTimeLogger)
     {
@@ -31,7 +31,7 @@ class StartTimer
     }
 
     /**
-     * @param \Psr\Http\Message\RequestInterface $request
+     * @param RequestInterface $request The Request to start timing
      */
     public function __invoke(RequestInterface $request)
     {

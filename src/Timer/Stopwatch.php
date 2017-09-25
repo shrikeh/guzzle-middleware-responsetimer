@@ -16,14 +16,26 @@ use Litipk\BigNumbers\Decimal;
 class Stopwatch implements TimerInterface
 {
     /**
-     * @var \Litipk\BigNumbers\Decimal
+     * @var float
      */
     private $start;
 
     /**
-     * @var \Litipk\BigNumbers\Decimal
+     * @var float
      */
     private $end;
+
+    public static function startStopWatch()
+    {
+        $t = \microtime(true);
+
+        return new self($t);
+    }
+
+    public function __construct($start = null)
+    {
+        $this->start = $start;
+    }
 
     /**
      * {@inheritdoc}
@@ -32,7 +44,7 @@ class Stopwatch implements TimerInterface
     {
         $t = \microtime(true);
         if (!$this->start) {
-            $this->start = Decimal::fromFloat($t);
+            $this->start = $t;
         }
 
         return $this->dateTime($this->start);
@@ -45,7 +57,7 @@ class Stopwatch implements TimerInterface
     {
         $t = \microtime(true);
         if (!$this->end) {
-            $this->end = Decimal::fromFloat($t);
+            $this->end = $t;
         }
 
         return $this->dateTime($this->end);
@@ -58,7 +70,10 @@ class Stopwatch implements TimerInterface
     {
         $this->stop();
 
-        return Decimal::fromDecimal($this->end->sub($this->start)
+        $start = $this->decimal($this->start);
+        $end   = $this->decimal($this->end);
+
+        return Decimal::fromDecimal($end->sub($start)
             ->mul(Decimal::fromInteger(1000)), $precision)->asFloat();
     }
 
@@ -67,8 +82,9 @@ class Stopwatch implements TimerInterface
      *
      * @return \DateTimeImmutable
      */
-    private function dateTime(Decimal $time)
+    private function dateTime($time)
     {
+        $time  = $this->decimal($time);
         $micro = sprintf('%06d', $this->mantissa($time)->asInteger());
 
         return new DateTimeImmutable(
@@ -86,5 +102,10 @@ class Stopwatch implements TimerInterface
         $mantissa = ($time->sub($time->floor()));
 
         return $mantissa->mul(Decimal::fromInteger(1000000));
+    }
+
+    private function decimal($t)
+    {
+        return Decimal::fromFloat($t);
     }
 }

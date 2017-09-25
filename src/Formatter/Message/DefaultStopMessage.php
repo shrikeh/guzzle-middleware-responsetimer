@@ -17,9 +17,9 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 class DefaultStopMessage
 {
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
-     * @param \Psr\Http\Message\ResponseInterface                        $response
+     * @param TimerInterface    $timer    The timer to format for the log
+     * @param RequestInterface  $request  The Request to format for the log
+     * @param ResponseInterface $response The Response to format for the log
      *
      * @return string
      */

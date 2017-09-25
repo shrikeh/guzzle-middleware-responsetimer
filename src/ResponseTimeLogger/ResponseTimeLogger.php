@@ -50,10 +50,10 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface    $logger a logger to log to
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface|null $timers An optional timers collection
+     * @param ResponseLoggerInterface     $logger a logger to log to
+     * @param RequestTimersInterface|null $timers An optional timers collection
      *
-     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger
+     * @return ResponseTimeLogger
      */
     public static function createFrom(
         ResponseLoggerInterface $logger,
@@ -67,8 +67,8 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface   $timers A timers collection
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface $logger a logger to log to
+     * @param RequestTimersInterface  $timers A timers collection
+     * @param ResponseLoggerInterface $logger a logger to log to
      */
     public function __construct(
         RequestTimersInterface $timers,

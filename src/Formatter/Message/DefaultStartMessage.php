@@ -16,8 +16,8 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 class DefaultStartMessage
 {
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
+     * @param TimerInterface   $timer   The timer to format
+     * @param RequestInterface $request The request for the timer
      *
      * @return string
      */

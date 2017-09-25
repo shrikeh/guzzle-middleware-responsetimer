@@ -29,8 +29,8 @@ class StartFormatter implements RequestStartInterface
     /**
      * StartFormatter constructor.
      *
-     * @param $msg
-     * @param $level
+     * @param callable        $msg   A callable used to create the message
+     * @param callable|string $level The level this should be logged at.
      */
     public function __construct(callable $msg, $level = LogLevel::DEBUG)
     {
