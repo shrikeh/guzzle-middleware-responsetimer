@@ -97,12 +97,12 @@ print file_get_contents($logFile);
 [latest_unstable_version_img]: https://img.shields.io/packagist/vpre/shrikeh/guzzle-middleware-response-timer.svg "Latest Unstable Version"
 [latest_unstable_version]: https://packagist.org/packages/shrikeh/guzzle-middleware-response-timer "Latest Unstable Version"
 
-[license_img]: https://img.shields.io/packagist/l/shrikeh/guzzle-middleware-responsetimer.svg "License"
-[license]: https://packagist.org/packages/shrikeh/guzzle-middleware-responsetimer
+[license_img]: https://img.shields.io/packagist/l/shrikeh/guzzle-middleware-response-timer.svg "License"
+[license]: https://packagist.org/packages/shrikeh/guzzle-middleware-response-timer
 
 [twitter_img]: https://img.shields.io/badge/twitter-%40shrikeh-blue.svg "@shrikeh on Twitter"
 [twitter]: https://twitter.com/shrikeh
 
 [examples]: https://github.com/shrikeh/guzzle-middleware-responsetimer/tree/master/examples "Link to examples in master"
 [docs]: https://github.com/shrikeh/guzzle-middleware-responsetimer/tree/master/docs "Link to docs in master"
-[specs]: https://github.com/shrikeh/guzzle-middleware-responsetimer/tree/master/spec "Link to specs in master"
+[specs]: https://github.com/shrikeh/guzzle-middleware-responsetimer/tree/master/tests/spec "Link to specs in master"
