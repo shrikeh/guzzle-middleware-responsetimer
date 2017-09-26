@@ -8,27 +8,27 @@
  */
 namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message;
 
-use DateTimeImmutable;
 use PhpSpec\ObjectBehavior;
 use Psr\Http\Message\RequestInterface;
-use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStartMessage;
+use Psr\Http\Message\ResponseInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
-class DefaultStartMessageSpec extends ObjectBehavior
+class DefaultStopMessageSpec extends ObjectBehavior
 {
     function it_returns_a_formatted_string_when_invoked(
         TimerInterface $timer,
-        RequestInterface $request
+        RequestInterface $request,
+        ResponseInterface $response
     ) {
         $uri = 'https://shrikeh.net';
-        $dateTime = new DateTimeImmutable();
+        $duration = 1024;
+        $responseCode = 201;
         $request->getUri()->willReturn($uri);
-        $timer->start()->willReturn($dateTime);
+        $response->getStatusCode()->willReturn($responseCode);
+        $timer->duration()->willReturn($duration);
 
-        $this->__invoke($timer, $request)->shouldContain($uri);
-        $this->__invoke($timer, $request)->shouldContain(
-            $dateTime->format(DefaultStartMessage::FORMAT)
-        );
-
+        $this->__invoke($timer, $request, $response)->shouldContain($uri);
+        $this->__invoke($timer, $request, $response)->shouldContain($duration);
+        $this->__invoke($timer, $request, $response)->shouldContain($responseCode);
     }
 }
