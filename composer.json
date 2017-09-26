@@ -11,7 +11,6 @@
     }
   ],
   "require-dev": {
-    "behat/behat": "^3.4",
     "escapestudios/symfony2-coding-standard": "^3.0",
     "friendsofphp/php-cs-fixer": "^2.6",
     "monolog/monolog": "^1.23",
