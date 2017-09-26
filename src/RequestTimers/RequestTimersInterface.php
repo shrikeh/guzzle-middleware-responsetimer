@@ -12,6 +12,7 @@
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers;
 
 use Psr\Http\Message\RequestInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
  * Interface RequestTimersInterface.

@@ -29,7 +29,7 @@ class StopTimer
     /**
      * StopTimer constructor.
      *
-     * @param esponseTimeLoggerInterface $responseTimeLogger The logger for the Response
+     * @param ResponseTimeLoggerInterface $responseTimeLogger The logger for the Response
      */
     public function __construct(ResponseTimeLoggerInterface $responseTimeLogger)
     {
