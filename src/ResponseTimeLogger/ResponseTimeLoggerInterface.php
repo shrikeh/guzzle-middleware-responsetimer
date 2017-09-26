@@ -8,6 +8,7 @@
  *
  * @codingStandardsIgnoreEnd
  */
+
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger;
 
 use Psr\Http\Message\RequestInterface;
