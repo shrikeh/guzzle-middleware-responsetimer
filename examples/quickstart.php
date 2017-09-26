@@ -7,10 +7,10 @@
  *
  * @codingStandardsIgnoreEnd
  */
+
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Promise;
-use GuzzleHttp\Psr7\Request;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Middleware;
@@ -44,14 +44,10 @@ $config = [
 // then hand the stack to the client
 $client = new Client($config);
 
-$request1 = new Request('GET', 'https://www.facebook.com');
-$request2 = new Request('GET', 'https://en.wikipedia.org/wiki/Main_Page');
-$request3 = new Request('GET', 'https://www.google.co.uk');
-
 $promises = [
-    $client->sendAsync($request1),
-    $client->sendAsync($request2),
-    $client->sendAsync($request3)
+    'facebook'  => $client->getAsync('https://www.facebook.com'),
+    'wikipedia' => $client->getAsync('https://en.wikipedia.org/wiki/Main_Page'),
+    'google'    => $client->getAsync('https://www.google.co.uk'),
 ];
 
 $results = Promise\settle($promises)->wait();

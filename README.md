@@ -1,5 +1,6 @@
 # Response timer for Guzzle
 [![build_status_img]][build_status_travis]
+[![sensiolabs_insight_img]][sensiolabs_insight]
 [![code_quality_img]][code_quality]
 [![latest_stable_version_img]][latest_stable_version]
 [![latest_unstable_version_img]][latest_unstable_version]
@@ -30,7 +31,15 @@ Tags <2.0 are 5.6 compatible; versions 2.0 and beyond are PHP 7.1+ only.
 The following is a simple example using the `quickStart()` method, which accepts a `Psr\Log\LoggerInterface` logger (in this case, a simple file stream implemented by [Monolog]):
 ```php
 <?php
-
+# See examples/quickstart.php
+/**
+ * @codingStandardsIgnoreStart
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ *
+ * @codingStandardsIgnoreEnd
+ */
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Promise;
@@ -42,14 +51,12 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Middleware;
 require_once __DIR__.'/../vendor/autoload.php';
 
 $logFile = __DIR__.'/logs/example.log';
-
-// clear down log file for testing
-unlink($logFile);
+$logFile = new SplFileObject($logFile, 'w+');
 
 // create a log channel
-$log = new Logger('guzzle-response-times');
+$log = new Logger('guzzle');
 $log->pushHandler(new StreamHandler(
-    $logFile,
+    $logFile->getRealPath(),
     Logger::DEBUG
 ));
 
@@ -62,8 +69,13 @@ $stack = HandlerStack::create();
 // and register the middleware on the stack
 $stack->push($middleware());
 
+$config = [
+    'timeout'   => 2,
+    'handler' => $stack,
+];
+
 // then hand the stack to the client
-$client = new Client(['handler' => $stack]);
+$client = new Client($config);
 
 $request1 = new Request('GET', 'https://www.facebook.com');
 $request2 = new Request('GET', 'https://en.wikipedia.org/wiki/Main_Page');
@@ -77,7 +89,8 @@ $promises = [
 
 $results = Promise\settle($promises)->wait();
 
-print file_get_contents($logFile);
+print $logFile->fread($logFile->getSize());
+
 ```
 [composer]: https://getcomposer.org
 [PSR-3]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md
@@ -87,6 +100,9 @@ print file_get_contents($logFile);
 
 [build_status_img]: https://img.shields.io/travis/shrikeh/guzzle-middleware-responsetimer.svg "Build Status"
 [build_status_travis]: https://travis-ci.org/shrikeh/guzzle-middleware-responsetimer
+
+[sensiolabs_insight_img]: https://img.shields.io/sensiolabs/i/769ed835-9e17-4a6f-ad45-7ae0c7734ccb.svg "SensioLabs Insight"
+[sensiolabs_insight]: https://insight.sensiolabs.com/projects/769ed835-9e17-4a6f-ad45-7ae0c7734ccb
 
 [code_quality]: https://scrutinizer-ci.com/g/shrikeh/guzzle-middleware-responsetimer/?branch=master
 [code_quality_img]: https://img.shields.io/scrutinizer/g/shrikeh/guzzle-middleware-responsetimer.svg "Scrutinizer Code Quality"
