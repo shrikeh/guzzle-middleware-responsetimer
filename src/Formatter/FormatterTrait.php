@@ -16,7 +16,7 @@ use Psr\Http\Message\ResponseInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
- * Trait FormatterTrait
+ * Trait FormatterTrait.
  */
 trait FormatterTrait
 {
