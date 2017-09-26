@@ -44,7 +44,7 @@ trait FormatterTrait
     ) {
         $msg = $this->msg;
 
-        return $msg($timer, $request, $response);
+        return (string) $msg($timer, $request, $response);
     }
 
     /**
@@ -62,7 +62,7 @@ trait FormatterTrait
         $level = $this->level;
 
         if (is_callable($level)) {
-            $level = $level($timer, $request, $response);
+            $level = (string) $level($timer, $request, $response);
         }
 
         return $level;
