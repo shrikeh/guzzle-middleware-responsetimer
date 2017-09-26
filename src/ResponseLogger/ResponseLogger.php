@@ -23,20 +23,20 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 class ResponseLogger implements ResponseLoggerInterface
 {
     /**
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
     private $logger;
 
     /**
-     * @var null|\Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface
+     * @var FormatterInterface
      */
     private $formatter;
 
     /**
      * ResponseLogger constructor.
      *
-     * @param \Psr\Log\LoggerInterface                                           $logger    The PSR-3 logger
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface $formatter A formatter
+     * @param LoggerInterface    $logger    The PSR-3 logger
+     * @param FormatterInterface $formatter A formatter
      */
     public function __construct(
         LoggerInterface $logger,
