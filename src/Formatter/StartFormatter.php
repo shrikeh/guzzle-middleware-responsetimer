@@ -20,15 +20,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
  */
 class StartFormatter implements RequestStartInterface
 {
-    /**
-     * @var string|callable
-     */
-    private $msg;
-
-    /**
-     * @var string|callable
-     */
-    private $level;
+    use FormatterTrait;
 
     /**
      * StartFormatter constructor.
@@ -47,9 +39,7 @@ class StartFormatter implements RequestStartInterface
      */
     public function start(TimerInterface $timer, RequestInterface $request)
     {
-        $msg = $this->msg;
-
-        return $msg($timer, $request);
+        return $this->msg($timer, $request);
     }
 
     /**
@@ -57,11 +47,6 @@ class StartFormatter implements RequestStartInterface
      */
     public function levelStart(TimerInterface $timer, RequestInterface $request)
     {
-        $level = $this->level;
-        if (is_callable($level)) {
-            $level = $level($timer, $request);
-        }
-
-        return $level;
+        return $this->level($timer, $request);
     }
 }
