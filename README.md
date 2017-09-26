@@ -1,4 +1,11 @@
 # Response timer for Guzzle
+[![build_status_img]][build_status_travis]
+[![code_quality_img]][code_quality]
+[![latest_stable_version_img]][latest_stable_version]
+[![latest_unstable_version_img]][latest_unstable_version]
+[![license_img]][license]
+[![twitter_img]][twitter]
+
 A simple timer and logger that records response times for requests made by a [Guzzle] client to a [PSR-3] log. Created initially to help [Gousto] get an idea of how microservices were interacting and performing.
 
 It has some advantages over some other timers that already existed, in that it natively supports asynchronous calls, and uses the `Request` object itself as the key, therefore allowing multiple calls to the same URI to be recorded separately.
@@ -77,3 +84,25 @@ print file_get_contents($logFile);
 [Guzzle]: http://docs.guzzlephp.org/en/stable/
 [Monolog]: https://github.com/Seldaek/monolog
 [Gousto]: https://www.gousto.co.uk/
+
+[build_status_img]: https://img.shields.io/travis/shrikeh/guzzle-middleware-responsetimer.svg "Build Status"
+[build_status_travis]: https://travis-ci.org/shrikeh/guzzle-middleware-responsetimer
+
+[code_quality]: https://scrutinizer-ci.com/g/shrikeh/guzzle-middleware-responsetimer/?branch=master
+[code_quality_img]: https://img.shields.io/scrutinizer/g/shrikeh/guzzle-middleware-responsetimer.svg "Scrutinizer Code Quality"
+
+[latest_stable_version_img]: https://img.shields.io/packagist/v/shrikeh/guzzle-middleware-response-timer.svg "Latest Stable Version"
+[latest_stable_version]: https://packagist.org/packages/shrikeh/guzzle-middleware-response-timer "Latest Stable Version"
+
+[latest_unstable_version_img]: https://img.shields.io/packagist/vpre/shrikeh/guzzle-middleware-response-timer.svg "Latest Unstable Version"
+[latest_unstable_version]: https://packagist.org/packages/shrikeh/guzzle-middleware-response-timer "Latest Unstable Version"
+
+[license_img]: https://img.shields.io/packagist/l/shrikeh/guzzle-middleware-responsetimer.svg "License"
+[license]: https://packagist.org/packages/shrikeh/guzzle-middleware-responsetimer
+
+[twitter_img]: https://img.shields.io/badge/twitter-%40shrikeh-blue.svg "@shrikeh on Twitter"
+[twitter]: https://twitter.com/shrikeh
+
+[examples]: https://github.com/shrikeh/guzzle-middleware-responsetimer/tree/master/examples "Link to examples in master"
+[docs]: https://github.com/shrikeh/guzzle-middleware-responsetimer/tree/master/docs "Link to docs in master"
+[specs]: https://github.com/shrikeh/guzzle-middleware-responsetimer/tree/master/spec "Link to specs in master"
