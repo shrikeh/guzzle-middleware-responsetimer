@@ -17,7 +17,7 @@ use Teapot\StatusCode;
 
 class DefaultStopMessageSpec extends ObjectBehavior
 {
-    function it_returns_a_formatted_string(
+    function it_returns_a_formatted_string_when_invoked(
         TimerInterface $timer,
         RequestInterface $request,
         ResponseInterface $response
@@ -28,8 +28,8 @@ class DefaultStopMessageSpec extends ObjectBehavior
         $request->getUri()->willReturn($uri);
         $response->getStatusCode()->willReturn($responseCode);
         $timer->duration()->willReturn($duration);
-        $this->stopMessage($timer, $request, $response)->shouldContain("$duration");
-        $this->stopMessage($timer, $request, $response)->shouldContain("$responseCode");
+        $this->__invoke($timer, $request, $response)->shouldContain("$duration");
+        $this->__invoke($timer, $request, $response)->shouldContain("$responseCode");
         $this->__invoke($timer, $request, $response)->shouldContain("$uri");
     }
 }
