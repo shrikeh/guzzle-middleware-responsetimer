@@ -55,11 +55,11 @@ class StopTimer
     /**
      * @param RequestInterface $request The Request being timed
      *
-     * @return \callable
+     * @return callable|\Closure
      */
     private function onSuccess(RequestInterface $request)
     {
-        return function (ResponseInterface $response) use ($request) {
+        return function(ResponseInterface $response) use ($request) {
             $this->responseTimeLogger->stop($request, $response);
         };
     }
@@ -67,11 +67,11 @@ class StopTimer
     /**
      * @param RequestInterface $request The Request being timed
      *
-     * @return \callable
+     * @return callable|\Closure
      */
     private function onFailure(RequestInterface $request)
     {
-        return function (ResponseInterface $response) use ($request) {
+        return function(ResponseInterface $response) use ($request) {
             $this->responseTimeLogger->stop($request, $response);
         };
     }
