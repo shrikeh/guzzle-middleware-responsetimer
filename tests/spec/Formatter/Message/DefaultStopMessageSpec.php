@@ -12,6 +12,7 @@ use PhpSpec\ObjectBehavior;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
+use Teapot\StatusCode;
 
 class DefaultStopMessageSpec extends ObjectBehavior
 {
@@ -22,7 +23,7 @@ class DefaultStopMessageSpec extends ObjectBehavior
     ) {
         $uri = 'https://shrikeh.net';
         $duration = 1024;
-        $responseCode = 201;
+        $responseCode = StatusCode::CREATED;
         $request->getUri()->willReturn($uri);
         $response->getStatusCode()->willReturn($responseCode);
         $timer->duration()->willReturn($duration);

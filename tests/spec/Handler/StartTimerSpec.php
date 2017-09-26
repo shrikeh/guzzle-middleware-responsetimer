@@ -6,7 +6,6 @@
  * @license      https://opensource.org/licenses/MIT
  * @codingStandardsIgnoreEnd
  */
-
 namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger\Handler;
 
 use PhpSpec\ObjectBehavior;

@@ -17,14 +17,12 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Middleware;
 require_once __DIR__.'/../vendor/autoload.php';
 
 $logFile = __DIR__.'/logs/example.log';
-
-// clear down log file for testing
-unlink($logFile);
+$logFile = new SplFileObject($logFile, 'w+');
 
 // create a log channel
 $log = new Logger('guzzle');
 $log->pushHandler(new StreamHandler(
-    $logFile,
+    $logFile->getRealPath(),
     Logger::DEBUG
 ));
 
@@ -37,8 +35,13 @@ $stack = HandlerStack::create();
 // and register the middleware on the stack
 $stack->push($middleware());
 
+$config = [
+    'timeout'   => 2,
+    'handler' => $stack,
+];
+
 // then hand the stack to the client
-$client = new Client(['handler' => $stack]);
+$client = new Client($config);
 
 $request1 = new Request('GET', 'https://www.facebook.com');
 $request2 = new Request('GET', 'https://en.wikipedia.org/wiki/Main_Page');
@@ -52,4 +55,4 @@ $promises = [
 
 $results = Promise\settle($promises)->wait();
 
-print file_get_contents($logFile);
+print $logFile->fread($logFile->getSize());
