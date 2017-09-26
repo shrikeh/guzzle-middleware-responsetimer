@@ -1,5 +1,6 @@
 # Response timer for Guzzle
 [![build_status_img]][build_status_travis]
+[![sensiolabs_insight_img]][sensiolabs_insight]
 [![code_quality_img]][code_quality]
 [![latest_stable_version_img]][latest_stable_version]
 [![latest_unstable_version_img]][latest_unstable_version]
@@ -99,6 +100,9 @@ print $logFile->fread($logFile->getSize());
 
 [build_status_img]: https://img.shields.io/travis/shrikeh/guzzle-middleware-responsetimer.svg "Build Status"
 [build_status_travis]: https://travis-ci.org/shrikeh/guzzle-middleware-responsetimer
+
+[sensiolabs_insight_img]: https://img.shields.io/sensiolabs/i/769ed835-9e17-4a6f-ad45-7ae0c7734ccb.svg "SensioLabs Insight"
+[sensiolabs_insight]: https://insight.sensiolabs.com/projects/769ed835-9e17-4a6f-ad45-7ae0c7734ccb
 
 [code_quality]: https://scrutinizer-ci.com/g/shrikeh/guzzle-middleware-responsetimer/?branch=master
 [code_quality_img]: https://img.shields.io/scrutinizer/g/shrikeh/guzzle-middleware-responsetimer.svg "Scrutinizer Code Quality"
