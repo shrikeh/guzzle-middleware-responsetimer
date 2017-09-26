@@ -21,15 +21,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
  */
 class StopFormatter implements RequestStopInterface
 {
-    /**
-     * @var callable
-     */
-    private $msg;
-
-    /**
-     * @var string|callable
-     */
-    private $level;
+    use FormatterTrait;
 
     /**
      * StartFormatter constructor.
@@ -51,9 +43,7 @@ class StopFormatter implements RequestStopInterface
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        $msg = $this->msg;
-
-        return $msg($timer, $request, $response);
+        return $this->msg($timer, $request, $response);
     }
 
     /**
@@ -64,12 +54,6 @@ class StopFormatter implements RequestStopInterface
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        $level = $this->level;
-
-        if (is_callable($level)) {
-            $level = $level($timer, $request, $response);
-        }
-
-        return $level;
+        return $this->level($timer, $request, $response);
     }
 }
