@@ -1,4 +1,13 @@
 <?php
+/**
+ * @codingStandardsIgnoreStart
+ *
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ *
+ * @codingStandardsIgnoreEnd
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
 
@@ -7,15 +16,14 @@ use Psr\Http\Message\ResponseInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
- * Interface RequestStartInterface
- * @package Shrikeh\GuzzleMiddleware\TimerLogger
+ * Interface RequestStartInterface.
  */
 interface RequestStopInterface
 {
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
-     * @param \Psr\Http\Message\ResponseInterface                        $response
+     * @param TimerInterface    $timer    The timer to format
+     * @param RequestInterface  $request  The Request to format
+     * @param ResponseInterface $response The Response to format
      *
      * @return mixed
      */
@@ -26,7 +34,15 @@ interface RequestStopInterface
     );
 
     /**
-     * @return integer
+     * @param TimerInterface    $timer    The timer to format
+     * @param RequestInterface  $request  The Request to format
+     * @param ResponseInterface $response The Response to format
+     *
+     * @return mixed
      */
-    public function levelStop(TimerInterface $timer, ResponseInterface $response);
+    public function levelStop(
+        TimerInterface $timer,
+        RequestInterface $request,
+        ResponseInterface $response
+    );
 }

@@ -1,16 +1,28 @@
 <?php
+/**
+ * @codingStandardsIgnoreStart
+ *
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ *
+ * @codingStandardsIgnoreEnd
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose;
 use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimers;
 use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface;
 
 /**
- * Class ResponseTimeLogger
- * @package Shrikeh\GuzzleMiddleware\TimerLogger
+ * Class ResponseTimeLogger.
  */
 class ResponseTimeLogger implements ResponseTimeLoggerInterface
 {
@@ -24,6 +36,29 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
      */
     private $logger;
 
+    /**
+     * @param \Psr\Log\LoggerInterface                                           $logger    A logger to log to
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface $formatter An optional formatter
+     *
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger
+     */
+    public static function quickStart(
+        LoggerInterface $logger,
+        FormatterInterface $formatter = null
+    ) {
+        if (!$formatter) {
+            $formatter = Verbose::quickStart();
+        }
+
+        return self::createFrom(new ResponseLogger($logger, $formatter));
+    }
+
+    /**
+     * @param ResponseLoggerInterface     $logger a logger to log to
+     * @param RequestTimersInterface|null $timers An optional timers collection
+     *
+     * @return ResponseTimeLogger
+     */
     public static function createFrom(
         ResponseLoggerInterface $logger,
         RequestTimersInterface $timers = null
@@ -35,6 +70,10 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
         return new self($timers, $logger);
     }
 
+    /**
+     * @param RequestTimersInterface  $timers A timers collection
+     * @param ResponseLoggerInterface $logger a logger to log to
+     */
     public function __construct(
         RequestTimersInterface $timers,
         ResponseLoggerInterface $logger
@@ -44,7 +83,7 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
     }
 
     /**
-     * @param \Psr\Http\Message\RequestInterface $request
+     * {@inheritdoc}
      */
     public function start(RequestInterface $request)
     {
@@ -55,8 +94,7 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
     }
 
     /**
-     * @param \Psr\Http\Message\RequestInterface  $request
-     * @param \Psr\Http\Message\ResponseInterface $response
+     * {@inheritdoc}
      */
     public function stop(RequestInterface $request, ResponseInterface $response)
     {

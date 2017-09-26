@@ -1,10 +1,18 @@
 <?php
+/**
+ * @codingStandardsIgnoreStart
+ *
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ *
+ * @codingStandardsIgnoreEnd
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Timer;
 
 /**
- * Interface TimerInterface
- * @package Shrikeh\GuzzleMiddleware\TimerLogger\Timer
+ * Interface TimerInterface.
  */
 interface TimerInterface
 {
@@ -19,7 +27,9 @@ interface TimerInterface
     public function stop();
 
     /**
+     * @param int $precision The number of decimal points (if any) of the call
+     *
      * @return float
      */
-    public function duration();
+    public function duration($precision = 0);
 }

@@ -1,84 +1,102 @@
 <?php
+/**
+ * @codingStandardsIgnoreStart
+ *
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ *
+ * @codingStandardsIgnoreEnd
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Timer;
 
 use DateTimeImmutable;
 use Litipk\BigNumbers\Decimal;
-use Psr\Http\Message\RequestInterface;
 
 /**
- * Class Stopwatch
+ * Class Stopwatch.
  */
 class Stopwatch implements TimerInterface
 {
     /**
-     * @var \Litipk\BigNumbers\Decimal
+     * @var float
      */
     private $start;
 
     /**
-     * @var \Litipk\BigNumbers\Decimal
+     * @var float
      */
     private $end;
 
     /**
-     * Stopwatch constructor.
-     *
-     * @param \Psr\Http\Message\RequestInterface $request
+     * @return self
      */
-    public function __construct(RequestInterface $request)
+    public static function startStopWatch()
     {
+        $t = \microtime(true);
 
-        $this->request = $request;
+        return new self($t);
     }
 
     /**
-     * @return \DateTimeImmutable
+     * Stopwatch constructor.
+     *
+     * @param float|null $start The start time
+     */
+    public function __construct($start = null)
+    {
+        $this->start = $start;
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function start()
     {
         $t = \microtime(true);
         if (!$this->start) {
-            $this->start = Decimal::fromFloat($t);
+            $this->start = $t;
         }
 
         return $this->dateTime($this->start);
     }
 
     /**
-     * @return \DateTimeImmutable
+     * {@inheritdoc}
      */
     public function stop()
     {
         $t = \microtime(true);
         if (!$this->end) {
-            $this->end = Decimal::fromFloat($t);
-            ;
+            $this->end = $t;
         }
 
         return $this->dateTime($this->end);
     }
 
     /**
-     * @param int $scale
-     *
-     * @return float
+     * {@inheritdoc}
      */
-    public function duration($scale = 0)
+    public function duration($precision = 0)
     {
         $this->stop();
 
-        return Decimal::fromDecimal($this->end->sub($this->start)
-            ->mul(Decimal::fromInteger(1000)), $scale)->asFloat();
+        $start = $this->decimal($this->start);
+        $end = $this->decimal($this->end);
+
+        return Decimal::fromDecimal($end->sub($start)
+            ->mul(Decimal::fromInteger(1000)), $precision)->asFloat();
     }
 
     /**
-     * @param \Litipk\BigNumbers\Decimal $time
+     * @param Decimal $time The time to format to a DateTimeImmutable
      *
      * @return \DateTimeImmutable
      */
-    private function dateTime(Decimal $time)
+    private function dateTime($time)
     {
+        $time = $this->decimal($time);
         $micro = sprintf('%06d', $this->mantissa($time)->asInteger());
 
         return new DateTimeImmutable(
@@ -87,14 +105,24 @@ class Stopwatch implements TimerInterface
     }
 
     /**
-     * @param \Litipk\BigNumbers\Decimal $time
+     * @param Decimal $time The time to get the mantissa from
      *
-     * @return \Litipk\BigNumbers\Decimal
+     * @return Decimal
      */
     private function mantissa(Decimal $time)
     {
         $mantissa = ($time->sub($time->floor()));
 
         return $mantissa->mul(Decimal::fromInteger(1000000));
+    }
+
+    /**
+     * @param float $t The float to turn into a Decimal
+     *
+     * @return Decimal
+     */
+    private function decimal($t)
+    {
+        return Decimal::fromFloat($t);
     }
 }

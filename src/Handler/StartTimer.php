@@ -1,4 +1,13 @@
 <?php
+/**
+ * @codingStandardsIgnoreStart
+ *
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ *
+ * @codingStandardsIgnoreEnd
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Handler;
 
@@ -6,20 +15,19 @@ use Psr\Http\Message\RequestInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface;
 
 /**
- * Class StartHandler
- * @package Shrikeh\GuzzleMiddleware\TimerLogger
+ * Class StartHandler.
  */
 class StartTimer
 {
     /**
-     * @var \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface
+     * @var ResponseTimeLoggerInterface
      */
     private $responseTimeLogger;
 
     /**
      * StartTimer constructor.
      *
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface $responseTimeLogger
+     * @param ResponseTimeLoggerInterface $responseTimeLogger A logger for logging the response start
      */
     public function __construct(ResponseTimeLoggerInterface $responseTimeLogger)
     {
@@ -27,7 +35,7 @@ class StartTimer
     }
 
     /**
-     * @param \Psr\Http\Message\RequestInterface $request
+     * @param RequestInterface $request The Request to start timing
      */
     public function __invoke(RequestInterface $request)
     {

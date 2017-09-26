@@ -1,4 +1,13 @@
 <?php
+/**
+ * @codingStandardsIgnoreStart
+ *
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ *
+ * @codingStandardsIgnoreEnd
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger;
 
@@ -9,8 +18,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
- * Class ResponseLogger
- * @package Shrikeh\GuzzleMiddleware\TimerLogger
+ * Class ResponseLogger.
  */
 class ResponseLogger implements ResponseLoggerInterface
 {
@@ -27,27 +35,24 @@ class ResponseLogger implements ResponseLoggerInterface
     /**
      * ResponseLogger constructor.
      *
-     * @param \Psr\Log\LoggerInterface                                           $logger
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface $formatter
+     * @param \Psr\Log\LoggerInterface                                           $logger    The PSR-3 logger
+     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface $formatter A formatter
      */
     public function __construct(
         LoggerInterface $logger,
         FormatterInterface $formatter
     ) {
-        $this->logger    = $logger;
+        $this->logger = $logger;
         $this->formatter = $formatter;
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
-     *
-     * @return $this
+     * {@inheritdoc}
      */
     public function logStart(TimerInterface $timer, RequestInterface $request)
     {
         $this->logger->log(
-            $this->formatter->levelStart(),
+            $this->formatter->levelStart($timer, $request),
             $this->formatter->start($timer, $request)
         );
 
@@ -55,11 +60,7 @@ class ResponseLogger implements ResponseLoggerInterface
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
-     * @param \Psr\Http\Message\ResponseInterface                        $response
-     *
-     * @return $this
+     * {@inheritdoc}
      */
     public function logStop(
         TimerInterface $timer,
@@ -67,7 +68,7 @@ class ResponseLogger implements ResponseLoggerInterface
         ResponseInterface $response
     ) {
         $this->logger->log(
-            $this->formatter->levelStop($timer, $response),
+            $this->formatter->levelStop($timer, $request, $response),
             $this->formatter->stop($timer, $request, $response)
         );
 

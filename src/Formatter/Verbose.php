@@ -1,78 +1,125 @@
 <?php
+/**
+ * @codingStandardsIgnoreStart
+ *
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ *
+ * @codingStandardsIgnoreEnd
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LogLevel;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStartMessage;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStopMessage;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
- * Class Verbose
- * @package Shrikeh\GuzzleMiddleware\TimerLogger
+ * Class Verbose.
  */
 class Verbose implements FormatterInterface
 {
     /**
-     * @return string
+     * @var RequestStartInterface
      */
-    public function levelStart()
-    {
-        return LogLevel::DEBUG;
+    private $start;
+
+    /**
+     * @var RequestStopInterface
+     */
+    private $stop;
+
+    /**
+     * @param string $startLevel The level of logging for start messages
+     * @param string $stopLevel  The level of logging for stop messages
+     *
+     * @return self
+     */
+    public static function quickStart(
+        $startLevel = LogLevel::DEBUG,
+        $stopLevel = LogLevel::DEBUG
+    ) {
+        return self::fromCallables(
+            new DefaultStartMessage(),
+            new DefaultStopMessage(),
+            $startLevel,
+            $stopLevel
+        );
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\ResponseInterface                        $response
+     * @param callable $start      A callable to use for formatting start messages
+     * @param callable $stop       A callable to use for formatting stop messages
+     * @param string   $startLevel The level for start messages
+     * @param string   $stopLevel  The level for stop messages
      *
-     * @return string
+     * @return self
      */
-    public function levelStop(TimerInterface $timer, ResponseInterface $response)
-    {
-        return LogLevel::DEBUG;
+    public static function fromCallables(
+        callable $start,
+        callable $stop,
+        $startLevel = LogLevel::DEBUG,
+        $stopLevel = LogLevel::DEBUG
+    ) {
+        return new self(
+            new StartFormatter($start, $startLevel),
+            new StopFormatter($stop, $stopLevel)
+        );
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
+     * Verbose constructor.
      *
-     * @return string
+     * @param RequestStartInterface $start A formatter for when the Request starts
+     * @param RequestStopInterface  $stop  A formatter for when the Request ends
+     */
+    public function __construct(
+        RequestStartInterface $start,
+        RequestStopInterface $stop
+    ) {
+        $this->start = $start;
+        $this->stop = $stop;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function levelStart(TimerInterface $timer, RequestInterface $request)
+    {
+        return $this->start->levelStart($timer, $request);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function start(TimerInterface $timer, RequestInterface $request)
     {
-        $msg = 'Started call to %s at %s';
-        return sprintf($msg, $request->getUri(), $this->time($timer));
+        return $this->start->start($timer, $request);
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     * @param \Psr\Http\Message\RequestInterface                         $request
-     * @param \Psr\Http\Message\ResponseInterface                        $response
-     *
-     * @return string
+     * {@inheritdoc}
+     */
+    public function levelStop(
+        TimerInterface $timer,
+        RequestInterface $request,
+        ResponseInterface $response
+    ) {
+        return $this->stop->levelStop($timer, $request, $response);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function stop(
         TimerInterface $timer,
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        $msg = 'Completed call to %s in %dms with response code %d';
-
-        return sprintf(
-            $msg,
-            $request->getUri(),
-            $timer->duration(),
-            $response->getStatusCode()
-        );
-    }
-
-    /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer
-     *
-     * @return string
-     */
-    private function time(TimerInterface $timer)
-    {
-        return $timer->start()->format('Y-m-d H:i:s');
+        return $this->stop->stop($timer, $request, $response);
     }
 }

@@ -1,4 +1,13 @@
 <?php
+/**
+ * @codingStandardsIgnoreStart
+ *
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ *
+ * @codingStandardsIgnoreEnd
+ */
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Handler;
 
@@ -8,20 +17,19 @@ use Psr\Http\Message\ResponseInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface;
 
 /**
- * Class StartHandler
- * @package Shrikeh\GuzzleMiddleware\TimerLogger
+ * Class StartHandler.
  */
 class StopTimer
 {
     /**
-     * @var \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface
+     * @var ResponseTimeLoggerInterface
      */
     private $responseTimeLogger;
 
     /**
      * StopTimer constructor.
      *
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface $responseTimeLogger
+     * @param esponseTimeLoggerInterface $responseTimeLogger The logger for the Response
      */
     public function __construct(ResponseTimeLoggerInterface $responseTimeLogger)
     {
@@ -29,9 +37,9 @@ class StopTimer
     }
 
     /**
-     * @param \Psr\Http\Message\RequestInterface   $request
-     * @param array                                $options
-     * @param \GuzzleHttp\Promise\PromiseInterface $promise
+     * @param RequestInterface $request The Request to stop timing
+     * @param array            $options An ignorable list of options
+     * @param PromiseInterface $promise A Promise to fulfill
      */
     public function __invoke(
         RequestInterface $request,
@@ -45,7 +53,7 @@ class StopTimer
     }
 
     /**
-     * @param \Psr\Http\Message\RequestInterface $request
+     * @param RequestInterface $request The Request being timed
      *
      * @return \Closure
      */
@@ -57,7 +65,7 @@ class StopTimer
     }
 
     /**
-     * @param \Psr\Http\Message\RequestInterface $request
+     * @param RequestInterface $request The Request being timed
      *
      * @return \Closure
      */
