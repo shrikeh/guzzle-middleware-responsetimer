@@ -59,7 +59,7 @@ class StopTimer
      */
     private function onSuccess(RequestInterface $request)
     {
-        return function (ResponseInterface $response) use ($request) {
+        return function(ResponseInterface $response) use ($request) {
             $this->responseTimeLogger->stop($request, $response);
         };
     }
@@ -71,7 +71,7 @@ class StopTimer
      */
     private function onFailure(RequestInterface $request)
     {
-        return function (ResponseInterface $response) use ($request) {
+        return function(ResponseInterface $response) use ($request) {
             $this->responseTimeLogger->stop($request, $response);
         };
     }
