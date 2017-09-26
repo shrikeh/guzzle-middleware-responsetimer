@@ -10,10 +10,6 @@ matrix:
     - php: 7.0
     - php: 7.1
     - php: 7.2
-      env: BLACKFIRE=on
-  allow_failures:
-    # HHVM will be abandoned so let's not have it break builds
-    - php: hhvm
   fast_finish: true
 
 cache:
