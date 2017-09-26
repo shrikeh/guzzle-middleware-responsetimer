@@ -1,12 +1,16 @@
 ---
 language: php
 sudo: false
+env:
+  global:
+    - BLACKFIRE=on
 matrix:
   include:
     - php: 5.6
     - php: 7.0
     - php: 7.1
     - php: 7.2
+      env: BLACKFIRE=on
   allow_failures:
     # HHVM will be abandoned so let's not have it break builds
     - php: hhvm
@@ -17,12 +21,23 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
-# Remove xdebug as per https://getcomposer.org/doc/articles/troubleshooting.md#xdebug-impact-on-composer
-  - if [ "$TRAVIS_PHP_VERSION" != 'hhvm' ]; then phpenv config-rm xdebug.ini; fi
+  - |
+      if [[ "${BLACKFIRE}" = "on" ]]; then
+          openssl aes-256-cbc -K $encrypted_2f96065df0f8_key -iv $encrypted_2f96065df0f8_iv -in .blackfire.travis.ini.enc -out .blackfire.travis.ini -d
+          curl -L https://blackfire.io/api/v1/releases/agent/linux/amd64 | tar zxpf -
+          chmod 755 agent && ./agent --config=~/.blackfire.ini --socket=unix:///tmp/blackfire.sock &
+      fi
 
 install:
-  - composer install --prefer-dist
-
+  - travis_retry composer install --prefer-dist
+before_script:
+  - phpenv config-rm xdebug.ini || true
+  - |
+      if [[ "${BLACKFIRE}" = "on" ]]; then
+          curl -L https://blackfire.io/api/v1/releases/probe/php/linux/amd64/$(php -r "echo PHP_MAJOR_VERSION . PHP_MINOR_VERSION;")-zts | tar zxpf -
+          echo "extension=$(pwd)/$(ls blackfire-*.so | tr -d '[[:space:]]')" > ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/blackfire.ini
+          echo "blackfire.agent_socket=unix:///tmp/blackfire.sock" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/blackfire.ini
+      fi
 script:
   - bin/test.sh
 ...

@@ -30,7 +30,15 @@ Tags <2.0 are 5.6 compatible; versions 2.0 and beyond are PHP 7.1+ only.
 The following is a simple example using the `quickStart()` method, which accepts a `Psr\Log\LoggerInterface` logger (in this case, a simple file stream implemented by [Monolog]):
 ```php
 <?php
-
+# See examples/quickstart.php
+/**
+ * @codingStandardsIgnoreStart
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ *
+ * @codingStandardsIgnoreEnd
+ */
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Promise;
@@ -42,14 +50,12 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Middleware;
 require_once __DIR__.'/../vendor/autoload.php';
 
 $logFile = __DIR__.'/logs/example.log';
-
-// clear down log file for testing
-unlink($logFile);
+$logFile = new SplFileObject($logFile, 'w+');
 
 // create a log channel
-$log = new Logger('guzzle-response-times');
+$log = new Logger('guzzle');
 $log->pushHandler(new StreamHandler(
-    $logFile,
+    $logFile->getRealPath(),
     Logger::DEBUG
 ));
 
@@ -62,8 +68,13 @@ $stack = HandlerStack::create();
 // and register the middleware on the stack
 $stack->push($middleware());
 
+$config = [
+    'timeout'   => 2,
+    'handler' => $stack,
+];
+
 // then hand the stack to the client
-$client = new Client(['handler' => $stack]);
+$client = new Client($config);
 
 $request1 = new Request('GET', 'https://www.facebook.com');
 $request2 = new Request('GET', 'https://en.wikipedia.org/wiki/Main_Page');
@@ -77,7 +88,8 @@ $promises = [
 
 $results = Promise\settle($promises)->wait();
 
-print file_get_contents($logFile);
+print $logFile->fread($logFile->getSize());
+
 ```
 [composer]: https://getcomposer.org
 [PSR-3]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md
