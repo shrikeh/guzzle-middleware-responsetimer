@@ -16,7 +16,9 @@ addons:
     organization: "shrikeh-github"
     token:
       secure: "JgqVrl/MQsULi52mCxj2grnaPnxVdh/+iDTHfMNOyDXR14m2/R0V59AJXX8thm1ZH3rrNd1xw1uL3+wocj1svFUgJhPuR44YmoVWy+TH6X35AU/0ce4ESK6NcntSxOWNpqMIX1oyrxXze5kL4mP5PVN8i+MjVF6gjtoDYe9BD61Vi0PQWZpwfhk8q0rkOmpoL9ZOIsRfXlf2CBE/d3r9pKcIv8RogbJR/5JgKr0LmO14ByniMSPYbtvZ/Um5Gy8lNpvbCrB/dv857hYPrD+abkLs97KqqvTiXbhwwN2XRwFbYDqJEL8qk5EmphrKnjdX4sPGkxzyTF0X+K5fbHxJuIaAsPBYelx7LkXy5V5ZcyKk+yfTu9z1jdGKPrMv6CYW5szPYWSs22YLpVwvg2FaBFY9UC3umi2G+DyRzW/vbckst5T+zcqqbtOrmyki0RUVEjJLK2ksnK2HQQiDrr/AmgugMf/U3xE3LdQhGrI2jUs3XdC9okXw2TGMT/UsAQwqO6CaFruxjmdeIG5i8GqkbMBdJA/IBTI6ehWX68zi57pqs0jyveTeJ7AoSEumaAZ6o7118oL+1YSSCnP6CcVnXvI9ERPdP0XN7WPNKCu3LV9GMwD8Q3hiTwCKqz93hisCJNYoOr9uEo1uFmDdQoPHkw16jz4ac4v+oI4LbSJ25Ew="
-
+    branches:
+      - master
+      - develop
 cache:
   directories:
     - $HOME/.composer/cache
@@ -41,4 +43,5 @@ before_script:
       fi
 script:
   - bin/test.sh
+  - sonar-scanner
 ...
