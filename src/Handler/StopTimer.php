@@ -55,7 +55,7 @@ class StopTimer
     /**
      * @param RequestInterface $request The Request being timed
      *
-     * @return \Closure
+     * @return callable
      */
     private function onSuccess(RequestInterface $request)
     {
@@ -67,7 +67,7 @@ class StopTimer
     /**
      * @param RequestInterface $request The Request being timed
      *
-     * @return \Closure
+     * @return callable
      */
     private function onFailure(RequestInterface $request)
     {

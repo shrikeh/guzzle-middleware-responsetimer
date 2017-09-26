@@ -62,9 +62,9 @@ trait FormatterTrait
         $level = $this->level;
 
         if (is_callable($level)) {
-            $level = (string) $level($timer, $request, $response);
+            $level = $level($timer, $request, $response);
         }
 
-        return $level;
+        return (string) $level;
     }
 }
