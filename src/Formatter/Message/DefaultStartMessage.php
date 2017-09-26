@@ -15,6 +15,9 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
  */
 class DefaultStartMessage
 {
+    const MSG = 'Started call to %s at %s';
+    const FORMAT = 'Y-m-d H:i:s';
+
     /**
      * @param TimerInterface   $timer   The timer to format
      * @param RequestInterface $request The request for the timer
@@ -25,12 +28,10 @@ class DefaultStartMessage
         TimerInterface $timer,
         RequestInterface $request
     ) {
-        $msg = 'Started call to %s at %s';
-
         return \sprintf(
-            $msg,
+            self::MSG,
             $request->getUri(),
-            $timer->start()->format('Y-m-d H:i:s')
+            $timer->start()->format(self::FORMAT)
         );
     }
 }
