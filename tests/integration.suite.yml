@@ -1,0 +1,11 @@
+# Codeception Test Suite Configuration
+#
+# Suite for integration or integration tests.
+
+actor: IntegrationDeveloper
+bootstrap: _bootstrap.php
+modules:
+    enabled:
+        - Asserts
+        - \Tests\Shrikeh\GuzzleMiddleware\TimerLogger\Helper\Integration
+        - Phiremock
