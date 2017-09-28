@@ -11,9 +11,7 @@
 namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger\Timer;
 
 use DateTimeImmutable;
-use Litipk\BigNumbers\Decimal;
 use PhpSpec\ObjectBehavior;
-use Psr\Http\Message\RequestInterface;
 
 class StopwatchSpec extends ObjectBehavior
 {

@@ -30,19 +30,19 @@ Tags <2.0 are 5.6 compatible; versions 2.0 and beyond are PHP 7.1+ only.
 The following is a simple example using the `quickStart()` method, which accepts a `Psr\Log\LoggerInterface` logger (in this case, a simple file stream implemented by [Monolog]):
 ```php
 <?php
-# See examples/quickstart.php
 /**
  * @codingStandardsIgnoreStart
+ *
  * @author       Barney Hanlon <barney@shrikeh.net>
  * @copyright    Barney Hanlon 2017
  * @license      https://opensource.org/licenses/MIT
  *
  * @codingStandardsIgnoreEnd
  */
+
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Promise;
-use GuzzleHttp\Psr7\Request;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Middleware;
@@ -76,14 +76,10 @@ $config = [
 // then hand the stack to the client
 $client = new Client($config);
 
-$request1 = new Request('GET', 'https://www.facebook.com');
-$request2 = new Request('GET', 'https://en.wikipedia.org/wiki/Main_Page');
-$request3 = new Request('GET', 'https://www.google.co.uk');
-
 $promises = [
-    $client->sendAsync($request1),
-    $client->sendAsync($request2),
-    $client->sendAsync($request3)
+    'facebook'  => $client->getAsync('https://www.facebook.com'),
+    'wikipedia' => $client->getAsync('https://en.wikipedia.org/wiki/Main_Page'),
+    'google'    => $client->getAsync('https://www.google.co.uk'),
 ];
 
 $results = Promise\settle($promises)->wait();
@@ -91,6 +87,14 @@ $results = Promise\settle($promises)->wait();
 print $logFile->fread($logFile->getSize());
 
 ```
+
+## Exception handling
+
+By default, the `Middleware::quickStart()` method boots the `start` and `stop` handlers a `NullExceptionHandler` that simply swallows any exception thrown. 
+This is to ensure that any problems with logging do not cause any application-level problems: there isn't a default scenario in which a problem logging response times _should_ break your application. Nor, as the exception is most likely to do with the underlying `Logger`, is there logging of the exception thrown.
+
+If you wish to throw exceptions and handle them differently, load your handlers with an implementation of the `ExceptionHandlerInterface`.
+
 [composer]: https://getcomposer.org
 [PSR-3]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md
 [Guzzle]: http://docs.guzzlephp.org/en/stable/
