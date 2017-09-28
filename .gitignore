@@ -4,6 +4,6 @@
 !.travis.yml
 !.scrutinizer.yml
 !.blackfire.yml
+!.blackfire.travis.ini.enc
 !.phpspec.yml
 vendor/
-bin/
