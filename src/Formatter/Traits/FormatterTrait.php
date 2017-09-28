@@ -9,7 +9,7 @@
  * @codingStandardsIgnoreEnd
  */
 
-namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
+namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -20,16 +20,6 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
  */
 trait FormatterTrait
 {
-    /**
-     * @var string|callable
-     */
-    private $msg;
-
-    /**
-     * @var string|callable
-     */
-    private $level;
-
     /**
      * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer    A Timer to format
      * @param \Psr\Http\Message\RequestInterface                         $request  A Request to format
@@ -42,7 +32,7 @@ trait FormatterTrait
         RequestInterface $request,
         ResponseInterface $response = null
     ) {
-        $msg = $this->msg;
+        $msg = $this->getMsg();
 
         return (string) $msg($timer, $request, $response);
     }
@@ -59,7 +49,7 @@ trait FormatterTrait
         RequestInterface $request,
         ResponseInterface $response = null
     ) {
-        $level = $this->level;
+        $level = $this->getLevel();
 
         if (is_callable($level)) {
             $level = $level($timer, $request, $response);
@@ -67,4 +57,14 @@ trait FormatterTrait
 
         return (string) $level;
     }
+
+    /**
+     * @return callable
+     */
+    abstract protected function getMsg();
+
+    /**
+     * @return string|callable
+     */
+    abstract protected function getLevel();
 }

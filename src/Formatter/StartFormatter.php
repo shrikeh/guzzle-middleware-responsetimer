@@ -8,7 +8,6 @@
  *
  * @codingStandardsIgnoreEnd
  */
-
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
 
 use Exception;
@@ -16,14 +15,17 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Log\LogLevel;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Exception\FormatterStartException;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStartMessage;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits\FormatterConstructorTrait;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits\FormatterTrait;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
  * Class StartFormatter.
  */
-class StartFormatter implements RequestStartInterface
+final class StartFormatter implements RequestStartInterface
 {
     use FormatterTrait;
+    use FormatterConstructorTrait;
 
     /**
      * @param callable|null $msg      A callable used to create the message
@@ -41,19 +43,6 @@ class StartFormatter implements RequestStartInterface
 
         return new self($msg, $logLevel);
     }
-
-    /**
-     * StartFormatter constructor.
-     *
-     * @param callable        $msg   A callable used to create the message
-     * @param callable|string $level The level this should be logged at
-     */
-    private function __construct(callable $msg, $level = LogLevel::DEBUG)
-    {
-        $this->msg = $msg;
-        $this->level = $level;
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -62,10 +51,9 @@ class StartFormatter implements RequestStartInterface
         try {
             return $this->msg($timer, $request);
         } catch (Exception $e) {
-            $msg = 'Error attempting to parse for log';
             throw new FormatterStartException(
-                $msg,
-                FormatterStartException::MESSAGE_PARSE_EXCEPTION,
+                FormatterStartException::MESSAGE_START_MSG,
+                FormatterStartException::MESSAGE_PARSE_CODE,
                 $e
             );
         }
