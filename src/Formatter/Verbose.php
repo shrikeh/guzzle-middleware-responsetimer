@@ -66,7 +66,7 @@ class Verbose implements FormatterInterface
         $stopLevel = LogLevel::DEBUG
     ) {
         return new self(
-            new StartFormatter($start, $startLevel),
+            StartFormatter::create($start, $startLevel),
             new StopFormatter($stop, $stopLevel)
         );
     }

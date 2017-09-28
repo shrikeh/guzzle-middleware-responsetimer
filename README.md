@@ -3,7 +3,7 @@
 [![sensiolabs_insight_img]][sensiolabs_insight]
 [![code_quality_img]][code_quality]
 [![latest_stable_version_img]][latest_stable_version]
-[![latest_unstable_version_img]][latest_unstable_version]
+[![versioneye_dependencies_img]][versioneye_dependencies]
 [![license_img]][license]
 [![twitter_img]][twitter]
 
@@ -18,7 +18,6 @@ Installation is recommended via [composer]:
 ```bash
 composer require shrikeh/guzzle-middleware-response-timer
 ```
-
 ## Requirements and versioning
 
 If installed by composer, all requirements should be taken care of.
@@ -110,9 +109,8 @@ print $logFile->fread($logFile->getSize());
 [latest_stable_version_img]: https://img.shields.io/packagist/v/shrikeh/guzzle-middleware-response-timer.svg "Latest Stable Version"
 [latest_stable_version]: https://packagist.org/packages/shrikeh/guzzle-middleware-response-timer "Latest Stable Version"
 
-[latest_unstable_version_img]: https://img.shields.io/packagist/vpre/shrikeh/guzzle-middleware-response-timer.svg "Latest Unstable Version"
-[latest_unstable_version]: https://packagist.org/packages/shrikeh/guzzle-middleware-response-timer "Latest Unstable Version"
-
+[versioneye_dependencies_img]: https://img.shields.io/versioneye/d/php/shrikeh/guzzle-middleware-responsetimer.svg
+[versioneye_dependencies]: https://libraries.io/github/shrikeh/guzzle-middleware-responsetimer
 [license_img]: https://img.shields.io/packagist/l/shrikeh/guzzle-middleware-response-timer.svg "License"
 [license]: https://packagist.org/packages/shrikeh/guzzle-middleware-response-timer
 
