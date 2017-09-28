@@ -9,7 +9,7 @@
  * @codingStandardsIgnoreEnd
  */
 
-namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
+namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
