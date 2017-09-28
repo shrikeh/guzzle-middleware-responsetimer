@@ -88,13 +88,13 @@ class Stopwatch implements TimerInterface
     }
 
     /**
-     * @param float $time The time to format to a DateTimeImmutable
+     * @param float $t The time to format to a DateTimeImmutable
      *
      * @return \DateTimeImmutable
      */
-    private function dateTime($time)
+    private function dateTime($t)
     {
-        $time = $this->decimal($time);
+        $time = $this->decimal($t);
         $micro = sprintf('%06d', $this->mantissa($time)->asInteger());
 
         return new DateTimeImmutable(
