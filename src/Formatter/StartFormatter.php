@@ -22,7 +22,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 /**
  * Class StartFormatter.
  */
-class StartFormatter implements RequestStartInterface
+final class StartFormatter implements RequestStartInterface
 {
     use FormatterTrait;
     use FormatterConstructorTrait;

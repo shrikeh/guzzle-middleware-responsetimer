@@ -69,7 +69,7 @@ class Verbose implements FormatterInterface
     ) {
         return new self(
             StartFormatter::create($start, $startLevel),
-            new StopFormatter($stop, $stopLevel)
+            StopFormatter::create($stop, $stopLevel)
         );
     }
 

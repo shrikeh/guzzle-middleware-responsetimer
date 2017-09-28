@@ -1,7 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Bernard
- * Date: 26/09/2017
- * Time: 16:15
- */
+use Blackfire\Bridge\PhpUnit\TestCaseTrait;
+use Blackfire\Profile;
+use PHPUnit_Framework_TestCase;
+
+class GuzzleTest  extends PHPUnit_Framework_TestCase
+{
+    use TestCaseTrait;
+
+    public function testBlackfire()
+    {
+
+    }
+}

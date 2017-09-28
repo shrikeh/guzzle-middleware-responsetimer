@@ -39,4 +39,21 @@ trait FormatterConstructorTrait
         $this->msg = $msg;
         $this->level = $level;
     }
+
+
+    /**
+     * @return callable|string
+     */
+    protected function getMsg()
+    {
+        return $this->msg;
+    }
+
+    /**
+     * @return callable|string
+     */
+    protected function getLevel()
+    {
+        return $this->level;
+    }
 }
