@@ -98,7 +98,7 @@ class Stopwatch implements TimerInterface
         $micro = sprintf('%06d', $this->mantissa($time)->asInteger());
 
         return new DateTimeImmutable(
-            \date('Y-m-d H:i:s.'.$micro, $time->asFloat())
+            \date('Y-m-d H:i:s.'.$micro, $time->asInteger())
         );
     }
 
