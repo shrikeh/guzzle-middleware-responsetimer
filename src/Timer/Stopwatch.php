@@ -47,10 +47,8 @@ class Stopwatch implements TimerInterface
     public function __construct($start = null)
     {
         if (null !== $start) {
-            $start = (float) $start;
+            $this->setStart($start);
         }
-
-        $this->start = $start;
     }
 
     /**
@@ -59,9 +57,7 @@ class Stopwatch implements TimerInterface
     public function start()
     {
         $t = \microtime(true);
-        if (!$this->start) {
-            $this->start = (float) $t;
-        }
+        $this->setStart($t);
 
         return $this->dateTime($this->start);
     }
@@ -72,9 +68,7 @@ class Stopwatch implements TimerInterface
     public function stop()
     {
         $t = \microtime(true);
-        if (!$this->end) {
-            $this->end = (float) $t;
-        }
+        $this->setEnd($t);
 
         return $this->dateTime($this->end);
     }
@@ -128,5 +122,33 @@ class Stopwatch implements TimerInterface
     private function decimal($t)
     {
         return Decimal::fromFloat($t);
+    }
+
+    /**
+     * @param mixed $t A time to floaterize and save as start
+     *
+     * @return float
+     */
+    private function setStart($t)
+    {
+        if (!$this->start) {
+            $this->start = (float) $t;
+        }
+
+        return $this->start;
+    }
+
+    /**
+     * @param mixed $t A time to floaterize and save as stop time
+     *
+     * @return float
+     */
+    private function setEnd($t)
+    {
+        if (!$this->end) {
+            $this->end = (float) $t;
+        }
+
+        return $this->end;
     }
 }
