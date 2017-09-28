@@ -11,6 +11,7 @@
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Handler;
 
+use Exception;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -74,9 +75,10 @@ class StopTimer
         array $options,
         PromiseInterface $promise
     ) {
+        $closure = $this->closure($request);
         $promise->then(
-            $this->onSuccess($request),
-            $this->onFailure($request)
+            $closure,
+            $closure
         );
     }
 
@@ -85,22 +87,16 @@ class StopTimer
      *
      * @return callable|\Closure
      */
-    private function onSuccess(RequestInterface $request)
+    private function closure(RequestInterface $request)
     {
-        return function (ResponseInterface $response) use ($request) {
-            $this->responseTimeLogger->stop($request, $response);
-        };
-    }
+        $exceptionHandler = $this->exceptionHandler;
 
-    /**
-     * @param RequestInterface $request The Request being timed
-     *
-     * @return callable|\Closure
-     */
-    private function onFailure(RequestInterface $request)
-    {
-        return function (ResponseInterface $response) use ($request) {
-            $this->responseTimeLogger->stop($request, $response);
+        return function (ResponseInterface $response) use ($request, $exceptionHandler) {
+            try {
+                $this->responseTimeLogger->stop($request, $response);
+            } catch (Exception $e) {
+                $exceptionHandler->handle($e);
+            }
         };
     }
 }
