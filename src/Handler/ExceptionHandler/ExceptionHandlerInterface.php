@@ -14,7 +14,7 @@ namespace Shrikeh\GuzzleMiddleware\TimerLogger\Handler\ExceptionHandler;
 use Exception;
 
 /**
- * Interface ExceptionHandlerInterface
+ * Interface ExceptionHandlerInterface.
  */
 interface ExceptionHandlerInterface
 {

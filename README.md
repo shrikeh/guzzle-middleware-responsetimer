@@ -90,7 +90,7 @@ print $logFile->fread($logFile->getSize());
 
 ## Exception handling
 
-By default, the `Middleware::quickStart()` method boots the `start` and `stop` handlers a `NullExceptionHandler` that simply swallows any exception thrown. 
+By default, the `Middleware::quickStart()` method boots the `start` and `stop` handlers with a `TriggerErrorHandler` that simply swallows any exception thrown and generates an `E_USER_NOTICE` error instead. 
 This is to ensure that any problems with logging do not cause any application-level problems: there isn't a default scenario in which a problem logging response times _should_ break your application. Nor, as the exception is most likely to do with the underlying `Logger`, is there logging of the exception thrown.
 
 If you wish to throw exceptions and handle them differently, load your handlers with an implementation of the `ExceptionHandlerInterface`.

@@ -14,7 +14,7 @@ namespace Shrikeh\GuzzleMiddleware\TimerLogger\Handler;
 use Exception;
 use Psr\Http\Message\RequestInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\ExceptionHandler\ExceptionHandlerInterface;
-use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\ExceptionHandler\NullExceptionHandler;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\ExceptionHandler\TriggerErrorHandler;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerInterface;
 
 /**
@@ -43,7 +43,7 @@ class StartTimer
         ExceptionHandlerInterface $exceptionHandler = null
     ) {
         if (!$exceptionHandler) {
-            $exceptionHandler = new NullExceptionHandler();
+            $exceptionHandler = new TriggerErrorHandler();
         }
 
         return new self($responseTimeLogger, $exceptionHandler);
