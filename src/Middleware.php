@@ -50,8 +50,8 @@ class Middleware
     public static function fromResponseTimeLogger(ResponseTimeLoggerInterface $responseTimeLogger)
     {
         return new self(
-            new StartTimer($responseTimeLogger),
-            new StopTimer($responseTimeLogger)
+            StartTimer::createFrom($responseTimeLogger),
+            StopTimer::createFrom($responseTimeLogger)
         );
     }
 
