@@ -34,7 +34,7 @@ class Stopwatch implements TimerInterface
      */
     public static function startStopWatch()
     {
-        $t = \microtime(true);
+        $t = (float) \microtime(true);
 
         return new self($t);
     }
@@ -54,7 +54,7 @@ class Stopwatch implements TimerInterface
      */
     public function start()
     {
-        $t = \microtime(true);
+        $t = (float) \microtime(true);
         if (!$this->start) {
             $this->start = $t;
         }
@@ -90,7 +90,7 @@ class Stopwatch implements TimerInterface
     }
 
     /**
-     * @param Decimal $time The time to format to a DateTimeImmutable
+     * @param float $time The time to format to a DateTimeImmutable
      *
      * @return \DateTimeImmutable
      */
