@@ -34,9 +34,9 @@ class Stopwatch implements TimerInterface
      */
     public static function startStopWatch()
     {
-        $t = (float) \microtime(true);
+        $t = \microtime(true);
 
-        return new self($t);
+        return new self((float) $t);
     }
 
     /**
@@ -54,9 +54,9 @@ class Stopwatch implements TimerInterface
      */
     public function start()
     {
-        $t = (float) \microtime(true);
+        $t = \microtime(true);
         if (!$this->start) {
-            $this->start = $t;
+            $this->start = (float) $t;
         }
 
         return $this->dateTime($this->start);
@@ -69,7 +69,7 @@ class Stopwatch implements TimerInterface
     {
         $t = \microtime(true);
         if (!$this->end) {
-            $this->end = $t;
+            $this->end = (float) $t;
         }
 
         return $this->dateTime($this->end);
