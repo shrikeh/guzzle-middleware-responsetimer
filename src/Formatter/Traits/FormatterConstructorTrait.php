@@ -14,7 +14,7 @@ namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits;
 use Psr\Log\LogLevel;
 
 /**
- * Trait FormatterConstructorTrait
+ * Trait FormatterConstructorTrait.
  */
 trait FormatterConstructorTrait
 {
@@ -39,7 +39,6 @@ trait FormatterConstructorTrait
         $this->msg = $msg;
         $this->level = $level;
     }
-
 
     /**
      * @return callable|string

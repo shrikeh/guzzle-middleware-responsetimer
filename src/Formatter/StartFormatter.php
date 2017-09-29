@@ -8,6 +8,7 @@
  *
  * @codingStandardsIgnoreEnd
  */
+
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
 
 use Exception;
@@ -43,6 +44,7 @@ final class StartFormatter implements RequestStartInterface
 
         return new self($msg, $logLevel);
     }
+
     /**
      * {@inheritdoc}
      */
