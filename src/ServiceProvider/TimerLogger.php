@@ -38,7 +38,6 @@ final class TimerLogger implements
         $loggerKey
     ) {
         $logger = function() use ($container, $loggerKey) {
-            if
         };
     }
 
