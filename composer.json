@@ -34,6 +34,9 @@
       "Shrikeh\\GuzzleMiddleware\\TimerLogger\\": "src"
     }
   },
+  "suggest": {
+    "pimple/pimple": "If you wish to use the ServiceProvider and have PSR-11 container"
+  },
   "prefer-stable": true,
   "config": {
     "optimize-autoloader": true,
