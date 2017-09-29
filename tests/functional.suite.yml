@@ -6,6 +6,10 @@
 # Remove this suite if you don't use frameworks
 
 actor: FunctionalDeveloper
+gherkin:
+    contexts:
+        default:
+          - Tests\Shrikeh\GuzzleMiddleware\TimerLogger\FunctionalDeveloper
 modules:
     enabled:
         # add a framework module here
