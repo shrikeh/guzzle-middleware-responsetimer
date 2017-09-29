@@ -88,6 +88,16 @@ final class TimerLogger implements ServiceProviderInterface, TimerLoggerInterfac
     }
 
     /**
+     * @param callable $loggerCallable A callable that unwraps to a PSR-3 LoggerInterface
+     *
+     * @return TimerLogger
+     */
+    public static function fromCallable(callable $loggerCallable)
+    {
+        return new self($loggerCallable);
+    }
+
+    /**
      * TimerLogger constructor.
      *
      * @param callable $logger A callable that unwraps to a PSR-3 Logger

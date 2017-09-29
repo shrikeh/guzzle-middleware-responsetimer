@@ -18,8 +18,12 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Middleware;
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-$logFile = __DIR__.'/logs/example.log';
-$logFile = new SplFileObject($logFile, 'w+');
+$logsPath = __DIR__.'/logs';
+if (!is_dir($logsPath)) {
+    mkdir($logsPath);
+}
+
+$logFile = new SplFileObject($logsPath.'/example.log', 'w+');
 
 // create a log channel
 $log = new Logger('guzzle');
