@@ -1,12 +1,22 @@
+---
 namespace: Tests\Shrikeh\GuzzleMiddleware\TimerLogger
+settings:
+    bootstrap: _bootstrap.php
+    colors: true
 paths:
-    tests: tests
-    output: tests/_output
-    data: tests/_data
-    support: tests/_support
-    envs: tests/_envs
+  tests: tests
+  output: tests/_output
+  data: tests/_data
+  support: tests/_support
+  envs: tests/_envs
 actor_suffix: Tester
 extensions:
-    enabled:
-        - \Codeception\Extension\RunFailed
-        - \Codeception\Extension\Phiremock
+  enabled:
+    - Codeception\Extension\RunFailed
+    - Codeception\Extension\Phiremock
+  config:
+    Codeception\Extension\Phiremock:
+      listen: 127.0.0.1:8086
+      bin_path: ./vendor/bin
+      debug: true
+      startDelay: 1

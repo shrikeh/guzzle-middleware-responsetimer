@@ -7,11 +7,12 @@
 
 actor: FunctionalDeveloper
 gherkin:
-    contexts:
-        default:
-          - Tests\Shrikeh\GuzzleMiddleware\TimerLogger\FunctionalDeveloper
+  contexts:
+    default:
+      - Tests\Shrikeh\GuzzleMiddleware\TimerLogger\FunctionalDeveloper
 modules:
-    enabled:
-        # add a framework module here
-        - \Tests\Shrikeh\GuzzleMiddleware\TimerLogger\Helper\Functional
-        - Phiremock
+  enabled:
+    - Phiremock
+    # add a framework module here
+    - \Tests\Shrikeh\GuzzleMiddleware\TimerLogger\Helper\Functional
+
