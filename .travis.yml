@@ -5,6 +5,7 @@ sudo: false
 env:
   global:
     - BLACKFIRE=on
+    - TEST_OUTPUT_LOG_PATH=./tests/_output/test.log
 matrix:
   include:
     - php: 5.6
