@@ -46,7 +46,9 @@ class Stopwatch implements TimerInterface
      */
     public function __construct($start = null)
     {
-        $this->start = $start;
+        if (null !== $start) {
+            $this->setStart($start);
+        }
     }
 
     /**
@@ -55,9 +57,7 @@ class Stopwatch implements TimerInterface
     public function start()
     {
         $t = \microtime(true);
-        if (!$this->start) {
-            $this->start = $t;
-        }
+        $this->setStart($t);
 
         return $this->dateTime($this->start);
     }
@@ -68,9 +68,7 @@ class Stopwatch implements TimerInterface
     public function stop()
     {
         $t = \microtime(true);
-        if (!$this->end) {
-            $this->end = $t;
-        }
+        $this->setEnd($t);
 
         return $this->dateTime($this->end);
     }
@@ -90,17 +88,17 @@ class Stopwatch implements TimerInterface
     }
 
     /**
-     * @param Decimal $time The time to format to a DateTimeImmutable
+     * @param float $t The time to format to a DateTimeImmutable
      *
      * @return \DateTimeImmutable
      */
-    private function dateTime($time)
+    private function dateTime($t)
     {
-        $time = $this->decimal($time);
+        $time = $this->decimal($t);
         $micro = sprintf('%06d', $this->mantissa($time)->asInteger());
 
         return new DateTimeImmutable(
-            \date('Y-m-d H:i:s.'.$micro, $time->asFloat())
+            \date('Y-m-d H:i:s.'.$micro, $time->asInteger())
         );
     }
 
@@ -124,5 +122,33 @@ class Stopwatch implements TimerInterface
     private function decimal($t)
     {
         return Decimal::fromFloat($t);
+    }
+
+    /**
+     * @param mixed $t A time to floaterize and save as start
+     *
+     * @return float
+     */
+    private function setStart($t)
+    {
+        if (!$this->start) {
+            $this->start = (float) $t;
+        }
+
+        return $this->start;
+    }
+
+    /**
+     * @param mixed $t A time to floaterize and save as stop time
+     *
+     * @return float
+     */
+    private function setEnd($t)
+    {
+        if (!$this->end) {
+            $this->end = (float) $t;
+        }
+
+        return $this->end;
     }
 }

@@ -11,12 +11,18 @@
     }
   ],
   "require-dev": {
+    "blackfire/php-sdk": "^1.11",
+    "codeception/codeception": "^2.3",
     "escapestudios/symfony2-coding-standard": "^3.0",
     "friendsofphp/php-cs-fixer": "^2.6",
+    "mcustiel/phiremock-codeception-extension": "^1.4",
     "monolog/monolog": "^1.23",
     "phpspec/phpspec": "^3.4",
+    "phpunit/phpunit": "^5.7",
+    "pimple/pimple": "^3.2",
     "shrikeh/teapot": "^2.3",
-    "squizlabs/php_codesniffer": "^3.1"
+    "squizlabs/php_codesniffer": "^3.1",
+    "symfony/dotenv": "^3.3"
   },
   "require": {
     "php": ">= 5.6 < 7.0",
@@ -28,6 +34,9 @@
     "psr-4": {
       "Shrikeh\\GuzzleMiddleware\\TimerLogger\\": "src"
     }
+  },
+  "suggest": {
+    "pimple/pimple": "If you wish to use the ServiceProvider and have PSR-11 container"
   },
   "prefer-stable": true,
   "config": {

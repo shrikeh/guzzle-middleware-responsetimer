@@ -11,9 +11,14 @@
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
 
+use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LogLevel;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Exception\FormatterStopException;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStopMessage;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits\FormatterConstructorTrait;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits\FormatterTrait;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
@@ -22,17 +27,23 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 class StopFormatter implements RequestStopInterface
 {
     use FormatterTrait;
+    use FormatterConstructorTrait;
 
     /**
-     * StartFormatter constructor.
+     * @param callable|null $msg      A callable used to create the message
+     * @param string        $logLevel The level this should be logged at
      *
-     * @param callable        $msg   A callable to format the messages
-     * @param callable|string $level The log level for when the timer ends
+     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\StopFormatter
      */
-    public function __construct(callable $msg, $level = LogLevel::DEBUG)
-    {
-        $this->msg = $msg;
-        $this->level = $level;
+    public static function create(
+        callable $msg = null,
+        $logLevel = LogLevel::DEBUG
+    ) {
+        if (!$msg) {
+            $msg = new DefaultStopMessage();
+        }
+
+        return new self($msg, $logLevel);
     }
 
     /**
@@ -43,7 +54,16 @@ class StopFormatter implements RequestStopInterface
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        return $this->msg($timer, $request, $response);
+        try {
+            return $this->msg($timer, $request, $response);
+        } catch (Exception $e) {
+            $msg = 'Error attempting to parse for log';
+            throw new FormatterStopException(
+                $msg,
+                FormatterStopException::MESSAGE_PARSE_EXCEPTION,
+                $e
+            );
+        }
     }
 
     /**

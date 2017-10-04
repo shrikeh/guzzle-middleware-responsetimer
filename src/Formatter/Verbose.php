@@ -11,9 +11,11 @@
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
 
+use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LogLevel;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Exception\FormatterStartException;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStartMessage;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStopMessage;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
@@ -66,8 +68,8 @@ class Verbose implements FormatterInterface
         $stopLevel = LogLevel::DEBUG
     ) {
         return new self(
-            new StartFormatter($start, $startLevel),
-            new StopFormatter($stop, $stopLevel)
+            StartFormatter::create($start, $startLevel),
+            StopFormatter::create($stop, $stopLevel)
         );
     }
 
@@ -90,7 +92,20 @@ class Verbose implements FormatterInterface
      */
     public function levelStart(TimerInterface $timer, RequestInterface $request)
     {
-        return $this->start->levelStart($timer, $request);
+        try {
+            return $this->start->levelStart($timer, $request);
+        } catch (FormatterStartException $e) {
+            // if it is already a FormatterStartException, throw it
+            throw $e;
+        } catch (Exception $ex) {
+            // if it's an unknown exception, throw a FormatterStartException
+            // and add it as previous
+            throw new FormatterStartException(
+                FormatterStartException::LEVEL_START_MSG,
+                FormatterStartException::LEVEL_START_CODE,
+                $ex
+            );
+        }
     }
 
     /**
@@ -98,7 +113,20 @@ class Verbose implements FormatterInterface
      */
     public function start(TimerInterface $timer, RequestInterface $request)
     {
-        return $this->start->start($timer, $request);
+        try {
+            return $this->start->start($timer, $request);
+        } catch (FormatterStartException $e) {
+            // if it is already a FormatterStartException, throw it
+            throw $e;
+        } catch (Exception $ex) {
+            // if it's an unknown exception, throw a FormatterStartException
+            // and add it as previous
+            throw new FormatterStartException(
+                FormatterStartException::MESSAGE_START_MSG,
+                FormatterStartException::MESSAGE_PARSE_CODE,
+                $ex
+            );
+        }
     }
 
     /**

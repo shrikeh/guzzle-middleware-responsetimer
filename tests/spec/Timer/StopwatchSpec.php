@@ -1,6 +1,7 @@
 <?php
 /**
  * @codingStandardsIgnoreStart
+ *
  * @author       Barney Hanlon <barney@shrikeh.net>
  * @copyright    Barney Hanlon 2017
  * @license      https://opensource.org/licenses/MIT
@@ -10,9 +11,7 @@
 namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger\Timer;
 
 use DateTimeImmutable;
-use Litipk\BigNumbers\Decimal;
 use PhpSpec\ObjectBehavior;
-use Psr\Http\Message\RequestInterface;
 
 class StopwatchSpec extends ObjectBehavior
 {
