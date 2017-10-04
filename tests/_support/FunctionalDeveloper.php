@@ -1,8 +1,13 @@
 <?php
 namespace Tests\Shrikeh\GuzzleMiddleware\TimerLogger;
 
+use Codeception\Scenario;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
+use Mcustiel\Phiremock\Client\Phiremock;
+use Mcustiel\Phiremock\Client\Utils\A;
+use Mcustiel\Phiremock\Client\Utils\Is;
+use Mcustiel\Phiremock\Client\Utils\Respond;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Pimple\Psr11\Container;
@@ -26,48 +31,10 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger;
 */
 class FunctionalDeveloper extends \Codeception\Actor
 {
+    private $container;
 
     use _generated\FunctionalDeveloperActions;
 
-    private function createLogger()
-    {
-        $logsPath = __DIR__.'/logs';
-        if (!is_dir($logsPath)) {
-            mkdir($logsPath);
-        }
-
-        $logFile = new \SplFileObject($logsPath.'/example.log', 'w+');
-
-        // create a log channel
-        $log = new Logger('guzzle');
-        $log->pushHandler(
-            new StreamHandler(
-                $logFile->getRealPath(),
-                Logger::DEBUG
-            )
-        );
-
-        return $log;
-    }
-
-    private function createClient(ContainerInterface $container)
-    {
-        // now create a Guzzle middleware stack
-        $stack = HandlerStack::create();
-
-        // and register the middleware on the stack
-        $middleware = $container->get(TimerLogger::MIDDLEWARE);
-
-        $stack->push($middleware());
-
-        $config = [
-            'timeout'   => 2,
-            'handler' => $stack,
-        ];
-
-        // then hand the stack to the client
-        return new Client($config);
-    }
 
     /**
      * @Given that I have an external service
@@ -90,9 +57,19 @@ class FunctionalDeveloper extends \Codeception\Actor
             )
         );
 
+        $uri = '/some/url';
+
+        $this->expectARequestToRemoteServiceWithAResponse(
+            Phiremock::on(
+                A::getRequest()->andUrl(Is::equalTo($uri))
+            )->then(
+                Respond::withStatusCode(203)->andBody('I am a response')
+            )
+        );
+
         $client = $this->createClient(new Container($pimple));
 
-        $client->getAsync()
+        $client->request('GET', $uri);
     }
 
     /**
@@ -100,6 +77,53 @@ class FunctionalDeveloper extends \Codeception\Actor
      */
     public function theResponseTimeDurationIsLoggedToTheLogger()
     {
-        throw new \Codeception\Exception\Incomplete("Step `the response time duration is logged to the logger` is not defined");
+        $logContents = $this->logFile()->fread(
+            $this->logFile()->getSize()
+        );
+
+        $this->assertContains('guzzle.DEBUG', $logContents);
+        $this->assertContains('code 203', $logContents);
+    }
+
+    /**
+     * @return \Monolog\Logger
+     */
+    private function createLogger()
+    {
+        // create a log channel
+        $log = new Logger('guzzle');
+        $log->pushHandler(
+            new StreamHandler(
+                $this->logFile()->getRealPath(),
+                Logger::DEBUG
+            )
+        );
+
+        return $log;
+    }
+
+    /**
+     * @param \Psr\Container\ContainerInterface $container
+     *
+     * @return \GuzzleHttp\Client
+     */
+    private function createClient(ContainerInterface $container)
+    {
+        // now create a Guzzle middleware stack
+        $stack = HandlerStack::create();
+
+        // and register the middleware on the stack
+        $middleware = $container->get(TimerLogger::MIDDLEWARE);
+
+        $stack->push($middleware());
+
+        $config = [
+            'timeout'   => 0.5,
+            'handler' => $stack,
+            'base_uri' => 'http://localhost:8086',
+        ];
+
+        // then hand the stack to the client
+        return new Client($config);
     }
 }

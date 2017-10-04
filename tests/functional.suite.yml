@@ -10,9 +10,20 @@ gherkin:
   contexts:
     default:
       - Tests\Shrikeh\GuzzleMiddleware\TimerLogger\FunctionalDeveloper
+      - Codeception\Extension\Phiremock
+extensions:
+  enabled:
+    - Codeception\Extension\RunFailed
+    - Codeception\Extension\Phiremock
+  config:
+    Codeception\Extension\Phiremock:
+      listen: 127.0.0.1:8086
+      bin_path: ./bin
+      debug: true
+      startDelay: 1
 modules:
   enabled:
+    - Asserts
     - Phiremock
-    # add a framework module here
     - \Tests\Shrikeh\GuzzleMiddleware\TimerLogger\Helper\Functional
 
