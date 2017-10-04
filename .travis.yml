@@ -45,5 +45,5 @@ before_script:
       fi
 script:
   - bin/test.sh
-  - sonar-scanner
+  - blackfire run --sample 3 php examples/quickstart.php
 ...
