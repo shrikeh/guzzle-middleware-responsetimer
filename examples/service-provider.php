@@ -35,7 +35,7 @@ $pimple = new Pimple\Container();
 // Create the middleware directly from an active instance of a LoggerInterface
 $pimple->register(TimerLogger::fromLogger($logger));
 
-$callable = function() use ($logFile) {
+$callable = function () use ($logFile) {
     $logger = new Logger('guzzle');
     $logger->pushHandler(new StreamHandler(
         $logFile->getRealPath(),
