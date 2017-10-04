@@ -8,6 +8,7 @@
  *
  * @codingStandardsIgnoreEnd
  */
+
 namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message;
 
 use DateTimeImmutable;
@@ -18,7 +19,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 class DefaultStartMessageSpec extends ObjectBehavior
 {
-    function it_returns_a_formatted_string_when_invoked(
+    public function it_returns_a_formatted_string_when_invoked(
         TimerInterface $timer,
         RequestInterface $request
     ) {
@@ -31,6 +32,5 @@ class DefaultStartMessageSpec extends ObjectBehavior
         $this->__invoke($timer, $request)->shouldContain(
             $dateTime->format(DefaultStartMessage::FORMAT)
         );
-
     }
 }
