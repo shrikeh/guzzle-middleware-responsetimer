@@ -31,10 +31,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger;
 */
 class FunctionalDeveloper extends \Codeception\Actor
 {
-    private $container;
-
     use _generated\FunctionalDeveloperActions;
-
 
     /**
      * @Given that I have an external service
@@ -49,13 +46,7 @@ class FunctionalDeveloper extends \Codeception\Actor
      */
     public function iMakeAnOutboundHTTPRequest()
     {
-        $pimple = new \Pimple\Container();
 
-        $pimple->register(
-            TimerLogger::fromLogger(
-                $this->createLogger()
-            )
-        );
 
         $uri = '/some/url';
 
@@ -67,7 +58,7 @@ class FunctionalDeveloper extends \Codeception\Actor
             )
         );
 
-        $client = $this->createClient(new Container($pimple));
+        $client = $this->createClient($this->container());
 
         $client->request('GET', $uri);
     }
@@ -83,23 +74,6 @@ class FunctionalDeveloper extends \Codeception\Actor
 
         $this->assertContains('guzzle.DEBUG', $logContents);
         $this->assertContains('code 203', $logContents);
-    }
-
-    /**
-     * @return \Monolog\Logger
-     */
-    private function createLogger()
-    {
-        // create a log channel
-        $log = new Logger('guzzle');
-        $log->pushHandler(
-            new StreamHandler(
-                $this->logFile()->getRealPath(),
-                Logger::DEBUG
-            )
-        );
-
-        return $log;
     }
 
     /**
