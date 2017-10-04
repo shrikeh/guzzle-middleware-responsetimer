@@ -48,7 +48,7 @@ trait HandlerStaticConstructorTrait
     }
 
     /**
-     * StartTimer constructor.
+     * Handler constructor.
      *
      * @param ResponseTimeLoggerInterface $responseTimeLogger A logger for logging the response start
      * @param ExceptionHandlerInterface   $exceptionHandler   A handler for exceptions
