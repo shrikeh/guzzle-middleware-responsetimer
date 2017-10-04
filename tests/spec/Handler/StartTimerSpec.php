@@ -8,6 +8,7 @@
  *
  * @codingStandardsIgnoreEnd
  */
+
 namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger\Handler;
 
 use PhpSpec\ObjectBehavior;
@@ -17,7 +18,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerIn
 
 class StartTimerSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         ResponseTimeLoggerInterface $responseTimeLogger,
         ExceptionHandlerInterface $exceptionHandler
     ) {
@@ -27,7 +28,7 @@ class StartTimerSpec extends ObjectBehavior
         );
     }
 
-    function it_notifies_the_response_time_logger_to_start(
+    public function it_notifies_the_response_time_logger_to_start(
         RequestInterface $request,
         ResponseTimeLoggerInterface $responseTimeLogger
     ) {
@@ -35,7 +36,7 @@ class StartTimerSpec extends ObjectBehavior
         $this->__invoke($request);
     }
 
-    function it_uses_an_exception_handler(
+    public function it_uses_an_exception_handler(
         RequestInterface $request,
         ResponseTimeLoggerInterface $responseTimeLogger,
         ExceptionHandlerInterface $exceptionHandler

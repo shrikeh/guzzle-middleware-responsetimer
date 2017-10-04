@@ -1,6 +1,6 @@
 <?php
-namespace Tests\Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider;
 
+namespace Tests\Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider;
 
 use Pimple\Container;
 use Psr\Container\ContainerInterface;
@@ -47,7 +47,7 @@ class PimpleTest extends \Codeception\Test\Unit
     {
         $logger = $this->createMockLogger();
 
-        $callable = function() use ($logger) {
+        $callable = function () use ($logger) {
             return $logger;
         };
 

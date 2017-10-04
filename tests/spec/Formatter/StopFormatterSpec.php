@@ -19,15 +19,14 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 class StopFormatterSpec extends ObjectBehavior
 {
-
-    function it_throws_a_formatter_stop_exception(
+    public function it_throws_a_formatter_stop_exception(
         TimerInterface $timer,
         RequestInterface $request,
         ResponseInterface $response
     ) {
         $oops = new \RuntimeException('Oops');
 
-        $callable = function() use ($oops) {
+        $callable = function () use ($oops) {
             throw $oops;
         };
 

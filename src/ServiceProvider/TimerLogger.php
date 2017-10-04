@@ -31,7 +31,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger;
 
 /**
- * Class TimerLogger
+ * Class TimerLogger.
  */
 final class TimerLogger implements ServiceProviderInterface, TimerLoggerInterface
 {

@@ -1,21 +1,20 @@
 <?php
+
 namespace Tests\Shrikeh\GuzzleMiddleware\TimerLogger;
 
-use Codeception\Scenario;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use Mcustiel\Phiremock\Client\Phiremock;
 use Mcustiel\Phiremock\Client\Utils\A;
 use Mcustiel\Phiremock\Client\Utils\Is;
 use Mcustiel\Phiremock\Client\Utils\Respond;
-use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use Pimple\Psr11\Container;
 use Psr\Container\ContainerInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger;
 
 /**
- * Inherited Methods
+ * Inherited Methods.
+ *
  * @method void wantToTest($text)
  * @method void wantTo($text)
  * @method void execute($callable)
@@ -28,7 +27,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger;
  * @method \Codeception\Lib\Friend haveFriend($name, $actorClass = NULL)
  *
  * @SuppressWarnings(PHPMD)
-*/
+ */
 class FunctionalDeveloper extends \Codeception\Actor
 {
     use _generated\FunctionalDeveloperActions;
@@ -46,8 +45,6 @@ class FunctionalDeveloper extends \Codeception\Actor
      */
     public function iMakeAnOutboundHTTPRequest()
     {
-
-
         $uri = '/some/url';
 
         $this->expectARequestToRemoteServiceWithAResponse(
@@ -92,7 +89,7 @@ class FunctionalDeveloper extends \Codeception\Actor
         $stack->push($middleware());
 
         $config = [
-            'timeout'   => 0.5,
+            'timeout' => 0.5,
             'handler' => $stack,
             'base_uri' => 'http://localhost:8086',
         ];
