@@ -34,7 +34,7 @@ trait HandlerStaticConstructorTrait
      * @param ResponseTimeLoggerInterface    $responseTimeLogger A logger for logging the response start
      * @param ExceptionHandlerInterface|null $exceptionHandler   An optional handler for exceptions
      *
-     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Handler\StartTimer
+     * @return callable
      */
     public static function createFrom(
         ResponseTimeLoggerInterface $responseTimeLogger,
@@ -44,7 +44,7 @@ trait HandlerStaticConstructorTrait
             $exceptionHandler = new TriggerErrorHandler();
         }
 
-        return new self($responseTimeLogger, $exceptionHandler);
+        return new static($responseTimeLogger, $exceptionHandler);
     }
 
     /**
