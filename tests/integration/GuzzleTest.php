@@ -2,7 +2,6 @@
 
 namespace Tests\Shrikeh\GuzzleMiddleware\TimerLogger;
 
-use Psr\Container\ContainerInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger;
 use Pimple\Psr11\Container as Psr11Container;
 use Pimple\Container as PimpleContainer;
