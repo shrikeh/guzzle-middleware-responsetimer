@@ -157,24 +157,24 @@ echo get_class($pimple[TimerLogger::MIDDLEWARE]);
 [Monolog]: https://github.com/Seldaek/monolog
 [Gousto]: https://www.gousto.co.uk/
 [Pimple]: https://pimple.symfony.com/
-[build_status_img]: https://img.shields.io/travis/shrikeh/guzzle-middleware-responsetimer.svg "Build Status"
+[build_status_img]: https://img.shields.io/travis/shrikeh/guzzle-middleware-responsetimer.svg?style=flat-square "Build Status"
 [build_status_travis]: https://travis-ci.org/shrikeh/guzzle-middleware-responsetimer
 
-[sensiolabs_insight_img]: https://img.shields.io/sensiolabs/i/769ed835-9e17-4a6f-ad45-7ae0c7734ccb.svg "SensioLabs Insight"
+[sensiolabs_insight_img]: https://img.shields.io/sensiolabs/i/769ed835-9e17-4a6f-ad45-7ae0c7734ccb.svg?style=flat-square "SensioLabs Insight"
 [sensiolabs_insight]: https://insight.sensiolabs.com/projects/769ed835-9e17-4a6f-ad45-7ae0c7734ccb
 
 [code_quality]: https://scrutinizer-ci.com/g/shrikeh/guzzle-middleware-responsetimer/?branch=master
-[code_quality_img]: https://img.shields.io/scrutinizer/g/shrikeh/guzzle-middleware-responsetimer.svg "Scrutinizer Code Quality"
+[code_quality_img]: https://img.shields.io/scrutinizer/g/shrikeh/guzzle-middleware-responsetimer.svg?style=flat-square "Scrutinizer Code Quality"
 
-[latest_stable_version_img]: https://img.shields.io/packagist/v/shrikeh/guzzle-middleware-response-timer.svg "Latest Stable Version"
+[latest_stable_version_img]: https://img.shields.io/packagist/v/shrikeh/guzzle-middleware-response-timer.svg?style=flat-square "Latest Stable Version"
 [latest_stable_version]: https://packagist.org/packages/shrikeh/guzzle-middleware-response-timer "Latest Stable Version"
 
-[versioneye_dependencies_img]: https://img.shields.io/versioneye/d/php/shrikeh/guzzle-middleware-responsetimer.svg
-[versioneye_dependencies]: https://libraries.io/github/shrikeh/guzzle-middleware-responsetimer
-[license_img]: https://img.shields.io/packagist/l/shrikeh/guzzle-middleware-response-timer.svg "License"
+[versioneye_dependencies_img]: https://www.versioneye.com/user/projects/59ca7905368b08320ffe710f/badge.svg?style=flat-square
+[versioneye_dependencies]: https://www.versioneye.com/user/projects/59ca7905368b08320ffe710f
+[license_img]: https://img.shields.io/packagist/l/shrikeh/guzzle-middleware-response-timer.svg?style=flat-square "License"
 [license]: https://packagist.org/packages/shrikeh/guzzle-middleware-response-timer
 
-[twitter_img]: https://img.shields.io/badge/twitter-%40shrikeh-blue.svg "@shrikeh on Twitter"
+[twitter_img]: https://img.shields.io/badge/twitter-%40shrikeh-blue.svg?style=flat-square "@shrikeh on Twitter"
 [twitter]: https://twitter.com/shrikeh
 
 [examples]: https://github.com/shrikeh/guzzle-middleware-responsetimer/tree/master/examples "Link to examples in master"

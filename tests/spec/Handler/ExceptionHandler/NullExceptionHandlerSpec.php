@@ -16,7 +16,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\ExceptionHandler\ExceptionHandl
 
 class TriggerErrorExceptionHandlerSpec extends ObjectBehavior
 {
-    function it_is_an_exception_handler()
+    public function it_is_an_exception_handler()
     {
         $this->shouldHaveType(ExceptionHandlerInterface::class);
     }

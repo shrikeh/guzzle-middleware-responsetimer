@@ -8,6 +8,7 @@
  *
  * @codingStandardsIgnoreEnd
  */
+
 namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger\Handler;
 
 use Closure;
@@ -20,7 +21,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLoggerIn
 
 class StopTimerSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         ResponseTimeLoggerInterface $responseTimeLogger,
         ExceptionHandlerInterface $exceptionHandler
     ) {
@@ -30,7 +31,7 @@ class StopTimerSpec extends ObjectBehavior
         );
     }
 
-    function it_binds_to_the_promise(
+    public function it_binds_to_the_promise(
         RequestInterface $request,
         PromiseInterface $promise
     ) {

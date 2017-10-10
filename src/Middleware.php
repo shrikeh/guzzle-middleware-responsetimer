@@ -49,6 +49,9 @@ class Middleware
      */
     public static function fromResponseTimeLogger(ResponseTimeLoggerInterface $responseTimeLogger)
     {
+        /**
+         * @scrutinizer ignore-type
+         */
         return new self(
             StartTimer::createFrom($responseTimeLogger),
             StopTimer::createFrom($responseTimeLogger)

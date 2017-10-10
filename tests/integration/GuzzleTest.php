@@ -1,12 +1,10 @@
 <?php
-namespace Tests\Shrikeh\GuzzleMiddleware\TimerLogger;
 
-use Blackfire\Profile;
+namespace Tests\Shrikeh\GuzzleMiddleware\TimerLogger;
 
 class GuzzleTest extends \Codeception\Test\Unit
 {
     use \Blackfire\Bridge\PhpUnit\TestCaseTrait;
-
 
     /**
      * @var \Tests\Shrikeh\GuzzleMiddleware\TimerLogger\IntegrationDeveloper
@@ -24,6 +22,5 @@ class GuzzleTest extends \Codeception\Test\Unit
     // tests
     public function testBlackfire()
     {
-
     }
 }

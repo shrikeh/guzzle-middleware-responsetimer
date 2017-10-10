@@ -8,6 +8,7 @@
  *
  * @codingStandardsIgnoreEnd
  */
+
 namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger\Timer;
 
 use DateTimeImmutable;
@@ -18,23 +19,23 @@ class StopwatchSpec extends ObjectBehavior
     public function getMatchers()
     {
         return [
-            'beAValidDuration' => function($number) {
+            'beAValidDuration' => function ($number) {
                 return is_float($number) && $number > 0;
-            }
+            },
         ];
     }
 
-    function it_has_a_start_time()
+    public function it_has_a_start_time()
     {
         $this->start()->shouldBeAnInstanceOf(DateTimeImmutable::class);
     }
 
-    function it_has_an_end_time()
+    public function it_has_an_end_time()
     {
         $this->stop()->shouldBeAnInstanceOf(DateTimeImmutable::class);
     }
 
-    function it_returns_the_duration()
+    public function it_returns_the_duration()
     {
         $this->start();
         usleep(1200);

@@ -12,7 +12,7 @@
 require_once __DIR__.'/../vendor/autoload.php';
 
 use Monolog\Handler\StreamHandler;
-use Psr\Log\LogLevel;
+use Monolog\Logger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger;
 
 $logsPath = __DIR__.'/logs';
@@ -23,10 +23,10 @@ if (!is_dir($logsPath)) {
 $logFile = new SplFileObject($logsPath.'/example.log', 'w+');
 
 // create a log channel
-$logger = new \Monolog\Logger('guzzle');
+$logger = new Logger('guzzle');
 $logger->pushHandler(new StreamHandler(
     $logFile->getRealPath(),
-    LogLevel::DEBUG
+    Logger::DEBUG
 ));
 
 $pimple = new Pimple\Container();
@@ -35,11 +35,11 @@ $pimple = new Pimple\Container();
 // Create the middleware directly from an active instance of a LoggerInterface
 $pimple->register(TimerLogger::fromLogger($logger));
 
-$callable = function() use ($logFile) {
-    $logger = new \Monolog\Logger('guzzle');
+$callable = function () use ($logFile) {
+    $logger = new Logger('guzzle');
     $logger->pushHandler(new StreamHandler(
         $logFile->getRealPath(),
-        LogLevel::DEBUG
+        Logger::DEBUG
     ));
 
     return $logger;

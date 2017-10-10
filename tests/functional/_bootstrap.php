@@ -1,4 +1,5 @@
 <?php
+
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Symfony\Component\Dotenv\Dotenv;
 
@@ -9,6 +10,5 @@ if (is_readable($envFile)) {
     $dotEnv = new Dotenv();
     $dotEnv->load(__DIR__.'/../../.env');
 }
-
 
 AnnotationRegistry::registerLoader([$loader, 'loadClass']);

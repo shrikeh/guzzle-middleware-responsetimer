@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\Shrikeh\GuzzleMiddleware\TimerLogger\Helper;
 
 // here you can define custom actions
@@ -9,7 +10,7 @@ use Pimple\Psr11\Container;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger;
 
 /**
- * Class Functional
+ * Class Functional.
  */
 class Functional extends \Codeception\Module
 {
@@ -30,7 +31,7 @@ class Functional extends \Codeception\Module
     {
         $logPath = getenv('TEST_OUTPUT_LOG_PATH');
 
-        if(!is_dir(dirname($logPath))) {
+        if (!is_dir(dirname($logPath))) {
             mkdir(dirname($logPath));
         }
 
@@ -59,7 +60,6 @@ class Functional extends \Codeception\Module
     {
         return $this->container;
     }
-
 
     /**
      * @return \Monolog\Logger
