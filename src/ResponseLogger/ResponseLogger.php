@@ -59,11 +59,7 @@ final class ResponseLogger implements ResponseLoggerInterface
 
             return $this;
         } catch (Exception $e) {
-            throw new ResponseLogStartException(
-                ResponseLogStartException::START_MSG,
-                ResponseLogStartException::START_CODE,
-                $e
-            );
+            throw ResponseLogStartException::start($e);
         }
     }
 
@@ -80,11 +76,7 @@ final class ResponseLogger implements ResponseLoggerInterface
 
             return $this;
         } catch (Exception $e) {
-            throw new ResponseLogStopException(
-                ResponseLogStopException::STOP_MSG,
-                ResponseLogStopException::STOP_CODE,
-                $e
-            );
+            throw ResponseLogStopException::stop($e);
         }
     }
 
