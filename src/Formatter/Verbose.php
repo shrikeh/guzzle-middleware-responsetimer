@@ -11,16 +11,11 @@
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
 
-use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LogLevel;
-use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Exception\FormatterStartException;
-use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Exception\FormatterStopException;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStartMessage;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStopMessage;
-use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits\FormatterStartExceptionTrait;
-use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits\FormatterStopExceptionTrait;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
@@ -28,8 +23,6 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
  */
 final class Verbose implements FormatterInterface
 {
-    use FormatterStartExceptionTrait;
-    use FormatterStopExceptionTrait;
     /**
      * @var RequestStartInterface
      */
@@ -97,15 +90,7 @@ final class Verbose implements FormatterInterface
      */
     public function levelStart(TimerInterface $timer, RequestInterface $request)
     {
-        try {
-            return $this->start->levelStart($timer, $request);
-        } catch (Exception $ex) {
-            throw $this->startException(
-                $ex,
-                FormatterStartException::LEVEL_START_MSG,
-                FormatterStartException::LEVEL_START_CODE
-            );
-        }
+        return $this->start->levelStart($timer, $request);
     }
 
     /**
@@ -113,15 +98,7 @@ final class Verbose implements FormatterInterface
      */
     public function start(TimerInterface $timer, RequestInterface $request)
     {
-        try {
-            return $this->start->start($timer, $request);
-        } catch (Exception $ex) {
-            throw $this->startException(
-                $ex,
-                FormatterStartException::MESSAGE_START_MSG,
-                FormatterStartException::MESSAGE_PARSE_CODE
-            );
-        }
+        return $this->start->start($timer, $request);
     }
 
     /**
@@ -132,15 +109,7 @@ final class Verbose implements FormatterInterface
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        try {
-            return $this->stop->levelStop($timer, $request, $response);
-        } catch (Exception $ex) {
-            throw $this->stopException(
-                $ex,
-                FormatterStopException::MESSAGE_STOP_MSG,
-                FormatterStopException::MESSAGE_PARSE_CODE
-            );
-        }
+        return $this->stop->levelStop($timer, $request, $response);
     }
 
     /**
@@ -151,14 +120,6 @@ final class Verbose implements FormatterInterface
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        try {
-            return $this->stop->stop($timer, $request, $response);
-        } catch (Exception $ex) {
-            throw $this->stopException(
-                $ex,
-                FormatterStopException::LEVEL_STOP_MSG,
-                FormatterStopException::LEVEL_STOP_CODE
-            );
-        }
+        return $this->stop->stop($timer, $request, $response);
     }
 }
