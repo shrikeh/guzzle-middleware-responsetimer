@@ -11,16 +11,19 @@
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger;
 
+use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\Exception\ResponseLogStartException;
+use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\Exception\ResponseLogStopException;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
  * Class ResponseLogger.
  */
-class ResponseLogger implements ResponseLoggerInterface
+final class ResponseLogger implements ResponseLoggerInterface
 {
     /**
      * @var LoggerInterface
@@ -51,12 +54,20 @@ class ResponseLogger implements ResponseLoggerInterface
      */
     public function logStart(TimerInterface $timer, RequestInterface $request)
     {
-        $this->logger->log(
-            $this->formatter->levelStart($timer, $request),
-            $this->formatter->start($timer, $request)
-        );
+        try {
+            $this->logger->log(
+                $this->formatter->levelStart($timer, $request),
+                $this->formatter->start($timer, $request)
+            );
 
-        return $this;
+            return $this;
+        } catch (Exception $e) {
+            throw new ResponseLogStartException(
+                ResponseLogStartException::START_MSG,
+                ResponseLogStartException::START_CODE,
+                $e
+            );
+        }
     }
 
     /**
@@ -67,11 +78,19 @@ class ResponseLogger implements ResponseLoggerInterface
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        $this->logger->log(
-            $this->formatter->levelStop($timer, $request, $response),
-            $this->formatter->stop($timer, $request, $response)
-        );
+        try {
+            $this->logger->log(
+                $this->formatter->levelStop($timer, $request, $response),
+                $this->formatter->stop($timer, $request, $response)
+            );
 
-        return $this;
+            return $this;
+        } catch (Exception $e) {
+            throw new ResponseLogStopException(
+                ResponseLogStopException::STOP_MSG,
+                ResponseLogStopException::STOP_CODE,
+                $e
+            );
+        }
     }
 }
