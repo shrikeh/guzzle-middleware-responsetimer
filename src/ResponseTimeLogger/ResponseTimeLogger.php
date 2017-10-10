@@ -107,7 +107,7 @@ final class ResponseTimeLogger implements ResponseTimeLoggerInterface
     }
 
     /**
-     * @param \Psr\Http\Message\RequestInterface $request
+     * @param \Psr\Http\Message\RequestInterface $request The Request
      *
      * @return TimerInterface
      */
@@ -117,7 +117,7 @@ final class ResponseTimeLogger implements ResponseTimeLoggerInterface
     }
 
     /**
-     * @param \Psr\Http\Message\RequestInterface $request
+     * @param \Psr\Http\Message\RequestInterface $request The Request
      *
      * @return TimerInterface
      */

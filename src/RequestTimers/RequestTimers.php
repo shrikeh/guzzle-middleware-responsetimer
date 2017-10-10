@@ -12,8 +12,10 @@
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers;
 
 use Psr\Http\Message\RequestInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\Exception\RequestNotFoundException;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\Stopwatch;
 use SplObjectStorage;
+use UnexpectedValueException;
 
 /**
  * Class TimerHandler.
@@ -76,6 +78,13 @@ final class RequestTimers implements RequestTimersInterface
      */
     private function timerFor(RequestInterface $request)
     {
-        return $this->requestTimers->offsetGet($request);
+        try {
+            return $this->requestTimers->offsetGet($request);
+        } catch (UnexpectedValueException $e) {
+            throw new RequestNotFoundException(
+                $request,
+                $e
+            );
+        }
     }
 }

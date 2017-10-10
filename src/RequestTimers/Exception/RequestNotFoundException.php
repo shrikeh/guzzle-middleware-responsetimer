@@ -11,9 +11,13 @@
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\Exception;
 
+use Exception;
 use Psr\Http\Message\RequestInterface;
 use RuntimeException;
 
+/**
+ * Class RequestNotFoundException.
+ */
 final class RequestNotFoundException extends RuntimeException
 {
     const MSG = 'A Request object for a request to %s could not be found';
@@ -28,14 +32,18 @@ final class RequestNotFoundException extends RuntimeException
      * RequestNotFoundException constructor.
      *
      * @param RequestInterface $request The Request we can't find a timer for
+     * @param \Exception       $e       A previous exception, if any
      */
-    public function __construct(RequestInterface $request)
-    {
+    public function __construct(
+        RequestInterface $request,
+        Exception $e = null
+    ) {
         $this->request = $request;
 
         parent::__construct(
             sprintf(self::MSG, $request->getUri()),
-            self::CODE
+            self::CODE,
+            $e
         );
     }
 
