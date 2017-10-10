@@ -118,7 +118,7 @@ final class ResponseTimeLogger implements ResponseTimeLoggerInterface
         try {
             return $this->timers->start($request);
         } catch (Exception $e) {
-            throw TimersException::createFrom($e);
+            throw TimersException::start($e);
         }
     }
 
@@ -132,7 +132,7 @@ final class ResponseTimeLogger implements ResponseTimeLoggerInterface
         try {
             return $this->timers->stop($request);
         } catch (Exception $e) {
-            throw TimersException::createFrom($e);
+            throw TimersException::stop($e);
         }
     }
 }
