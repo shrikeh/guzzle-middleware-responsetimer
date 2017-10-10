@@ -16,8 +16,11 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LogLevel;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Exception\FormatterStartException;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Exception\FormatterStopException;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStartMessage;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStopMessage;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits\FormatterStartExceptionTrait;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits\FormatterStopExceptionTrait;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
@@ -25,6 +28,8 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
  */
 final class Verbose implements FormatterInterface
 {
+    use FormatterStartExceptionTrait;
+    use FormatterStopExceptionTrait;
     /**
      * @var RequestStartInterface
      */
@@ -94,16 +99,11 @@ final class Verbose implements FormatterInterface
     {
         try {
             return $this->start->levelStart($timer, $request);
-        } catch (FormatterStartException $e) {
-            // if it is already a FormatterStartException, throw it
-            throw $e;
         } catch (Exception $ex) {
-            // if it's an unknown exception, throw a FormatterStartException
-            // and add it as previous
-            throw new FormatterStartException(
+            throw $this->startException(
+                $ex,
                 FormatterStartException::LEVEL_START_MSG,
-                FormatterStartException::LEVEL_START_CODE,
-                $ex
+                FormatterStartException::LEVEL_START_CODE
             );
         }
     }
@@ -115,16 +115,11 @@ final class Verbose implements FormatterInterface
     {
         try {
             return $this->start->start($timer, $request);
-        } catch (FormatterStartException $e) {
-            // if it is already a FormatterStartException, throw it
-            throw $e;
         } catch (Exception $ex) {
-            // if it's an unknown exception, throw a FormatterStartException
-            // and add it as previous
-            throw new FormatterStartException(
+            throw $this->startException(
+                $ex,
                 FormatterStartException::MESSAGE_START_MSG,
-                FormatterStartException::MESSAGE_PARSE_CODE,
-                $ex
+                FormatterStartException::MESSAGE_PARSE_CODE
             );
         }
     }
@@ -137,7 +132,15 @@ final class Verbose implements FormatterInterface
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        return $this->stop->levelStop($timer, $request, $response);
+        try {
+            return $this->stop->levelStop($timer, $request, $response);
+        } catch (Exception $ex) {
+            throw $this->stopException(
+                $ex,
+                FormatterStopException::MESSAGE_STOP_MSG,
+                FormatterStopException::MESSAGE_PARSE_CODE
+            );
+        }
     }
 
     /**
@@ -148,6 +151,14 @@ final class Verbose implements FormatterInterface
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        return $this->stop->stop($timer, $request, $response);
+        try {
+            return $this->stop->stop($timer, $request, $response);
+        } catch (Exception $ex) {
+            throw $this->stopException(
+                $ex,
+                FormatterStopException::LEVEL_STOP_MSG,
+                FormatterStopException::LEVEL_STOP_CODE
+            );
+        }
     }
 }

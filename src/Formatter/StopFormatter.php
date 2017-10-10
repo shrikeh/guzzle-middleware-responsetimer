@@ -18,6 +18,7 @@ use Psr\Log\LogLevel;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Exception\FormatterStopException;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStopMessage;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits\FormatterConstructorTrait;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits\FormatterStopExceptionTrait;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits\FormatterTrait;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
@@ -28,6 +29,7 @@ final class StopFormatter implements RequestStopInterface
 {
     use FormatterTrait;
     use FormatterConstructorTrait;
+    use FormatterStopExceptionTrait;
 
     /**
      * @param callable|null $msg      A callable used to create the message
@@ -56,11 +58,11 @@ final class StopFormatter implements RequestStopInterface
     ) {
         try {
             return $this->msg($timer, $request, $response);
-        } catch (Exception $e) {
-            throw new FormatterStopException(
+        } catch (Exception $ex) {
+            throw $this->stopException(
+                $ex,
                 FormatterStopException::MESSAGE_STOP_MSG,
-                FormatterStopException::MESSAGE_PARSE_CODE,
-                $e
+                FormatterStopException::MESSAGE_PARSE_CODE
             );
         }
     }
@@ -73,6 +75,14 @@ final class StopFormatter implements RequestStopInterface
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        return $this->level($timer, $request, $response);
+        try {
+            return $this->level($timer, $request, $response);
+        } catch (Exception $ex) {
+            throw $this->stopException(
+                $ex,
+                FormatterStopException::LEVEL_STOP_MSG,
+                FormatterStopException::LEVEL_STOP_CODE
+            );
+        }
     }
 }
