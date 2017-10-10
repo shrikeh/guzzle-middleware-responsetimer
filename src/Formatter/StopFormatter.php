@@ -24,7 +24,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 /**
  * Class StopFormatter.
  */
-class StopFormatter implements RequestStopInterface
+final class StopFormatter implements RequestStopInterface
 {
     use FormatterTrait;
     use FormatterConstructorTrait;

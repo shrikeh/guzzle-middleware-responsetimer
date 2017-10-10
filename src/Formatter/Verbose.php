@@ -23,7 +23,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 /**
  * Class Verbose.
  */
-class Verbose implements FormatterInterface
+final class Verbose implements FormatterInterface
 {
     /**
      * @var RequestStartInterface
