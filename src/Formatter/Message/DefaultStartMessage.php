@@ -17,7 +17,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 /**
  * Class DefaultStartMessage.
  */
-class DefaultStartMessage
+final class DefaultStartMessage
 {
     const MSG = 'Started call to %s at %s';
     const FORMAT = 'Y-m-d H:i:s';

@@ -43,7 +43,7 @@ class StopFormatter implements RequestStopInterface
             $msg = new DefaultStopMessage();
         }
 
-        return new self($msg, $logLevel);
+        return new static($msg, $logLevel);
     }
 
     /**
@@ -57,10 +57,9 @@ class StopFormatter implements RequestStopInterface
         try {
             return $this->msg($timer, $request, $response);
         } catch (Exception $e) {
-            $msg = 'Error attempting to parse for log';
             throw new FormatterStopException(
-                $msg,
-                FormatterStopException::MESSAGE_PARSE_EXCEPTION,
+                FormatterStopException::MESSAGE_STOP_MSG,
+                FormatterStopException::MESSAGE_PARSE_CODE,
                 $e
             );
         }

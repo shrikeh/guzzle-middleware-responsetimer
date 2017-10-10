@@ -16,6 +16,9 @@ use Psr\Http\Message\RequestInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Exception\FormatterStartException;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
+/**
+ * Class StartFormatterSpec
+ */
 class StartFormatterSpec extends ObjectBehavior
 {
     public function it_throws_a_formatter_start_exception_if_the_message_throws_an_exception(
@@ -48,5 +51,21 @@ class StartFormatterSpec extends ObjectBehavior
 
         $this->shouldThrow(FormatterStartException::class)
             ->duringLevelStart($timer, $request);
+    }
+
+    public function it_writes_a_message_using_the_start_message(
+        TimerInterface $timer,
+        RequestInterface $request
+    ) {
+        $string = 'foo';
+
+        $callable = function(
+            TimerInterface $timer,
+            RequestInterface $request
+        ) use ($string) {
+            return $string;
+        };
+        $this->beConstructedThroughCreate($callable);
+        $this->start($timer, $request)->shouldReturn($string);
     }
 }
