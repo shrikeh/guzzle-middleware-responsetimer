@@ -112,6 +112,8 @@ final class ResponseTimeLogger implements ResponseTimeLoggerInterface
      * @param \Psr\Http\Message\RequestInterface $request The Request
      *
      * @return TimerInterface
+     *
+     * @throws TimersException if there is a problem starting the timer
      */
     private function startTimer(RequestInterface $request)
     {
@@ -126,6 +128,8 @@ final class ResponseTimeLogger implements ResponseTimeLoggerInterface
      * @param \Psr\Http\Message\RequestInterface $request The Request
      *
      * @return TimerInterface
+     *
+     * @throws TimersException if there is a problem stopping the timer
      */
     private function stopTimer(RequestInterface $request)
     {
