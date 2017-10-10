@@ -24,10 +24,10 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface;
 /**
  * Class ResponseTimeLogger.
  */
-class ResponseTimeLogger implements ResponseTimeLoggerInterface
+final class ResponseTimeLogger implements ResponseTimeLoggerInterface
 {
     /**
-     * @var \Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface
+     * @var RequestTimersInterface
      */
     private $timers;
 
@@ -37,10 +37,10 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
     private $logger;
 
     /**
-     * @param \Psr\Log\LoggerInterface                                           $logger    A logger to log to
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface $formatter An optional formatter
+     * @param \Psr\Log\LoggerInterface $logger    A logger to log to
+     * @param FormatterInterface       $formatter An optional formatter
      *
-     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger
+     * @return ResponseTimeLogger
      */
     public static function quickStart(
         LoggerInterface $logger,

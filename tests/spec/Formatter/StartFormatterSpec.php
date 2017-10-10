@@ -13,6 +13,7 @@ namespace spec\Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
 
 use PhpSpec\ObjectBehavior;
 use Psr\Http\Message\RequestInterface;
+use Psr\Log\LogLevel;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Exception\FormatterStartException;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
@@ -53,7 +54,7 @@ class StartFormatterSpec extends ObjectBehavior
             ->duringLevelStart($timer, $request);
     }
 
-    public function it_writes_a_message_using_the_start_message(
+    public function it_returns_a_message_using_the_start_message(
         TimerInterface $timer,
         RequestInterface $request
     ) {
@@ -67,5 +68,22 @@ class StartFormatterSpec extends ObjectBehavior
         };
         $this->beConstructedThroughCreate($callable);
         $this->start($timer, $request)->shouldReturn($string);
+    }
+
+    public function it_returns_a_start_level_using_the_level(
+        TimerInterface $timer,
+        RequestInterface $request
+    ) {
+        $level = LogLevel::EMERGENCY;
+
+        $callable = function(
+            TimerInterface $timer,
+            RequestInterface $request
+        ) use ($level) {
+            return $level;
+        };
+
+        $this->beConstructedThroughCreate($callable, $callable);
+        $this->levelStart($timer, $request)->shouldReturn($level);
     }
 }

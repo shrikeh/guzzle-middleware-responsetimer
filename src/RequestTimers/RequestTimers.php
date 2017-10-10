@@ -18,7 +18,7 @@ use SplObjectStorage;
 /**
  * Class TimerHandler.
  */
-class RequestTimers implements RequestTimersInterface
+final class RequestTimers implements RequestTimersInterface
 {
     /**
      * @var \SplObjectStorage
@@ -74,7 +74,7 @@ class RequestTimers implements RequestTimersInterface
      *
      * @return \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface
      */
-    public function timerFor(RequestInterface $request)
+    private function timerFor(RequestInterface $request)
     {
         return $this->requestTimers->offsetGet($request);
     }
