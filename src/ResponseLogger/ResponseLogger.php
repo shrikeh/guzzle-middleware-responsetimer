@@ -55,10 +55,7 @@ final class ResponseLogger implements ResponseLoggerInterface
     public function logStart(TimerInterface $timer, RequestInterface $request)
     {
         try {
-            $this->logger->log(
-                $this->formatter->levelStart($timer, $request),
-                $this->formatter->start($timer, $request)
-            );
+            $this->writeStart($timer, $request);
 
             return $this;
         } catch (Exception $e) {
@@ -79,10 +76,7 @@ final class ResponseLogger implements ResponseLoggerInterface
         ResponseInterface $response
     ) {
         try {
-            $this->logger->log(
-                $this->formatter->levelStop($timer, $request, $response),
-                $this->formatter->stop($timer, $request, $response)
-            );
+            $this->writeStop($timer, $request, $response);
 
             return $this;
         } catch (Exception $e) {
@@ -92,5 +86,33 @@ final class ResponseLogger implements ResponseLoggerInterface
                 $e
             );
         }
+    }
+
+    /**
+     * @param TimerInterface                     $timer   The timer to log
+     * @param \Psr\Http\Message\RequestInterface $request The Request to log
+     */
+    private function writeStart(TimerInterface $timer, RequestInterface $request)
+    {
+        $this->logger->log(
+            $this->formatter->levelStart($timer, $request),
+            $this->formatter->start($timer, $request)
+        );
+    }
+
+    /**
+     * @param TimerInterface                      $timer    The timer to log
+     * @param \Psr\Http\Message\RequestInterface  $request  The Request to log against
+     * @param \Psr\Http\Message\ResponseInterface $response The Response to log
+     */
+    private function writeStop(
+        TimerInterface $timer,
+        RequestInterface $request,
+        ResponseInterface $response
+    ) {
+        $this->logger->log(
+            $this->formatter->levelStop($timer, $request, $response),
+            $this->formatter->stop($timer, $request, $response)
+        );
     }
 }
