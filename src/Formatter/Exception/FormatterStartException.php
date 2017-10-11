@@ -12,15 +12,18 @@
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Exception;
 
 use RuntimeException;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits\FormatterExceptionTrait;
 
 /**
- * Class FormatterException.
+ * Class FormatterStartException.
  */
 final class FormatterStartException extends RuntimeException
 {
-    const MESSAGE_START_MSG = 'Error attempting to parse start message for log';
-    const MESSAGE_PARSE_CODE = 1;
+    use FormatterExceptionTrait;
 
-    const LEVEL_START_MSG = 'Error determining log level for start';
-    const LEVEL_START_CODE = 2;
+    const MSG_MESSAGE = 'Error attempting to parse start message for log';
+    const MSG_CODE = 1;
+
+    const LEVEL_MESSAGE = 'Error determining log level for start';
+    const LEVEL_CODE = 2;
 }

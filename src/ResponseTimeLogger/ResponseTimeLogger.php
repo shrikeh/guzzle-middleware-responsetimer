@@ -21,6 +21,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimers;
 use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\Exception\ResponseLoggerException;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\Exception\TimersException;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
@@ -90,10 +91,16 @@ final class ResponseTimeLogger implements ResponseTimeLoggerInterface
      */
     public function start(RequestInterface $request)
     {
-        $this->logger->logStart(
-            $this->startTimer($request),
-            $request
-        );
+        try {
+            $this->logger->logStart(
+                $this->startTimer($request),
+                $request
+            );
+        } catch (TimersException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            throw ResponseLoggerException::duringStart($e);
+        }
     }
 
     /**
