@@ -11,12 +11,13 @@
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Exception;
 
+use RuntimeException;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits\FormatterExceptionTrait;
 
 /**
- * Class FormatterException.
+ * Class FormatterStartException.
  */
-final class FormatterStopException extends FormatterExceptionAbstract
+final class FormatterStopException extends RuntimeException
 {
     use FormatterExceptionTrait;
 

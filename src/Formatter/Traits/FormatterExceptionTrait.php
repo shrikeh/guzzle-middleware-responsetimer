@@ -26,7 +26,7 @@ trait FormatterExceptionTrait
     public static function msg(
         Exception $e = null
     ) {
-        return new static(
+        return new self(
             self::MSG_MESSAGE,
             self::MSG_CODE,
             $e
@@ -41,7 +41,7 @@ trait FormatterExceptionTrait
     public static function level(
         Exception $e = null
     ) {
-        return new static(
+        return new self(
             self::LEVEL_MESSAGE,
             self::LEVEL_CODE,
             $e
