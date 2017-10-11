@@ -11,6 +11,7 @@
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger;
 
+use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -20,14 +21,16 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimers;
 use Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLogger;
 use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface;
+use Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\Exception\TimersException;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 
 /**
  * Class ResponseTimeLogger.
  */
-class ResponseTimeLogger implements ResponseTimeLoggerInterface
+final class ResponseTimeLogger implements ResponseTimeLoggerInterface
 {
     /**
-     * @var \Shrikeh\GuzzleMiddleware\TimerLogger\RequestTimers\RequestTimersInterface
+     * @var RequestTimersInterface
      */
     private $timers;
 
@@ -37,10 +40,10 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
     private $logger;
 
     /**
-     * @param \Psr\Log\LoggerInterface                                           $logger    A logger to log to
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface $formatter An optional formatter
+     * @param \Psr\Log\LoggerInterface $logger    A logger to log to
+     * @param FormatterInterface       $formatter An optional formatter
      *
-     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger\ResponseTimeLogger
+     * @return ResponseTimeLogger
      */
     public static function quickStart(
         LoggerInterface $logger,
@@ -88,7 +91,7 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
     public function start(RequestInterface $request)
     {
         $this->logger->logStart(
-            $this->timers->start($request),
+            $this->startTimer($request),
             $request
         );
     }
@@ -99,9 +102,41 @@ class ResponseTimeLogger implements ResponseTimeLoggerInterface
     public function stop(RequestInterface $request, ResponseInterface $response)
     {
         $this->logger->logStop(
-            $this->timers->stop($request),
+            $this->stopTimer($request),
             $request,
             $response
         );
+    }
+
+    /**
+     * @param \Psr\Http\Message\RequestInterface $request The Request
+     *
+     * @return TimerInterface
+     *
+     * @throws TimersException if there is a problem starting the timer
+     */
+    private function startTimer(RequestInterface $request)
+    {
+        try {
+            return $this->timers->start($request);
+        } catch (Exception $e) {
+            throw TimersException::start($e);
+        }
+    }
+
+    /**
+     * @param \Psr\Http\Message\RequestInterface $request The Request
+     *
+     * @return TimerInterface
+     *
+     * @throws TimersException if there is a problem stopping the timer
+     */
+    private function stopTimer(RequestInterface $request)
+    {
+        try {
+            return $this->timers->stop($request);
+        } catch (Exception $e) {
+            throw TimersException::stop($e);
+        }
     }
 }

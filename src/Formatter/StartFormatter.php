@@ -42,7 +42,7 @@ final class StartFormatter implements RequestStartInterface
             $msg = new DefaultStartMessage();
         }
 
-        return new self($msg, $logLevel);
+        return new static($msg, $logLevel);
     }
 
     /**
@@ -66,6 +66,14 @@ final class StartFormatter implements RequestStartInterface
      */
     public function levelStart(TimerInterface $timer, RequestInterface $request)
     {
-        return $this->level($timer, $request);
+        try {
+            return $this->level($timer, $request);
+        } catch (Exception $e) {
+            throw new FormatterStartException(
+                FormatterStartException::LEVEL_START_MSG,
+                FormatterStartException::LEVEL_START_CODE,
+                $e
+            );
+        }
     }
 }

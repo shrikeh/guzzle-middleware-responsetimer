@@ -18,7 +18,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\Traits\HandlerStaticConstructor
 /**
  * Class StartHandler.
  */
-class StartTimer
+final class StartTimer
 {
     use HandlerStaticConstructorTrait;
 

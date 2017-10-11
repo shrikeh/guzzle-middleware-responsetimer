@@ -71,12 +71,12 @@ function test_all() {
   composer validate || exit 1;
 
   test_composer_update;
-
-  test_behat    "${BIN_DIR}";
-  test_codecept "${BIN_DIR}";
   test_phpspec  "${BIN_DIR}";
   test_phpcs    "${BIN_DIR}" "${SRC_DIR}";
   test_phpmd    "${BIN_DIR}" "${SRC_DIR}";
+  test_behat    "${BIN_DIR}";
+  test_codecept "${BIN_DIR}";
+
 }
 
 test_all;

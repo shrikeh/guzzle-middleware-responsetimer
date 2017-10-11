@@ -20,7 +20,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\Traits\HandlerStaticConstructor
 /**
  * Class StartHandler.
  */
-class StopTimer
+final class StopTimer
 {
     use HandlerStaticConstructorTrait;
 
