@@ -44,7 +44,7 @@ trait HandlerStaticConstructorTrait
             $exceptionHandler = new TriggerErrorHandler();
         }
 
-        return new self($responseTimeLogger, $exceptionHandler);
+        return new static($responseTimeLogger, $exceptionHandler);
     }
 
     /**

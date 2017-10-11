@@ -21,9 +21,9 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 trait FormatterTrait
 {
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer    A Timer to format
-     * @param \Psr\Http\Message\RequestInterface                         $request  A Request to format
-     * @param \Psr\Http\Message\ResponseInterface|null                   $response The Response to format
+     * @param TimerInterface         $timer    A Timer to format
+     * @param RequestInterface       $request  A Request to format
+     * @param ResponseInterface|null $response The Response to format
      *
      * @return string
      */

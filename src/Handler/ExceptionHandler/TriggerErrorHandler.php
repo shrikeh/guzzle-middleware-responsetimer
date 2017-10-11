@@ -16,7 +16,7 @@ use Exception;
 /**
  * Class ExceptionHandlerInterface.
  */
-class TriggerErrorHandler implements ExceptionHandlerInterface
+final class TriggerErrorHandler implements ExceptionHandlerInterface
 {
     /**
      * @var int

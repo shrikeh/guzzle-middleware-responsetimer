@@ -24,7 +24,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 /**
  * Class StopFormatter.
  */
-class StopFormatter implements RequestStopInterface
+final class StopFormatter implements RequestStopInterface
 {
     use FormatterTrait;
     use FormatterConstructorTrait;
@@ -43,7 +43,7 @@ class StopFormatter implements RequestStopInterface
             $msg = new DefaultStopMessage();
         }
 
-        return new self($msg, $logLevel);
+        return new static($msg, $logLevel);
     }
 
     /**
@@ -56,13 +56,8 @@ class StopFormatter implements RequestStopInterface
     ) {
         try {
             return $this->msg($timer, $request, $response);
-        } catch (Exception $e) {
-            $msg = 'Error attempting to parse for log';
-            throw new FormatterStopException(
-                $msg,
-                FormatterStopException::MESSAGE_PARSE_EXCEPTION,
-                $e
-            );
+        } catch (Exception $ex) {
+            throw FormatterStopException::msg($ex);
         }
     }
 
@@ -74,6 +69,10 @@ class StopFormatter implements RequestStopInterface
         RequestInterface $request,
         ResponseInterface $response
     ) {
-        return $this->level($timer, $request, $response);
+        try {
+            return $this->level($timer, $request, $response);
+        } catch (Exception $ex) {
+            throw FormatterStopException::level($ex);
+        }
     }
 }

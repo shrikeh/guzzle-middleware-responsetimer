@@ -21,10 +21,12 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 interface ResponseLoggerInterface
 {
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer   A timer
-     * @param \Psr\Http\Message\RequestInterface                         $request The Request
+     * @param TimerInterface   $timer   A timer
+     * @param RequestInterface $request The Request
      *
-     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface
+     * @return ResponseLoggerInterface
+     *
+     * @throws Exception\ResponseLogStartException On error
      */
     public function logStart(
         TimerInterface $timer,
@@ -32,11 +34,13 @@ interface ResponseLoggerInterface
     );
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer    A timer
-     * @param \Psr\Http\Message\RequestInterface                         $request  The Request
-     * @param \Psr\Http\Message\ResponseInterface                        $response The Response
+     * @param TimerInterface    $timer    A timer
+     * @param RequestInterface  $request  The Request
+     * @param ResponseInterface $response The Response
      *
-     * @return \Shrikeh\GuzzleMiddleware\TimerLogger\ResponseLogger\ResponseLoggerInterface
+     * @return ResponseLoggerInterface
+     *
+     * @throws Exception\ResponseLogStopException On error
      */
     public function logStop(
         TimerInterface $timer,

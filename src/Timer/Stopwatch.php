@@ -17,7 +17,7 @@ use Litipk\BigNumbers\Decimal;
 /**
  * Class Stopwatch.
  */
-class Stopwatch implements TimerInterface
+final class Stopwatch implements TimerInterface
 {
     /**
      * @var float

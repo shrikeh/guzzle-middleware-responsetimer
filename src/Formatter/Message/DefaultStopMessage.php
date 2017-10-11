@@ -18,7 +18,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 /**
  * Class DefaultStopMessage.
  */
-class DefaultStopMessage
+final class DefaultStopMessage
 {
     const MSG = 'Completed call to %s in %dms with response code %d';
 

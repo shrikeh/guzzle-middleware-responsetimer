@@ -16,7 +16,7 @@ use RuntimeException;
 /**
  * Class FormatterException.
  */
-class FormatterStartException extends RuntimeException
+final class FormatterStartException extends RuntimeException
 {
     const MESSAGE_START_MSG = 'Error attempting to parse start message for log';
     const MESSAGE_PARSE_CODE = 1;
