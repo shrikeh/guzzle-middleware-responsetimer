@@ -27,8 +27,8 @@ trait FormatterExceptionTrait
         Exception $e = null
     ) {
         return new static(
-            static::MSG_MESSAGE,
-            static::MSG_CODE,
+            self::MSG_MESSAGE,
+            self::MSG_CODE,
             $e
         );
     }
@@ -42,8 +42,8 @@ trait FormatterExceptionTrait
         Exception $e = null
     ) {
         return new static(
-            static::LEVEL_MESSAGE,
-            static::LEVEL_CODE,
+            self::LEVEL_MESSAGE,
+            self::LEVEL_CODE,
             $e
         );
     }
