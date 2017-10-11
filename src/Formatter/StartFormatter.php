@@ -53,11 +53,7 @@ final class StartFormatter implements RequestStartInterface
         try {
             return $this->msg($timer, $request);
         } catch (Exception $e) {
-            throw new FormatterStartException(
-                FormatterStartException::MESSAGE_START_MSG,
-                FormatterStartException::MESSAGE_PARSE_CODE,
-                $e
-            );
+            throw FormatterStartException::msg($e);
         }
     }
 
@@ -69,11 +65,7 @@ final class StartFormatter implements RequestStartInterface
         try {
             return $this->level($timer, $request);
         } catch (Exception $e) {
-            throw new FormatterStartException(
-                FormatterStartException::LEVEL_START_MSG,
-                FormatterStartException::LEVEL_START_CODE,
-                $e
-            );
+            throw FormatterStartException::level($e);
         }
     }
 }

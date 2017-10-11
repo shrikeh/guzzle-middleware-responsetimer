@@ -11,45 +11,19 @@
 
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Exception;
 
-use Exception;
 use RuntimeException;
+use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Traits\FormatterExceptionTrait;
 
 /**
  * Class FormatterException.
  */
 final class FormatterStopException extends RuntimeException
 {
-    const MESSAGE_STOP_MSG = 'Error attempting to parse stop message for log';
-    const MESSAGE_PARSE_CODE = 1;
+    use FormatterExceptionTrait;
 
-    const LEVEL_STOP_MSG = 'Error determining log level for stop';
-    const LEVEL_STOP_CODE = 2;
+    const MSG_MESSAGE = 'Error attempting to parse stop message for log';
+    const MSG_CODE = 1;
 
-    /**
-     * @param \Exception $e The previous exception
-     *
-     * @return FormatterStopException
-     */
-    public static function msg(Exception $e)
-    {
-        return new self(
-            self::MESSAGE_STOP_MSG,
-            self::MESSAGE_PARSE_CODE,
-            $e
-        );
-    }
-
-    /**
-     * @param \Exception $e The previous exception
-     *
-     * @return FormatterStopException
-     */
-    public static function level(Exception $e)
-    {
-        return new self(
-            self::LEVEL_STOP_MSG,
-            self::LEVEL_STOP_CODE,
-            $e
-        );
-    }
+    const LEVEL_MESSAGE = 'Error determining log level for stop';
+    const LEVEL_CODE = 2;
 }
