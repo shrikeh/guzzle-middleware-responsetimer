@@ -171,7 +171,7 @@ echo get_class($pimple[TimerLogger::MIDDLEWARE]);
 
 [versioneye_dependencies_img]: https://www.versioneye.com/user/projects/59ca7905368b08320ffe710f/badge.svg?style=flat-square
 [versioneye_dependencies]: https://www.versioneye.com/user/projects/59ca7905368b08320ffe710f
-[license_img]: https://img.shields.io/packagist/l/shrikeh/guzzle-middleware-response-timer.svg?style=flat-square "License"
+[license_img]: https://poser.pugx.org/shrikeh/guzzle-middleware-response-timer/license?format=flat-square "License"
 [license]: https://packagist.org/packages/shrikeh/guzzle-middleware-response-timer
 
 [twitter_img]: https://img.shields.io/badge/twitter-%40shrikeh-blue.svg?style=flat-square "@shrikeh on Twitter"
