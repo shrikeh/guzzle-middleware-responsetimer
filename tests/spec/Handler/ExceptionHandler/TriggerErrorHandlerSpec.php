@@ -31,4 +31,17 @@ class TriggerErrorHandlerSpec extends ObjectBehavior
             $msg
         )->duringHandle($e);
     }
+
+    function it_throws_the_level_of_error_set()
+    {
+        $msg = 'Ruh roh';
+        $e = new \Exception($msg);
+
+        $this->beConstructedWith(E_USER_NOTICE);
+
+        $this->shouldTrigger(
+            E_USER_NOTICE,
+            $msg
+        )->duringHandle($e);
+    }
 }
