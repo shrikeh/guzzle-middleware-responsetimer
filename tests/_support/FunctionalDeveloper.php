@@ -1,5 +1,7 @@
 <?php
 namespace Tests\Shrikeh\GuzzleMiddleware\TimerLogger;
+use Pimple\Container;
+use Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger;
 
 /**
  * Inherited Methods
@@ -18,16 +20,23 @@ namespace Tests\Shrikeh\GuzzleMiddleware\TimerLogger;
 */
 class FunctionalDeveloper extends \Codeception\Actor
 {
-    private $logger;
+    private $container;
 
     use _generated\FunctionalDeveloperActions;
+
+    public function __construct()
+    {
+        $this->container = new Container();
+    }
 
     /**
      * @Given that I have a logger
      */
     public function thatIHaveALogger()
     {
-        $this->logger = new \stdClass;
+        $this->container['test_logger'] = function() {
+
+        };
     }
 
     /**
