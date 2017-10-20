@@ -1,4 +1,13 @@
 <?php
+/**
+ * @codingStandardsIgnoreStart
+ *
+ * @author       Barney Hanlon <barney@shrikeh.net>
+ * @copyright    Barney Hanlon 2017
+ * @license      https://opensource.org/licenses/MIT
+ *
+ * @codingStandardsIgnoreEnd
+ */
 namespace Tests\Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider;
 
 use Pimple\Container;
@@ -13,7 +22,7 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger;
 class PimpleTest extends \Codeception\Test\Unit
 {
     /**
-     * @return LoggerInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject
      */
     private function createMockLogger()
     {
@@ -21,8 +30,8 @@ class PimpleTest extends \Codeception\Test\Unit
     }
 
     /**
-     * @covers TimerLogger:register
-     * @covers TimerLogger::fromLogger
+     * @covers \Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger:register
+     * @covers \Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger::fromLogger
      *
      * @uses LoggerInterface
      *
@@ -40,8 +49,8 @@ class PimpleTest extends \Codeception\Test\Unit
     }
 
     /**
-     * @covers TimerLogger:register
-     * @covers TimerLogger::fromContainer
+     * @covers \Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger:register()
+     * @covers \Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger::fromContainer()
      *
      * @uses LoggerInterface
      *
@@ -65,8 +74,8 @@ class PimpleTest extends \Codeception\Test\Unit
     }
 
     /**
-     * @covers TimerLogger:register
-     * @covers TimerLogger::serviceLocator
+     * @covers \Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger:register()
+     * @covers \Shrikeh\GuzzleMiddleware\TimerLogger\ServiceProvider\TimerLogger::serviceLocator()
      *
      * @uses LoggerInterface
      *

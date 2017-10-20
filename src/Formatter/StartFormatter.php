@@ -42,7 +42,7 @@ final class StartFormatter implements RequestStartInterface
             $msg = new DefaultStartMessage();
         }
 
-        return new self($msg, $logLevel);
+        return new static($msg, $logLevel);
     }
 
     /**

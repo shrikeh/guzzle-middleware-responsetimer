@@ -18,6 +18,8 @@ use Exception;
  */
 class TriggerErrorHandler implements ExceptionHandlerInterface
 {
+    const DEFAULT_ERROR_LEVEL = E_USER_NOTICE;
+
     /**
      * @var int
      */
@@ -28,7 +30,7 @@ class TriggerErrorHandler implements ExceptionHandlerInterface
      *
      * @param int $errorLevel the desired error level of exceptions
      */
-    public function __construct($errorLevel = E_USER_NOTICE)
+    public function __construct($errorLevel = self::DEFAULT_ERROR_LEVEL)
     {
         $this->errorLevel = $errorLevel;
     }
