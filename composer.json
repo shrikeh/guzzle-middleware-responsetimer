@@ -42,10 +42,7 @@
   "config": {
     "optimize-autoloader": true,
     "bin-dir": "bin",
-    "sort-packages": true,
-    "platform": {
-      "php": "5.6"
-    }
+    "sort-packages": true
   },
   "archive": {
       "exclude": ["*", "!/src"]
