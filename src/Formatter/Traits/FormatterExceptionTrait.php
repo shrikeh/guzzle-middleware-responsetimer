@@ -27,8 +27,8 @@ trait FormatterExceptionTrait
         Exception $e = null
     ) {
         return new self(
-            self::MSG_MESSAGE,
-            self::MSG_CODE,
+            self::msgMessage(),
+            self::msgCode(),
             $e
         );
     }
@@ -42,9 +42,29 @@ trait FormatterExceptionTrait
         Exception $e = null
     ) {
         return new self(
-            self::LEVEL_MESSAGE,
-            self::LEVEL_CODE,
+            self::levelMsg(),
+            self::levelCode(),
             $e
         );
     }
+
+    /**
+     * @return string
+     */
+    abstract protected static function msgMessage();
+
+    /**
+     * @return int
+     */
+    abstract protected static function msgCode();
+
+    /**
+     * @return string
+     */
+    abstract protected static function levelMsg();
+
+    /**
+     * @return int
+     */
+    abstract protected static function levelCode();
 }

@@ -26,4 +26,36 @@ final class FormatterStopException extends RuntimeException
 
     const LEVEL_MESSAGE = 'Error determining log level for stop';
     const LEVEL_CODE = 2;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected static function msgMessage()
+    {
+        return static::MSG_MESSAGE;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected static function msgCode()
+    {
+        return static::MSG_CODE;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected static function levelMsg()
+    {
+        return static::LEVEL_MESSAGE;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected static function levelCode()
+    {
+        return static::LEVEL_CODE;
+    }
 }
