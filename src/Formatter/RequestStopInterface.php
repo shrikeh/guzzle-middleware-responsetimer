@@ -21,28 +21,28 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 interface RequestStopInterface
 {
     /**
-     * @param TimerInterface    $timer    The timer to format
-     * @param RequestInterface  $request  The Request to format
-     * @param ResponseInterface $response The Response to format
+     * @param TimerInterface                                           $timer    The timer to format
+     * @param RequestInterface                                         $request  The Request to format
+     * @param ResponseInterface|\GuzzleHttp\Exception\ConnectException $response The Response to format
      *
      * @return mixed
      */
     public function stop(
         TimerInterface $timer,
         RequestInterface $request,
-        ResponseInterface $response
+        $response
     );
 
     /**
-     * @param TimerInterface    $timer    The timer to format
-     * @param RequestInterface  $request  The Request to format
-     * @param ResponseInterface $response The Response to format
+     * @param TimerInterface                                           $timer    The timer to format
+     * @param RequestInterface                                         $request  The Request to format
+     * @param ResponseInterface|\GuzzleHttp\Exception\ConnectException $response The Response to format
      *
      * @return mixed
      */
     public function levelStop(
         TimerInterface $timer,
         RequestInterface $request,
-        ResponseInterface $response
+        $response
     );
 }

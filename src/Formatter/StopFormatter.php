@@ -13,7 +13,6 @@ namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
 
 use Exception;
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LogLevel;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Exception\FormatterStopException;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStopMessage;
@@ -52,7 +51,7 @@ final class StopFormatter implements RequestStopInterface
     public function stop(
         TimerInterface $timer,
         RequestInterface $request,
-        ResponseInterface $response
+        $response
     ) {
         try {
             return $this->msg($timer, $request, $response);
@@ -67,7 +66,7 @@ final class StopFormatter implements RequestStopInterface
     public function levelStop(
         TimerInterface $timer,
         RequestInterface $request,
-        ResponseInterface $response
+        $response
     ) {
         try {
             return $this->level($timer, $request, $response);

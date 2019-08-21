@@ -13,7 +13,6 @@ namespace Shrikeh\GuzzleMiddleware\TimerLogger\ResponseTimeLogger;
 
 use Exception;
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\FormatterInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Verbose;
@@ -106,7 +105,7 @@ final class ResponseTimeLogger implements ResponseTimeLoggerInterface
     /**
      * {@inheritdoc}
      */
-    public function stop(RequestInterface $request, ResponseInterface $response)
+    public function stop(RequestInterface $request, $response)
     {
         $this->logger->logStop(
             $this->stopTimer($request),

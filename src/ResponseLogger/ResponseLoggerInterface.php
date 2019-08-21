@@ -34,9 +34,9 @@ interface ResponseLoggerInterface
     );
 
     /**
-     * @param TimerInterface    $timer    A timer
-     * @param RequestInterface  $request  The Request
-     * @param ResponseInterface $response The Response
+     * @param TimerInterface                                           $timer    A timer
+     * @param RequestInterface                                         $request  The Request
+     * @param ResponseInterface|\GuzzleHttp\Exception\ConnectException $response The Response
      *
      * @return ResponseLoggerInterface
      *
@@ -45,6 +45,6 @@ interface ResponseLoggerInterface
     public function logStop(
         TimerInterface $timer,
         RequestInterface $request,
-        ResponseInterface $response
+        $response
     );
 }
