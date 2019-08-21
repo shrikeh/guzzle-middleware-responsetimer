@@ -14,7 +14,6 @@ namespace Shrikeh\GuzzleMiddleware\TimerLogger\Handler;
 use Exception;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Handler\Traits\HandlerStaticConstructorTrait;
 
 /**
@@ -50,7 +49,7 @@ final class StopTimer
     {
         $exceptionHandler = $this->exceptionHandler;
 
-        return function (ResponseInterface $response) use ($request, $exceptionHandler) {
+        return function ($response) use ($request, $exceptionHandler) {
             try {
                 $this->responseTimeLogger->stop($request, $response);
             } catch (Exception $e) {

@@ -20,13 +20,13 @@ use Psr\Http\Message\ResponseInterface;
 interface ResponseTimeLoggerInterface
 {
     /**
-     * @param \Psr\Http\Message\RequestInterface $request The Request to start timing
+     * @param RequestInterface $request The Request to start timing
      */
     public function start(RequestInterface $request);
 
     /**
-     * @param \Psr\Http\Message\RequestInterface  $request  The Request to stop timing
-     * @param \Psr\Http\Message\ResponseInterface $response The associated Response
+     * @param RequestInterface                                         $request  The Request to stop timing
+     * @param ResponseInterface|\GuzzleHttp\Exception\ConnectException $response The associated Response
      */
-    public function stop(RequestInterface $request, ResponseInterface $response);
+    public function stop(RequestInterface $request, $response);
 }

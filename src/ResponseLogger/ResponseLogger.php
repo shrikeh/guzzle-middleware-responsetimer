@@ -69,7 +69,7 @@ final class ResponseLogger implements ResponseLoggerInterface
     public function logStop(
         TimerInterface $timer,
         RequestInterface $request,
-        ResponseInterface $response
+        $response
     ) {
         try {
             $this->writeStop($timer, $request, $response);
@@ -81,8 +81,8 @@ final class ResponseLogger implements ResponseLoggerInterface
     }
 
     /**
-     * @param TimerInterface                     $timer   The timer to log
-     * @param \Psr\Http\Message\RequestInterface $request The Request to log
+     * @param TimerInterface   $timer   The timer to log
+     * @param RequestInterface $request The Request to log
      */
     private function writeStart(TimerInterface $timer, RequestInterface $request)
     {
@@ -93,14 +93,14 @@ final class ResponseLogger implements ResponseLoggerInterface
     }
 
     /**
-     * @param TimerInterface                      $timer    The timer to log
-     * @param \Psr\Http\Message\RequestInterface  $request  The Request to log against
-     * @param \Psr\Http\Message\ResponseInterface $response The Response to log
+     * @param TimerInterface                                           $timer    The timer to log
+     * @param RequestInterface                                         $request  The Request to log against
+     * @param ResponseInterface|\GuzzleHttp\Exception\ConnectException $response The Response to log
      */
     private function writeStop(
         TimerInterface $timer,
         RequestInterface $request,
-        ResponseInterface $response
+        $response
     ) {
         $this->logger->log(
             $this->formatter->levelStop($timer, $request, $response),

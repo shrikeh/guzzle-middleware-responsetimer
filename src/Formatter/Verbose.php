@@ -12,7 +12,6 @@
 namespace Shrikeh\GuzzleMiddleware\TimerLogger\Formatter;
 
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LogLevel;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStartMessage;
 use Shrikeh\GuzzleMiddleware\TimerLogger\Formatter\Message\DefaultStopMessage;
@@ -107,7 +106,7 @@ final class Verbose implements FormatterInterface
     public function levelStop(
         TimerInterface $timer,
         RequestInterface $request,
-        ResponseInterface $response
+        $response
     ) {
         return $this->stop->levelStop($timer, $request, $response);
     }
@@ -118,7 +117,7 @@ final class Verbose implements FormatterInterface
     public function stop(
         TimerInterface $timer,
         RequestInterface $request,
-        ResponseInterface $response
+        $response
     ) {
         return $this->stop->stop($timer, $request, $response);
     }

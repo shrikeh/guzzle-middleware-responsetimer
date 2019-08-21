@@ -21,16 +21,16 @@ use Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface;
 trait FormatterTrait
 {
     /**
-     * @param TimerInterface         $timer    A Timer to format
-     * @param RequestInterface       $request  A Request to format
-     * @param ResponseInterface|null $response The Response to format
+     * @param TimerInterface                                                $timer    A Timer to format
+     * @param RequestInterface                                              $request  A Request to format
+     * @param ResponseInterface|null|\GuzzleHttp\Exception\ConnectException $response The Response to format
      *
      * @return string
      */
     private function msg(
         TimerInterface $timer,
         RequestInterface $request,
-        ResponseInterface $response = null
+        $response = null
     ) {
         $msg = $this->getMsg();
 
@@ -38,16 +38,16 @@ trait FormatterTrait
     }
 
     /**
-     * @param \Shrikeh\GuzzleMiddleware\TimerLogger\Timer\TimerInterface $timer    A Timer to format
-     * @param \Psr\Http\Message\RequestInterface                         $request  A Request to format
-     * @param \Psr\Http\Message\ResponseInterface|null                   $response The Response to format
+     * @param TimerInterface                                                $timer    A Timer to format
+     * @param RequestInterface                                              $request  A Request to format
+     * @param ResponseInterface|null|\GuzzleHttp\Exception\ConnectException $response The Response to format
      *
      * @return string
      */
     private function level(
         TimerInterface $timer,
         RequestInterface $request,
-        ResponseInterface $response = null
+        $response = null
     ) {
         $level = $this->getLevel();
 

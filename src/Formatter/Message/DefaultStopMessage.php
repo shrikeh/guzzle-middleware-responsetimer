@@ -23,37 +23,37 @@ final class DefaultStopMessage
     const MSG = 'Completed call to %s in %dms with response code %d';
 
     /**
-     * @param TimerInterface    $timer    The timer to format for the log
-     * @param RequestInterface  $request  The Request to format for the log
-     * @param ResponseInterface $response The Response to format for the log
+     * @param TimerInterface                                           $timer    The timer to format for the log
+     * @param RequestInterface                                         $request  The Request to format for the log
+     * @param ResponseInterface|\GuzzleHttp\Exception\ConnectException $response The Response to format for the log
      *
      * @return string
      */
     public function __invoke(
         TimerInterface $timer,
         RequestInterface $request,
-        ResponseInterface $response
+        $response
     ) {
         return $this->stopMessage($timer, $request, $response);
     }
 
     /**
-     * @param TimerInterface    $timer    The timer to format for the log
-     * @param RequestInterface  $request  The Request to format for the log
-     * @param ResponseInterface $response The Response to format for the log
+     * @param TimerInterface                                           $timer    The timer to format for the log
+     * @param RequestInterface                                         $request  The Request to format for the log
+     * @param ResponseInterface|\GuzzleHttp\Exception\ConnectException $response The Response to format for the log
      *
      * @return string
      */
     public function stopMessage(
         TimerInterface $timer,
         RequestInterface $request,
-        ResponseInterface $response
+        $response
     ) {
         return \sprintf(
             self::MSG,
             $request->getUri(),
             $timer->duration(),
-            $response->getStatusCode()
+            $response instanceof ResponseInterface ? $response->getStatusCode() : 0
         );
     }
 }
